@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -6,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Iss.LiveClassRoom.Core {
-    public class SystemContext : DbContext {
-        public DbSet<User> Users { get; set; }
+    public class SystemContext : IdentityDbContext {
         public DbSet<Quiz> Quizes { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -22,6 +22,10 @@ namespace Iss.LiveClassRoom.Core {
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             modelBuilder.Entity<Video>().ToTable("Videos");
             modelBuilder.Entity<Topic>().ToTable("Topics");
+
+            modelBuilder.Entity<Instructor>().ToTable("Instructors");
+            modelBuilder.Entity<Student>().ToTable("Students");
+
             base.OnModelCreating(modelBuilder);
         }
 
