@@ -16,7 +16,7 @@ namespace Iss.LiveClassRoom.Core.Repositories
 
         void Update(T entity);
 
-        T GetById(string id);
+        Task<T> GetById(string id);
 
         IQueryable<T> GetAll();
     }

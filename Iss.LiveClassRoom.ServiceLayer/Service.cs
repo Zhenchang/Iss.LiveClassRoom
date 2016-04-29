@@ -20,10 +20,17 @@ namespace Iss.LiveClassRoom.ServiceLayer
             _uow = uow;
         }
 
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
             _uow.GetRepository<T>().Add(entity);
-            _uow.Save();
+            await _uow.Save();
+            _uow.Commit();
+
+        }
+
+        public void Dispose()
+        {
+            _uow.Dispose();
         }
 
         public IQueryable<T> GetAll()
@@ -31,21 +38,23 @@ namespace Iss.LiveClassRoom.ServiceLayer
             return _uow.GetRepository<T>().GetAll();
         }
 
-        public T GetById(string id)
+        public Task<T> GetById(string id)
         {
             return _uow.GetRepository<T>().GetById(id);
         }
 
-        public void Remove(T entity)
+        public async Task Remove(T entity)
         {
             _uow.GetRepository<T>().Remove(entity);
-            _uow.Save();
+            await _uow.Save();
+            _uow.Commit();
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
             _uow.GetRepository<T>().Update(entity);
-            _uow.Save();
+            await _uow.Save();
+            _uow.Commit();
         }
     }
 }

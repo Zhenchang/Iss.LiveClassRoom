@@ -1,18 +1,18 @@
-namespace Iss.LiveClassRoom.Core.Migrations
+namespace Iss.LiveClassRoom.DataAccessLayer.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Iss.LiveClassRoom.Core.SystemContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Iss.LiveClassRoom.DataAccessLayer.SystemContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Iss.LiveClassRoom.Core.SystemContext context)
+        protected override void Seed(Iss.LiveClassRoom.DataAccessLayer.SystemContext context)
         {
             //  This method will be called after migrating to the latest version.
 

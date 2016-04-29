@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Iss.LiveClassRoom.Core.Services
 {
-    public interface IService<T> where T : class, IEntity
+    public interface IService<T> : IDisposable where T : class, IEntity
     {
-        void Add(T entity);
+        Task Add(T entity);
 
-        void Remove(T entity);
+        Task Remove(T entity);
 
-        void Update(T entity);
+        Task Update(T entity);
 
-        T GetById(string id);
+        Task<T> GetById(string id);
 
         IQueryable<T> GetAll();
     }

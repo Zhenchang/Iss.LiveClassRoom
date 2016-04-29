@@ -33,9 +33,9 @@ namespace Iss.LiveClassRoom.DataAccessLayer
             dbSet.Remove(entity);
         }
 
-        public T GetById(string id)
+        public Task<T> GetById(string id)
         {
-            return dbSet.SingleOrDefault(m => m.Id == id);
+            return dbSet.SingleOrDefaultAsync(m => m.Id == id);
         }
 
         public void Update(T entity)

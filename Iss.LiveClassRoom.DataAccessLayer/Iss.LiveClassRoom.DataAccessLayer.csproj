@@ -57,25 +57,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201604040951486_FixFeed.cs" />
-    <Compile Include="Migrations\201604040951486_FixFeed.Designer.cs">
-      <DependentUpon>201604040951486_FixFeed.cs</DependentUpon>
+    <Compile Include="Migrations\201604291310037_init.cs" />
+    <Compile Include="Migrations\201604291310037_init.Designer.cs">
+      <DependentUpon>201604291310037_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604040956554_AddFileNameForVideo.cs" />
-    <Compile Include="Migrations\201604040956554_AddFileNameForVideo.Designer.cs">
-      <DependentUpon>201604040956554_AddFileNameForVideo.cs</DependentUpon>
+    <Compile Include="Migrations\201604291335524_fixStudentWithCourse.cs" />
+    <Compile Include="Migrations\201604291335524_fixStudentWithCourse.Designer.cs">
+      <DependentUpon>201604291335524_fixStudentWithCourse.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604180721347_FixIdentity.cs" />
-    <Compile Include="Migrations\201604180721347_FixIdentity.Designer.cs">
-      <DependentUpon>201604180721347_FixIdentity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604180813377_AnotiationComplete.cs" />
-    <Compile Include="Migrations\201604180813377_AnotiationComplete.Designer.cs">
-      <DependentUpon>201604180813377_AnotiationComplete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604180820343_FixTiming.cs" />
-    <Compile Include="Migrations\201604180820343_FixTiming.Designer.cs">
-      <DependentUpon>201604180820343_FixTiming.cs</DependentUpon>
+    <Compile Include="Migrations\201604291353513_FixCourseInstrtorForTest.cs" />
+    <Compile Include="Migrations\201604291353513_FixCourseInstrtorForTest.Designer.cs">
+      <DependentUpon>201604291353513_FixCourseInstrtorForTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,20 +86,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604040951486_FixFeed.resx">
-      <DependentUpon>201604040951486_FixFeed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604291310037_init.resx">
+      <DependentUpon>201604291310037_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604040956554_AddFileNameForVideo.resx">
-      <DependentUpon>201604040956554_AddFileNameForVideo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604291335524_fixStudentWithCourse.resx">
+      <DependentUpon>201604291335524_fixStudentWithCourse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604180721347_FixIdentity.resx">
-      <DependentUpon>201604180721347_FixIdentity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604180813377_AnotiationComplete.resx">
-      <DependentUpon>201604180813377_AnotiationComplete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604180820343_FixTiming.resx">
-      <DependentUpon>201604180820343_FixTiming.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604291353513_FixCourseInstrtorForTest.resx">
+      <DependentUpon>201604291353513_FixCourseInstrtorForTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
