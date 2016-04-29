@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Iss.LiveClassRoom.Core.Models;
+using Iss.LiveClassRoom.Core.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -6,8 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Iss.LiveClassRoom.Core {
-    public class SystemContext : IdentityDbContext {
+namespace Iss.LiveClassRoom.DataAccessLayer
+{
+    public class SystemContext : DbContext {
+
+        public DbSet<User> Users { get; set; }
+
         public DbSet<Quiz> Quizes { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -28,6 +33,5 @@ namespace Iss.LiveClassRoom.Core {
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

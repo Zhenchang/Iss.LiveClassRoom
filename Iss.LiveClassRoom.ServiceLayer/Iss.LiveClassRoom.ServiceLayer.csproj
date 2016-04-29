@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A69279BE-AE4A-4E8D-8363-493EB9E87BF4}</ProjectGuid>
+    <ProjectGuid>{73AC98DB-2669-489B-A07D-E098872B854F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Iss.LiveClassRoom.Core</RootNamespace>
-    <AssemblyName>Iss.LiveClassRoom.Core</AssemblyName>
+    <RootNamespace>Iss.LiveClassRoom.ServiceLayer</RootNamespace>
+    <AssemblyName>Iss.LiveClassRoom.ServiceLayer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,16 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,32 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\BaseEntitiy.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\Course.cs" />
-    <Compile Include="Models\Feed.cs" />
-    <Compile Include="Models\IEntity.cs" />
-    <Compile Include="Models\Instructor.cs" />
-    <Compile Include="Models\Quiz.cs" />
-    <Compile Include="Models\QuizOption.cs" />
-    <Compile Include="Models\Reply.cs" />
-    <Compile Include="Models\Student.cs" />
-    <Compile Include="Models\StudentAnswer.cs" />
-    <Compile Include="Models\Topic.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\IUnitOfWork.cs" />
-    <Compile Include="Services\IQuizService.cs" />
-    <Compile Include="Services\IService.cs" />
+    <Compile Include="Service.cs" />
+    <Compile Include="Services\QuizService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ToDo.txt" />
+    <ProjectReference Include="..\Iss.LiveClassRoom.Core\Iss.LiveClassRoom.Core.csproj">
+      <Project>{a69279be-ae4a-4e8d-8363-493eb9e87bf4}</Project>
+      <Name>Iss.LiveClassRoom.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
