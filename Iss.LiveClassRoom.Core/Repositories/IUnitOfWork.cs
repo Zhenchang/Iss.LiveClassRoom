@@ -12,7 +12,7 @@ namespace Iss.LiveClassRoom.Core.Repositories
     {
         void Commit();
         void RollBack();
-        Task<int> Save();
+        Task<int> Save(string userId);
         IRepository<T> GetRepository<T>() where T : class, IEntity;
     }
 }

@@ -16,20 +16,20 @@ namespace Iss.LiveClassRoom.ServiceLayer.Services
 
         }
 
-        public void AssignStudent(Student student, Course course)
+        public void AssignStudent(Student student, Course course, string byUserId)
         {
             course.Students.Add(student);
             student.Courses.Add(course);
             _uow.GetRepository<Student>().Update(student);
-            _uow.Save();
+            _uow.Save(byUserId);
         }
 
-        public void RemoveStudent(Student student, Course course)
+        public void RemoveStudent(Student student, Course course, string byUserId)
         {
             student.Courses.Remove(course);
             course.Students.Remove(student);
             _uow.GetRepository<Student>().Update(student);
-            _uow.Save();
+            _uow.Save(byUserId);
         }
     }
 }

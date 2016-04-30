@@ -9,8 +9,8 @@ namespace Iss.LiveClassRoom.Core.Services
 {
     public interface ICourseService : IService<Course>
     {
-        void AssignStudent(Student student, Course course);
-        void RemoveStudent(Student student, Course course);
+        void AssignStudent(Student student, Course course, string byUserId);
+        void RemoveStudent(Student student, Course course, string byUserId);
 
     }
 }

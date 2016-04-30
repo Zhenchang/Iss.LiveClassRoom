@@ -8,10 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Iss.LiveClassRoom.Core.Models;
-using Iss.LiveClassRoom.DataAccessLayer;
 using Iss.LiveClassRoom.Core.Services;
 using Iss.LiveClassRoom.FrontEnd.Models;
-using Iss.LiveClassRoom.ServiceLayer.Services;
 
 namespace Iss.LiveClassRoom.FrontEnd.Controllers
 {
@@ -19,10 +17,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
     {
 
         private ICourseService _service;
-
-        public CoursesController(): this(new CourseService(new UnitOfWork(new SystemContext())))
-        {
-        }
 
         public CoursesController(ICourseService service)
         {
@@ -60,7 +54,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 domainModel.TimeCreatedUtc = DateTime.UtcNow;
                 try
                 {
-                    await _service.Add(domainModel);
+                    await _service.Add(domainModel, "###");
                     
                 }
                 catch (Exception ex)
@@ -90,8 +84,14 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         {
             if (ModelState.IsValid)
             {
-                var domainModel = viewModel.ToDomainModel();
-                await _service.Update(domainModel);
+                var domainModel = await _service.GetById(viewModel.Id);
+
+                domainModel.Name = viewModel.Name;
+
+                //if (domainModel.Instructor.Id != viewModel.InstructorId) {
+                //    // ToDo : ###
+                //}
+                await _service.Update(domainModel, "###");
                 return RedirectToAction("Details", new { id = domainModel.Id });
             }
             return View(viewModel);
@@ -102,7 +102,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         public async Task<ActionResult> Delete(string id)
         {
             var entity = await _service.GetById(id);
-            await _service.Remove(entity);
+            await _service.Remove(entity, "###");
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Iss.LiveClassRoom.Core.Repositories;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace Iss.LiveClassRoom.Core.Models
 {
 
+    [SoftDelete(column: "IsDeleted", dateColumn: "TimeDeletedUtc")]
     public abstract class BaseEntity : IEntity
     {
         [Key, MaxLength(32)]

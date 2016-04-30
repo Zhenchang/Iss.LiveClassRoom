@@ -9,11 +9,11 @@ namespace Iss.LiveClassRoom.Core.Services
 {
     public interface IService<T> : IDisposable where T : class, IEntity
     {
-        Task Add(T entity);
+        Task Add(T entity, string byUserId);
 
-        Task Remove(T entity);
+        Task Remove(T entity, string byUserId);
 
-        Task Update(T entity);
+        Task Update(T entity, string byUserId);
 
         Task<T> GetById(string id);
 

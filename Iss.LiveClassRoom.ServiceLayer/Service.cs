@@ -20,10 +20,10 @@ namespace Iss.LiveClassRoom.ServiceLayer
             _uow = uow;
         }
 
-        public async Task Add(T entity)
+        public async Task Add(T entity, string byUserId)
         {
             _uow.GetRepository<T>().Add(entity);
-            await _uow.Save();
+            await _uow.Save(byUserId);
             _uow.Commit();
 
         }
@@ -43,17 +43,17 @@ namespace Iss.LiveClassRoom.ServiceLayer
             return _uow.GetRepository<T>().GetById(id);
         }
 
-        public async Task Remove(T entity)
+        public async Task Remove(T entity, string byUserId)
         {
             _uow.GetRepository<T>().Remove(entity);
-            await _uow.Save();
+            await _uow.Save(byUserId);
             _uow.Commit();
         }
 
-        public async Task Update(T entity)
+        public async Task Update(T entity, string byUserId)
         {
             _uow.GetRepository<T>().Update(entity);
-            await _uow.Save();
+            await _uow.Save(byUserId);
             _uow.Commit();
         }
     }

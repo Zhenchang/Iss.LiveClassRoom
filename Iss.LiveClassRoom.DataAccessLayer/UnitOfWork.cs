@@ -43,9 +43,9 @@ namespace Iss.LiveClassRoom.DataAccessLayer
             _dbTransaction = _db.Database.BeginTransaction();
         }
 
-        public Task<int> Save()
+        public Task<int> Save(string userId)
         {
-            return _db.SaveChangesAsync();
+            return _db.SaveChangesAsync(userId);
         }
 
         public IRepository<T> GetRepository<T>() where T : class, IEntity

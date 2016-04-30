@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201604291353513_FixCourseInstrtorForTest.Designer.cs">
       <DependentUpon>201604291353513_FixCourseInstrtorForTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604301019296_fix.cs" />
+    <Compile Include="Migrations\201604301019296_fix.Designer.cs">
+      <DependentUpon>201604301019296_fix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenericRepository.cs" />
@@ -94,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604291353513_FixCourseInstrtorForTest.resx">
       <DependentUpon>201604291353513_FixCourseInstrtorForTest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604301019296_fix.resx">
+      <DependentUpon>201604301019296_fix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
