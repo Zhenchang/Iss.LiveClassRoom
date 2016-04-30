@@ -16,7 +16,5 @@ namespace Iss.LiveClassRoom.ServiceLayer.Services
         {
 
         }
-
-
     }
 }

@@ -14,7 +14,7 @@ namespace Iss.LiveClassRoom.ServiceLayer
     {
 
         protected IUnitOfWork _uow;
-
+        
         public Service(IUnitOfWork uow)
         {
             _uow = uow;
