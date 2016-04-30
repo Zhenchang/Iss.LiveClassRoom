@@ -145,6 +145,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -164,6 +165,11 @@
     <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Shared\_PartialCreateSaveButton.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -176,7 +182,6 @@
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Quiz\" />
     <Folder Include="Views\Topic\" />
-    <Folder Include="Views\User\" />
     <Folder Include="Views\Video\" />
   </ItemGroup>
   <ItemGroup>

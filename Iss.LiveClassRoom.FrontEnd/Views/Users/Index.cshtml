@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Iss.LiveClassRoom.Core.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PasswordHash)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeCreatedUtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeModifiedUtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeDeletedUtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedByUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedByUserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedByUserId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PasswordHash)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDeleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeCreatedUtc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeModifiedUtc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeDeletedUtc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedByUserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedByUserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedByUserId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
