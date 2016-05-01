@@ -21,6 +21,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         public CoursesController(ICourseService service)
         {
             _service = service;
+            
         }
 
         public ActionResult Index()
@@ -34,6 +35,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
             var entity = await _service.GetById(id);
             if (entity == null) return HttpNotFound();
+
+            if(!entity.HasAccess(this.User, Permissions.View)) return HttpNotFound();
 
             return View(entity.ToViewModel());
         }

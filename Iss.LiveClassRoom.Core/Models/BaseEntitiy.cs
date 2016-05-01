@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,8 +11,7 @@ namespace Iss.LiveClassRoom.Core.Models
 {
 
     [SoftDelete(column: "IsDeleted", dateColumn: "TimeDeletedUtc")]
-    public abstract class BaseEntity : IEntity
-    {
+    public abstract class BaseEntity : IEntity {
         [Key, MaxLength(32)]
         public string Id { get; set; }
         [Required]
@@ -26,10 +26,17 @@ namespace Iss.LiveClassRoom.Core.Models
         public string ModifiedByUserId { get; set; }
         public string DeletedByUserId { get; set; }
 
-        public BaseEntity()
-        {
+        public BaseEntity() {
             Id = Guid.NewGuid().ToString("N");
         }
-    }
 
+        public bool HasAccess(IPrincipal user, Permissions neededPermissions) {
+            var compare = GetPermissions(user) & neededPermissions;
+            return compare == neededPermissions;
+        }
+
+        public virtual Permissions GetPermissions(IPrincipal user) {
+            return Permissions.Full;
+        }
+    }
 }

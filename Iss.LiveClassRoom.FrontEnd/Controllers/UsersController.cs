@@ -19,6 +19,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         // GET: Users
         public async Task<ActionResult> Index()
         {
+
             return View(await db.Users.ToListAsync());
         }
 

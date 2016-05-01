@@ -1,0 +1,6 @@
+﻿@if (ViewBag.StatusMessage != null) {
+    <div class="top-buffer alert alert-info alert-dismissible" role="alert">
+        <button type="button" lang="en" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <p class="text-@ViewBag.Status"><span class="glyphicon @(ViewBag.Status == "success" ? "glyphicon-floppy-saved" : "glyphicon-remove-sign" )"></span><strong> @ViewBag.StatusMessage</strong></p>
+    </div>
+}

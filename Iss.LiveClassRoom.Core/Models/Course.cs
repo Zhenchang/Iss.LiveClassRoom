@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,30 @@ namespace Iss.LiveClassRoom.Core.Models
             Videos = new HashSet<Video>();
             Topics = new HashSet<Topic>();
             Students = new HashSet<Student>();
+        }
+
+        public override Permissions GetPermissions(IPrincipal user) {
+            if (user.IsInRole("Admin")) {
+                return Permissions.Full;
+            }
+            if (user.IsInRole("Instrcutor")) {
+                if (Instructor.Id.Equals(user.Identity.Name)) {
+                    return Permissions.Full;
+                }
+                else {
+                    return Permissions.None;
+                }
+            }
+
+            if (user.IsInRole("Student")) {
+                if (Students.Any(x => x.Id.Equals(user.Identity.Name))) {
+                    return Permissions.View | Permissions.List | Permissions.Link;
+                }
+                else {
+                    return Permissions.View | Permissions.Link;
+                }
+            }
+            return Permissions.None;
         }
     }
 }
