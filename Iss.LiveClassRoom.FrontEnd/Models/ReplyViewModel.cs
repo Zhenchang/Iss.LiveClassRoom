@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Iss.LiveClassRoom.Core.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -23,8 +25,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             return new Reply()
             {
                 Id = model.Id,
-                CommentId=model.CommentId,
-
+                Comment = new Comment() { Id = model.CommentId }
             };
         }
 
@@ -33,7 +34,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             return new ReplyViewModel()
             {
                 Id = model.Id,
-                CommentId = model.CommentId,
+                CommentId = model.Comment.Id,
             };
         }
     }

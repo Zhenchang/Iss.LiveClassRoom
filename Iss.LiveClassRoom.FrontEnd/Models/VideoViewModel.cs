@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Iss.LiveClassRoom.Core.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,8 +9,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 {
     public class VideoViewModel
     {
-
-
         [Required]
         public string Id { get; set; }
 
@@ -30,7 +30,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
                 Id = model.Id,
                 Title=model.Title,
                 FileName=model.FileName,
-                CourseId=model.CourseId,
+                Course = new Course() { Id = model.CourseId }
             };
         }
 
@@ -41,7 +41,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
                 Id = model.Id,
                 Title = model.Title,
                 FileName = model.FileName,
-                CourseId = model.CourseId,
+                CourseId = model.Course.Id,
             };
         }
     }

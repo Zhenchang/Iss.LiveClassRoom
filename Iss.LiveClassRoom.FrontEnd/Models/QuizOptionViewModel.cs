@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Iss.LiveClassRoom.Core.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models
 {
@@ -27,7 +29,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Text=model.Text,
-                QuizId=model.QuizId,
+                Quiz = new Quiz() { Id = model.Id}
                 
             };
         }
@@ -38,7 +40,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Text = model.Text,
-                QuizId = model.QuizId,
+                QuizId = model.Id
             };
         }
     }

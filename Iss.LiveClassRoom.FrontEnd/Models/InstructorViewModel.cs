@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Iss.LiveClassRoom.Core.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models
 {

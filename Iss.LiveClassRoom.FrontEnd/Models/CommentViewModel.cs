@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Iss.LiveClassRoom.Core.Models;
+using System.ComponentModel.DataAnnotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -29,9 +31,9 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             return new Comment()
             {
                 Id = model.Id,
-                User = new User() {Id= model.Id },
+                //User = new User() {Id= model.Id },
                 Text=model.Text,
-                Feed=new Feed() { Id=model.Id},
+                //Feed=new Feed() { Id=model.Id},
                 
             };
         }
