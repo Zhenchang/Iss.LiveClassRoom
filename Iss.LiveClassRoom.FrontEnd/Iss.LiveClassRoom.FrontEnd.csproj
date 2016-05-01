@@ -161,9 +161,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\CourseViewModel.cs" />
+    <Compile Include="Models\InstructorViewModel.cs" />
+    <Compile Include="Models\QuizOptionViewModel.cs" />
+    <Compile Include="Models\QuizViewModel.cs" />
+    <Compile Include="Models\ReplyViewModel.cs" />
+    <Compile Include="Models\StudentAnswerViewModel.cs" />
+    <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Models\GridViewModels.cs" />
     <Compile Include="Models\TopicViewModel.cs" />
+    <Compile Include="Models\VideoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
