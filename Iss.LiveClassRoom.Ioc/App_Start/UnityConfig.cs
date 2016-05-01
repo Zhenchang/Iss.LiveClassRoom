@@ -44,11 +44,16 @@ namespace Iss.LiveClassRoom.Ioc.App_Start
             // container.RegisterType<IProductRepository, ProductRepository>();
 
             container.RegisterType<SystemContext>(new PerRequestLifetimeManager());
-            
-            container.RegisterType<IUnitOfWork, UnitOfWork>();
+            container.RegisterType<IUnitOfWork, UnitOfWork>(new PerRequestLifetimeManager());
+
             container.RegisterType(typeof(IRepository<>), typeof(GenericRepository<>));
             container.RegisterType(typeof(IService<>), typeof(Service<>));
             container.RegisterType<ICourseService, CourseService>();
+            container.RegisterType<IUserService, UserService>();
+            container.RegisterType<ICommentService, CommentService>();
+            container.RegisterType<IVideoService, VideoService>();
+            container.RegisterType<ITopicService, TopicService>();
+            container.RegisterType<IQuizService, QuizService>();
         }
     }
 }

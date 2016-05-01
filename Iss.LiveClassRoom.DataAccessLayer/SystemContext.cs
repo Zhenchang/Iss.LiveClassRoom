@@ -143,8 +143,10 @@ namespace Iss.LiveClassRoom.DataAccessLayer
         public DbSet<Video> Videos { get; set; }
         public DbSet<Topic> Topics { get; set; }
 
+        public string Name { get; set; }
         public SystemContext()
             : base("LiveClassRoomDb") {
+            Name = Guid.NewGuid().ToString();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {

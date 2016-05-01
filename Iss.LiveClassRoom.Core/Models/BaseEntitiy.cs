@@ -36,7 +36,7 @@ namespace Iss.LiveClassRoom.Core.Models
         }
 
         public virtual Permissions GetPermissions(IPrincipal user) {
-            return Permissions.Full;
+            return Permissions.Full; // EDIT: ToDo: ###
         }
     }
 }

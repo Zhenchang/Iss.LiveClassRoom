@@ -22,6 +22,7 @@ namespace Iss.LiveClassRoom.ServiceLayer
 
         public async Task Add(T entity, string byUserId)
         {
+            if (string.IsNullOrEmpty(byUserId)) byUserId = "###";
             _uow.GetRepository<T>().Add(entity);
             await _uow.Save(byUserId);
             _uow.Commit();
@@ -45,6 +46,7 @@ namespace Iss.LiveClassRoom.ServiceLayer
 
         public async Task Remove(T entity, string byUserId)
         {
+            if (string.IsNullOrEmpty(byUserId)) byUserId = "###";
             _uow.GetRepository<T>().Remove(entity);
             await _uow.Save(byUserId);
             _uow.Commit();
@@ -52,6 +54,7 @@ namespace Iss.LiveClassRoom.ServiceLayer
 
         public async Task Update(T entity, string byUserId)
         {
+            if (string.IsNullOrEmpty(byUserId)) byUserId = "###";
             _uow.GetRepository<T>().Update(entity);
             await _uow.Save(byUserId);
             _uow.Commit();

@@ -8,121 +8,196 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Iss.LiveClassRoom.Core.Models;
-using Iss.LiveClassRoom.DataAccessLayer;
+using Iss.LiveClassRoom.Core.Services;
+using Iss.LiveClassRoom.FrontEnd.Models;
+using Iss.LiveClassRoom.FrontEnd.App_Start;
+using System.ComponentModel.DataAnnotations;
 
 namespace Iss.LiveClassRoom.FrontEnd.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
-        private SystemContext db = new SystemContext();
+        private IUserService _service;
 
-        // GET: Users
-        public async Task<ActionResult> Index()
+        public UsersController(IUserService service)
         {
-
-            return View(await db.Users.ToListAsync());
+            _service = service;
         }
 
-        // GET: Users/Details/5
-        public async Task<ActionResult> Details(string id)
+        public ActionResult Index(int? status, string type)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            RenderStatusAlert(status);
+
+            var list = _service.GetAll();
+            if (type == "Instructor") {
+                new Instructor().CheckAuthorization(Permissions.List);
+                list = list.OfType<Instructor>();
+                ViewBag.Title = "Instructors List";
             }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
+            else if(type == "Student") {
+                new Student().CheckAuthorization(Permissions.List);
+                list = list.OfType<Student>();
+                ViewBag.Title = "Students List";
+            }
+            return View(list);
+        }
+
+        public async Task<ActionResult> Details(string id, int? status)
+        {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var entity = await _service.GetById(id);
+            if (entity == null) return HttpNotFound();
+
+            entity.CheckAuthorization(Permissions.View);
+
+            RenderStatusAlert(status);
+            if(entity is Instructor) {
+                return View((entity as Instructor).ToViewModel());
+            }
+            else if(entity is Student) {
+                return View((entity as Student).ToViewModel());
+            }
+            else {
                 return HttpNotFound();
             }
-            return View(user);
         }
 
-        // GET: Users/Create
-        public ActionResult Create()
+        public ActionResult Create(string type)
         {
-            return View();
+            User model = null;           
+            if (type == "Instructor") {
+                model = new Instructor();
+                model.CheckAuthorization(Permissions.Create);
+                return View("Edit", (model as Instructor).ToViewModel());
+            }
+            else if (type == "Student") {
+                model = new Student();
+                model.CheckAuthorization(Permissions.Create);
+                return View("Edit", (model as Student).ToViewModel());
+            }else {
+                return HttpNotFound();
+            }
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Email,PasswordHash,PhoneNumber,IsDeleted,TimeCreatedUtc,TimeModifiedUtc,TimeDeletedUtc,CreatedByUserId,ModifiedByUserId,DeletedByUserId")] User user)
+        public async Task<ActionResult> Create(InstructorViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                var domainModel = viewModel.ToDomainModel();
+                domainModel.CheckAuthorization(Permissions.Create);
+                try {
+                    await _service.Add(domainModel, User.Identity.Name);
+                }
+                catch(Exception ex) {
+                    ex.Message.ToString();
+                }
+       
+                return RedirectToAction("Index", new { status = 0 });
             }
-
-            return View(user);
+            return View("Edit", viewModel);
         }
 
-        // GET: Users/Edit/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create(StudentViewModel viewModel) {
+        //    if (ModelState.IsValid) {
+        //        var domainModel = viewModel.ToDomainModel();
+        //        domainModel.CheckAuthorization(Permissions.Create);
+        //        await _service.Add(domainModel, User.Identity.Name);
+        //        return RedirectToAction("Index", new { status = 0 });
+        //    }
+        //    return View("Edit", viewModel);
+        //}
+
+
         public async Task<ActionResult> Edit(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var entity = await _service.GetById(id);
+            if (entity == null) return HttpNotFound();
+
+            entity.CheckAuthorization(Permissions.Edit);
+
+            if (entity is Instructor) {
+                return View((entity as Instructor).ToViewModel());
             }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
+            else if (entity is Student) {
+                return View((entity as Student).ToViewModel());
+            }
+            else {
                 return HttpNotFound();
             }
-            return View(user);
         }
 
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Email,PasswordHash,PhoneNumber,IsDeleted,TimeCreatedUtc,TimeModifiedUtc,TimeDeletedUtc,CreatedByUserId,ModifiedByUserId,DeletedByUserId")] User user)
+        public async Task<ActionResult> Edit(InstructorViewModel viewModel)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+            if (ModelState.IsValid) {
+
+                var domainModel = await _service.GetById(viewModel.Id);
+
+                domainModel.CheckAuthorization(Permissions.Edit);
+
+                domainModel.Name = viewModel.Name;
+                domainModel.Email = viewModel.Email;
+                domainModel.PasswordHash = viewModel.PasswordHash;
+                domainModel.PhoneNumber = viewModel.PhoneNumber;
+
+                await _service.Update(domainModel, User.Identity.Name);
+                return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
+
             }
-            return View(user);
+            return View(viewModel);
         }
 
-        // GET: Users/Delete/5
-        public async Task<ActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User user = await db.Users.FindAsync(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user);
-        }
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
-        {
-            User user = await db.Users.FindAsync(id);
-            db.Users.Remove(user);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+        public async Task<ActionResult> Edit(StudentViewModel viewModel) {
+
+            if (ModelState.IsValid) {
+
+                var domainModel = await _service.GetById(viewModel.Id);
+
+                domainModel.CheckAuthorization(Permissions.Edit);
+
+                domainModel.Name = viewModel.Name;
+                domainModel.Email = viewModel.Email;
+                domainModel.PasswordHash = viewModel.PasswordHash;
+                domainModel.PhoneNumber = viewModel.PhoneNumber;
+
+                await _service.Update(domainModel, User.Identity.Name);
+                return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
+
+            }
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<HttpStatusCodeResult> ConfirmDelete(string id) {
+            var entity = await _service.GetById(id);
+            if (entity == null) return HttpNotFound();
+            entity.CheckAuthorization(Permissions.Delete);
+            try {
+                await _service.Remove(entity, User.Identity.Name);
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch (Exception ex) {
+                LogException(ex);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _service.Dispose();
             }
             base.Dispose(disposing);
         }

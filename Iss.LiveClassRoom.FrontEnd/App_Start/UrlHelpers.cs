@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Iss.LiveClassRoom.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -9,6 +10,19 @@ using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Iss.LiveClassRoom.FrontEnd.App_Start {
+
+    public static class AuthorizationManager {
+        public static void CheckAuthorization(this IEntity entity, Permissions permission) {
+            if (!entity.HasAccess(HttpContext.Current.User, permission))
+                throw new AuthorizationException();
+        }
+    }
+
+
+    public class AuthorizationException : Exception {
+
+    }
+
     public static class UrlHelperExtensions {
 
 

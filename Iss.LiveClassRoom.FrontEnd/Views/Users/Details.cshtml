@@ -1,14 +1,45 @@
-﻿@model Iss.LiveClassRoom.Core.Models.User
+﻿@model Iss.LiveClassRoom.FrontEnd.Models.InstructorViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<nav class="toolbar top-buffer">
+    <div class="row">
+        <h2 class="col-sm-7 col-xs-12">@ViewBag.Title</h2>
+        @if (User.IsInRole("Admin")) {
+           
+        }
 
-<div>
-    <h4>User</h4>
-    <hr />
+        <div class="col-sm-5 col-xs-12 toolbar-btn">
+            <div class="btn-group" style="line-height:0;">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span> Options <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu text-left" role="menu">
+                    <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
+                    <li>@Html.ActionLink("Back to Menu", "Index")</li>
+                    <li class="divider"></li>
+
+                    @*@if (Model.HasAccess(User, Permissions.Edit)) {
+                       
+                    }
+                    @if (Model.HasAccess(User, Permissions.List)) {
+                        
+                    }
+                    
+                    @if (canCreateEmployee) {
+                        <li>@Html.ActionLink("Add Employee", "Create", "Employee", new { id = Model.Id }, null)</li>
+                    }*@
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="detailbody">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -27,80 +58,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PasswordHash)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeCreatedUtc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeCreatedUtc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeModifiedUtc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeModifiedUtc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeDeletedUtc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeDeletedUtc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedByUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedByUserId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ModifiedByUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ModifiedByUserId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DeletedByUserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DeletedByUserId)
-        </dd>
-
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

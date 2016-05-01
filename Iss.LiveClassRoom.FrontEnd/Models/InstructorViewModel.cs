@@ -13,6 +13,20 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
         [Required]
         public string Id { get; set; }
 
+        [Required, MaxLength(50)]
+        public string Name { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        public string PasswordHash { get; set; }
+
+        [Required]
+        public string PhoneNumber { get; set; }
+
+
     }
 
 
@@ -23,7 +37,10 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             return new Instructor()
             {
                 Id = model.Id,
-                
+                Name = model.Name,
+                Email = model.Email,
+                PasswordHash = model.PasswordHash,
+                PhoneNumber =  model.PhoneNumber
             };
         }
 
@@ -32,7 +49,10 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             return new InstructorViewModel()
             {
                 Id = model.Id,
-               
+                Name = model.Name,
+                Email = model.Email,
+                PasswordHash = model.PasswordHash,
+                PhoneNumber = model.PhoneNumber
             };
         }
 

@@ -20,7 +20,12 @@ namespace Iss.LiveClassRoom.DataAccessLayer
         {
             _repositories = new List<object>();
             _db = db;
-            _dbTransaction = _db.Database.BeginTransaction();
+            if(_db.Database.CurrentTransaction == null) {
+                _dbTransaction = _db.Database.BeginTransaction();
+            }else {
+                _dbTransaction = _db.Database.CurrentTransaction;
+            }
+            
         }
 
         public void Commit()

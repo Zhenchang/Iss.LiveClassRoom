@@ -29,7 +29,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             return new Course()
             {
                 Id = model.Id,
-                Name = model.Name
+                Name = model.Name,
+                Instructor = new Instructor() { Id = model.InstructorId }
             };
         }
 
@@ -38,7 +39,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             return new CourseViewModel()
             {
                 Id = model.Id,
-                Name = model.Name
+                Name = model.Name,
+                InstructorId = model.Instructor?.Id
             };
         }
     }
