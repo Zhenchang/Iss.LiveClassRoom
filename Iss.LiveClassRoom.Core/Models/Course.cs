@@ -11,14 +11,15 @@ namespace Iss.LiveClassRoom.Core.Models
     public class Course : BaseEntity
     {
         [Required]
+        [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
 
+        [Required]
         public virtual Instructor Instructor { get; set; }
 
         public virtual ICollection<Quiz> Quizes { get; set; }
         public virtual ICollection<Video> Videos { get; set; }
         public virtual ICollection<Topic> Topics { get; set; }
-
         public virtual ICollection<Student> Students { get; set; }
 
         public Course() : base()

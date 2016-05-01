@@ -91,6 +91,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 //if (domainModel.Instructor.Id != viewModel.InstructorId) {
                 //    // ToDo : ###
                 //}
+
                 await _service.Update(domainModel, "###");
                 return RedirectToAction("Details", new { id = domainModel.Id });
             }
