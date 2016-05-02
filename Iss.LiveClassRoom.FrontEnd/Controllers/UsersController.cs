@@ -89,7 +89,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 var domainModel = viewModel.ToDomainModel();
                 domainModel.CheckAuthorization(Permissions.Create);
                 try {
-                    await _service.Add(domainModel, User.Identity.Name);
+                    await _service.Add(domainModel, GetLoggedInUserId());
                 }
                 catch(Exception ex) {
                     ex.Message.ToString();
@@ -106,7 +106,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         //    if (ModelState.IsValid) {
         //        var domainModel = viewModel.ToDomainModel();
         //        domainModel.CheckAuthorization(Permissions.Create);
-        //        await _service.Add(domainModel, User.Identity.Name);
+        //        await _service.Add(domainModel, GetLoggedInUserId());
         //        return RedirectToAction("Index", new { status = 0 });
         //    }
         //    return View("Edit", viewModel);
@@ -149,7 +149,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 domainModel.PasswordHash = viewModel.PasswordHash;
                 domainModel.PhoneNumber = viewModel.PhoneNumber;
 
-                await _service.Update(domainModel, User.Identity.Name);
+                await _service.Update(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
 
             }
@@ -171,7 +171,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 domainModel.PasswordHash = viewModel.PasswordHash;
                 domainModel.PhoneNumber = viewModel.PhoneNumber;
 
-                await _service.Update(domainModel, User.Identity.Name);
+                await _service.Update(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
 
             }
@@ -184,7 +184,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             if (entity == null) return HttpNotFound();
             entity.CheckAuthorization(Permissions.Delete);
             try {
-                await _service.Remove(entity, User.Identity.Name);
+                await _service.Remove(entity, GetLoggedInUserId());
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             catch (Exception ex) {

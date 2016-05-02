@@ -55,14 +55,12 @@ namespace Iss.LiveClassRoom.DataAccessLayer
 
         public IRepository<T> GetRepository<T>() where T : class, IEntity
         {
-            foreach(IRepository<T> r in _repositories)
+            var repo = _repositories.OfType<IRepository<T>>().FirstOrDefault();
+            if(repo == null)
             {
-                if(r.GetType() is GenericRepository<T>) {
-                    return r;
-                }
+                repo = new GenericRepository<T>(_db);
+                _repositories.Add(repo);
             }
-            IRepository<T> repo = new GenericRepository<T>(_db);
-            _repositories.Add(repo);
             return repo;
         }
     }

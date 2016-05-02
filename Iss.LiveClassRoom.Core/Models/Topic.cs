@@ -9,7 +9,6 @@ namespace Iss.LiveClassRoom.Core.Models
 {
     public class Topic : Feed
     {
-
         [Required]
         public string Content { get; set; }
         [Required]
