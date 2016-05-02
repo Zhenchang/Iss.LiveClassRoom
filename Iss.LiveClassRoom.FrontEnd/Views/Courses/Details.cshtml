@@ -7,11 +7,6 @@
 <nav class="toolbar top-buffer">
     <div class="row">
         <h2 class="col-sm-7 col-xs-12">@ViewBag.Title</h2>
-        @if (User.IsInRole("Admin"))
-        {
-
-        }
-
         <div class="col-sm-5 col-xs-12 toolbar-btn">
             <div class="btn-group" style="line-height:0;">
                 <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
@@ -21,7 +16,6 @@
                     <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
                     <li>@Html.ActionLink("Back to Menu", "Index")</li>
                     <li class="divider"></li>
-                    <li>@Html.ActionLink("Create Quiz", "Create", "Quizs" , new { id = Model.Id }, null)</li>
                 </ul>
             </div>
         </div>
@@ -45,7 +39,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.InstructorId)
+            @ViewBag.InstructorName
         </dd>
     </dl>
 </div>

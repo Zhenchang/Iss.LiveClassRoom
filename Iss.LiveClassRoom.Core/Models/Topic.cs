@@ -11,6 +11,10 @@ namespace Iss.LiveClassRoom.Core.Models
     {
         [Required]
         public string Content { get; set; }
+
+        [Required]
+        public string Title { get; set; }
+
         [Required]
         public virtual Course Course { get; set; }
     }

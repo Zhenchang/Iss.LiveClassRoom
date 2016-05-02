@@ -4,17 +4,17 @@
 
 @model GirdNavViewModel<Topic>
 
-@Html.Grid(Model.List.OrderBy(x => x.Name)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
+@Html.Grid(Model.List.OrderBy(x => x.Title)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
 {
     columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "Courses", new { id = item.Id })).Name = "Href";
-    columns.Add(m => m.Name).Titled("Name");
-    columns.Add(m => m.Instructor.Name).Titled("Instructor");
+    columns.Add(m => m.Title).Titled("Title");
+    columns.Add(m => m.Course.Name).Titled("Course");
 
     columns.Add().RenderValueAs(m => Html.Partial("_PartialEditDeleteButtons",
         new DeleteEditButtonViewModel()
         {
-            EditUrl = Url.Action("Edit", "Courses", new { id = m.Id }),
-            DeleteMethod = Url.Action("ConfirmDelete", "Courses", new { id = m.Id }),
+            EditUrl = Url.Action("Edit", "Topics", new { id = m.Id }),
+            DeleteMethod = Url.Action("ConfirmDelete", "Topics", new { id = m.Id }),
             HasEdit = m.HasAccess(User, Permissions.Edit),
             HasDelete = m.HasAccess(User, Permissions.Delete),
             GridId = Model.GridName,
