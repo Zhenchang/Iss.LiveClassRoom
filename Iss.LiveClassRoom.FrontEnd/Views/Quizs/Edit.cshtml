@@ -26,6 +26,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CourseId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Question, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -35,10 +36,15 @@
             </div>
         </div>
 
-        <div class="block">
-            <button class="btn btn-primary" id="addOptionBtn">
-                <span class="glyphicon glyphicon-plus"></span>
-            </button>
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-10">
+
+                <button class="btn btn-primary" id="addOptionBtn" type="button">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
         </div>
 
         <div id="options">
@@ -56,13 +62,19 @@
 
 <div id="dummyOption" class="hidden">
     <div class="form-group">
-        <label for="Options[{0}].Text" class="control-label col-md-2">Option {4}</label>
+        <label for="" class="control-label col-md-2"></label>
         <div class="col-md-10">
-            <input type="text" name="Options[{1}].Text" class="form-control" />
-            <input type="hidden" name="Options[{2}].Id" value="{3}" />
-            <button class="btn btn-danger removeBtn">
-                <span class="glyphicon glyphicon-minus"></span>
-            </button>
+            <input type="hidden" name="" value="{0}" />
+
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-danger removeBtn" type="button">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <input type="text" name="" value="{1}" class="form-control" placeholder="Option Answer ..." />
+                
+            </div>
             <span class="text-danger hidden">Invalid Quiz Option</span>
         </div>
     </div>
@@ -73,34 +85,41 @@
 
     <script type="text/javascript">
         $(function () {
-            var addOptionFunction = function (index, id, text) {
+            var addOptionFunction = function (id, text) {
                 var dummyOption = $("#dummyOption").html();
-                dummyOption = dummyOption.replace("{0}", index);
-                dummyOption = dummyOption.replace("{1}", index);
-                dummyOption = dummyOption.replace("{2}", index);
-                dummyOption = dummyOption.replace("{3}", id);
-                dummyOption = dummyOption.replace("{4}", index + 1);
+                dummyOption = dummyOption.replace("{0}", id);
+                dummyOption = dummyOption.replace("{1}", text);
                 $("#options").append(dummyOption);
             }
 
             $("#addOptionBtn").click(function () {
-                var count = $("#options > .form-group").length;
-                addOptionFunction(count, "", "0");
+                addOptionFunction("0", "");
+                refreshList();
             });
 
-            $(".removeBtn").click(function () {
-                var count = $("#options > .form-group").length;
-                addOptionFunction(count, "", "0");
-            });
 
-            @if (action.Equals("Edit"))
+
+            var refreshList = function()
             {
-                int i = 0;
-                foreach (var option in Model.Options)
-                {
-                    @:addOptionFunction(@(i), "@(option.Text)", "@(option.Id)");
-                }
+                $(".removeBtn").off();
+                $("#options > .form-group").each(function(index) {
+                    $(this).find("input[type='hidden']").attr('name', "Options[" + index + "].Id");
+                    $(this).find("input[type='text']").attr('name', "Options[" + index + "].Text");
+                    $(this).find("label").attr('for', "Options[" + index + "].Text");
+                    $(this).find("label").text("Option " + index);
+                    $(this).find(".removeBtn").on("click", function () {
+                        $(this).closest(".form-group").remove();
+                        refreshList();
+                    });
+                });
+               
             }
+
+            @foreach (var option in Model.Options)
+            {
+                @:addOptionFunction("@(option.Id)", "@(option.Text)");
+            }
+            
         });
     </script>
 }

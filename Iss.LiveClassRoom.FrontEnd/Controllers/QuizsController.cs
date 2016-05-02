@@ -58,7 +58,9 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             model.Course = course;
             model.CheckAuthorization(Permissions.Create);
             PopulateDropDownLists();
-            return View("Edit", model.ToViewModel());
+
+            var viewModel = model.ToViewModel();
+            return View("Edit", viewModel);
         }
 
         [HttpPost]
@@ -68,7 +70,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             Course course = null;
             try
             {
-                course = await _courseService.GetById(viewModel.CourseId);
+                course = await _courseService.GetById(viewModel.Id);
+                viewModel.CourseId = course.Id;
                 if (course == null) throw new ValidationException("No course found!");
             }
             catch (ValidationException ex)
@@ -77,10 +80,17 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             }
             if (ModelState.IsValid)
             {
-                var domainModel = viewModel.ToDomainModel();
+                var domainModel = new Quiz();
                 domainModel.CheckAuthorization(Permissions.Create);
                 domainModel.Question = viewModel.Question;
                 domainModel.Course = course;
+                foreach(var options in viewModel.Options) {
+                    domainModel.Options.Add(new QuizOption()
+                    {
+                         Quiz = domainModel,
+                         Text = options.Text
+                    });
+                }
                 await _service.Add(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Index", new { status = 0 });
             }

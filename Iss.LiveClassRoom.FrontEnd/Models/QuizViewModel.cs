@@ -51,7 +51,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Question = model.Question,
-                CourseId = model.Course?.Id
+                CourseId = model.Course.Id
             };
             foreach (var option in model.Options)
             {

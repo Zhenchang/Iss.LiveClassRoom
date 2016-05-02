@@ -9,14 +9,11 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 {
     public class QuizOptionViewModel
     {
-
-        [Required]
         public string Id { get; set; }
 
         [Required]
         public string Text { get; set; }
 
-        [Required]
         public string QuizId { get; set; }
     }
 
