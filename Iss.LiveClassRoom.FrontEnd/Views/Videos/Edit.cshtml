@@ -1,21 +1,20 @@
-﻿@model Iss.LiveClassRoom.FrontEnd.Models.TopicViewModel
+﻿@model Iss.LiveClassRoom.FrontEnd.Models.VideoViewModel
 
 @{
     var action = ViewContext.RouteData.Values["action"].ToString();
     if (action.Equals("Edit"))
     {
-        ViewBag.Title = "Edit Topic";
+        ViewBag.Title = "Edit Video";
     }
     else
     {
-        ViewBag.Title = "Create Topic";
+        ViewBag.Title = "Upload Video";
     }
 }
 
 <h2>@ViewBag.Title</h2>
 
-
-@using (Html.BeginForm(action, "Topics", FormMethod.Post))
+@using (Html.BeginForm(action, "Videos", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -34,10 +33,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label for="videoFile" class="control-label col-md-2">Video File</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                <input type="file" name="videoFile" class="form-control" />
             </div>
         </div>
 

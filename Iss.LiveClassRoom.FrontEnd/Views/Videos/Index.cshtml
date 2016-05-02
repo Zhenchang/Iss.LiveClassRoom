@@ -1,7 +1,7 @@
 ﻿@using Iss.LiveClassRoom.FrontEnd.Models
 @using Iss.LiveClassRoom.Core.Models;
 
-@model IEnumerable<Topic>
+@model IEnumerable<Video>
 
 @{
     ViewBag.Title = "Index";
@@ -10,18 +10,18 @@
 @{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
 
 @{
-    var gridNav = new GirdNavViewModel<Topic>
+    var gridNav = new GirdNavViewModel<Video>
     {
         CreateUrl = Url.Action("Create"),
         Title = ViewBag.Title,
         IsPartial = false,
-        GridName = nameof(Topic) + "Grid",
+        GridName = nameof(Video) + "Grid",
         List = Model.AsQueryable()
     };
     Html.RenderPartial("_PartialGridNav", gridNav);
 }
 
-@{Html.RenderPartial("~/Views/Topics/_PartialIndex.cshtml", gridNav);}
+@{Html.RenderPartial("~/Views/Videos/_PartialIndex.cshtml", gridNav);}
 
 @section BodyFoot {
     @{Html.RenderPartial("_PartialModals", gridNav);}
