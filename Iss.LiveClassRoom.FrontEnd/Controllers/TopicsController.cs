@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace Iss.LiveClassRoom.FrontEnd.Controllers
 {
+    [Authorize]
     public class TopicsController : BaseController
     {
         private ITopicService _service;

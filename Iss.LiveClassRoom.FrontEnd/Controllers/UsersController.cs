@@ -15,6 +15,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Iss.LiveClassRoom.FrontEnd.Controllers
 {
+    [Authorize]
     public class UsersController : BaseController
     {
         private IUserService _service;

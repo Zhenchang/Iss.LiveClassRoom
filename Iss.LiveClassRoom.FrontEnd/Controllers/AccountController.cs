@@ -37,7 +37,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Login() {
+        public ActionResult Login(string ReturnUrl) {
+            ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
 
@@ -49,7 +50,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(LoginViewModel model) {
+        public ActionResult Login(LoginViewModel model, string ReturnUrl) {
             if (ModelState.IsValid) {
                 var user = _service.ValidateUserInfo(model.Email, model.Password);
                 if (user == null) return View(model);
@@ -57,9 +58,19 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 var result = SignInManager.SignIn(user);
                 if (!result) return View(model);
 
-                return RedirectToAction("Index");
+                return RedirectToLocal(ReturnUrl);
+
+                //return RedirectToAction("Index");
             }
             return View(model);
         }
+
+        private ActionResult RedirectToLocal(string returnUrl) {
+            if (Url.IsLocalUrl(returnUrl)) {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
