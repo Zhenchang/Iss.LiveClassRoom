@@ -24,8 +24,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         }
         protected string GetLoggedInUserId()
         {
-            return "f95cc8bb78a9483e886c088ef6346616";
-            //return User.Identity.Name;
+            return User.Identity.Name;
         }
 
         protected void LogException(Exception ex) {

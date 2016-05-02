@@ -13,9 +13,8 @@ using System.Web.Mvc;
 
 namespace Iss.LiveClassRoom.FrontEnd.Controllers
 {
-    public class VideosController : Controller
+    public class VideosController : BaseController
     {
-
         private IVideoService _service;
         private IUserService _userService;
 
@@ -30,11 +29,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             new Video().CheckAuthorization(Permissions.List);
             RenderStatusAlert(status);
             return View(_service.GetAll());
-        }
-
-        private void RenderStatusAlert(int? status)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<ActionResult> Details(string id, int? status)
@@ -127,11 +121,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 LogException(ex);
             }
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
-        }
-
-        private void LogException(Exception ex)
-        {
-            throw new NotImplementedException();
         }
 
         protected void PopulateDropDownLists(string selectedId = null)

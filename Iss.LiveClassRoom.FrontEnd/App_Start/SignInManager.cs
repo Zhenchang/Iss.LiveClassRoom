@@ -6,28 +6,54 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 
 namespace Iss.LiveClassRoom.FrontEnd.App_Start {
 
-    
+
+    public static class IdentityExtensions {
+        public static string GetGivenName(this IIdentity identity) {
+            if (identity == null)
+                return null;
+
+            return (identity as ClaimsIdentity).FirstOrNull(ClaimTypes.GivenName);
+        }
+
+        public static string GetEmail(this IIdentity identity) {
+            if (identity == null)
+                return null;
+
+            return (identity as ClaimsIdentity).FirstOrNull(ClaimTypes.Email);
+        }
+
+        internal static string FirstOrNull(this ClaimsIdentity identity, string claimType) {
+            var val = identity.FindFirst(claimType);
+
+            return val == null ? null : val.Value;
+        }
+    }
+
     public static class SignInManager {
 
         private static JavaScriptSerializer json = new JavaScriptSerializer();
-        public static bool ReSignIn() {
 
+        public static bool ReSignIn() {
             var ticket = FormsAuthentication.Decrypt(HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName].Value);
             if (ticket == null) return false;
             if (ticket.Expired) return false;
             
             var userInfo = DeSerializeUserInfo(ticket.UserData);
             if (userInfo == null) return false;
-            
-            HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(
-              new System.Security.Principal.GenericIdentity(userInfo.Id, "FormsAuthentication"), userInfo.Roles.ToArray());
 
+            var identity = new GenericIdentity(userInfo.Id, "FormsAuthentication");
+            identity.AddClaim(new Claim(ClaimTypes.GivenName, userInfo.Name));
+            identity.AddClaim(new Claim(ClaimTypes.Email, userInfo.Email));
+            var principal = new GenericPrincipal(identity, userInfo.Roles.ToArray());
+            HttpContext.Current.User = principal;
             return true;
         }
 

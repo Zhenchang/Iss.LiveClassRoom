@@ -160,6 +160,7 @@
     <Compile Include="App_Start\UrlHelpers.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuizsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -217,6 +218,10 @@
     <Content Include="Views\Account\InstructorIndex.cshtml" />
     <Content Include="Views\Account\StudentIndex.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
