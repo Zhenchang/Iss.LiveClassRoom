@@ -8,28 +8,28 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Iss.LiveClassRoom.Core.Models;
+using Iss.LiveClassRoom.DataAccessLayer;
 using Iss.LiveClassRoom.Core.Services;
-using Iss.LiveClassRoom.FrontEnd.Models;
 using Iss.LiveClassRoom.FrontEnd.App_Start;
+using Iss.LiveClassRoom.FrontEnd.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Iss.LiveClassRoom.FrontEnd.Controllers
 {
-    public class CoursesController : BaseController
+    public class QuizsController : BaseController
     {
+        private IQuizService _service;
+        private ICourseService _courseService;
 
-        private ICourseService _service;
-        private IUserService _userService;
-
-        public CoursesController(ICourseService service, IUserService userService)
+        public QuizsController(IQuizService service, ICourseService courseService)
         {
             _service = service;
-            _userService = userService;
+            _courseService = courseService;
         }
 
         public ActionResult Index(int? status)
         {
-            new Course().CheckAuthorization(Permissions.List);
+            new Quiz().CheckAuthorization(Permissions.List);
             RenderStatusAlert(status);
             return View(_service.GetAll());
         }
@@ -48,9 +48,13 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             return View(entity.ToViewModel());
         }
 
-        public ActionResult Create()
+        public async Task<ActionResult> Create(string id)
         {
-            var model = new Course();
+            var course = await _courseService.GetById(id);
+            if (course == null || !course.Instructor.Id.Equals(GetLoggedInUserId())) throw new AuthorizationException();
+
+            var model = new Quiz();
+            model.Course = course;
             model.CheckAuthorization(Permissions.Create);
             PopulateDropDownLists();
             return View("Edit", model.ToViewModel());
@@ -58,27 +62,30 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CourseViewModel viewModel)
+        public async Task<ActionResult> Create(QuizViewModel viewModel)
         {
-            Instructor instructor = null;
-            try {
-                instructor = (await _userService.GetById(viewModel.InstructorId)) as Instructor;
-                if (instructor == null) throw new ValidationException("No instructor found!");
+            Course course = null;
+            try
+            {
+                course = await _courseService.GetById(viewModel.CourseId);
+                if (course == null) throw new ValidationException("No course found!");
             }
-            catch (ValidationException ex) {
-                ModelState.AddModelError("InstructorId", ex);
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError("CourseId", ex);
             }
             if (ModelState.IsValid)
             {
                 var domainModel = viewModel.ToDomainModel();
                 domainModel.CheckAuthorization(Permissions.Create);
-                domainModel.Name = viewModel.Name;
-                domainModel.Instructor = instructor;
+                domainModel.Question = viewModel.Question;
+                domainModel.Course = course;
                 await _service.Add(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Index", new { status = 0 });
             }
-            PopulateDropDownLists(viewModel.InstructorId);
+            PopulateDropDownLists(viewModel.CourseId);
             return View("Edit", viewModel);
+
         }
 
         public async Task<ActionResult> Edit(string id)
@@ -96,57 +103,67 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(CourseViewModel viewModel)
+        public async Task<ActionResult> Edit(QuizViewModel viewModel)
         {
 
-            Instructor instructor = null;
-            try {
-                instructor = (await _userService.GetById(viewModel.InstructorId)) as Instructor;
-                if (instructor == null) throw new ValidationException("No instructor found!");
+            Course course = null;
+            try
+            {
+                course = await _courseService.GetById(viewModel.CourseId);
+                if (course == null) throw new ValidationException("No course found!");
             }
-            catch (ValidationException ex) {
-                ModelState.AddModelError("InstructorId", ex);
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError("CourseId", ex);
             }
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
 
                 var domainModel = await _service.GetById(viewModel.Id);
 
                 domainModel.CheckAuthorization(Permissions.Edit);
 
-                domainModel.Name = viewModel.Name;
-                if (domainModel.Instructor.Id != viewModel.InstructorId) {
-                    domainModel.Instructor = instructor;
+                domainModel.Question = viewModel.Question;
+                if (domainModel.Course.Id != viewModel.CourseId)
+                {
+                    domainModel.Course = course;
                 }
                 await _service.Update(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
 
             }
-            PopulateDropDownLists(viewModel.InstructorId);
+            PopulateDropDownLists(viewModel.CourseId);
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<HttpStatusCodeResult> ConfirmDelete(string id) {
+        public async Task<HttpStatusCodeResult> ConfirmDelete(string id)
+        {
             var entity = await _service.GetById(id);
             if (entity == null) return HttpNotFound();
             entity.CheckAuthorization(Permissions.Delete);
-            try {
+            try
+            {
                 await _service.Remove(entity, GetLoggedInUserId());
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 LogException(ex);
             }
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
         }
 
-        protected void PopulateDropDownLists(string selectedId = null) {
-            if (string.IsNullOrEmpty(selectedId)) {
-                ViewBag.InstructorId = new SelectList(_userService.GetAll().OfType<Instructor>(), "Id", "Name");
+        protected void PopulateDropDownLists(string selectedId = null)
+        {
+            if (string.IsNullOrEmpty(selectedId))
+            {
+                ViewBag.CourseId = new SelectList(_courseService.GetAll().Where(m => m.Instructor.Id == GetLoggedInUserId()), "Id", "Name");
             }
-            else {
-                ViewBag.InstructorId = new SelectList(_userService.GetAll().OfType<Instructor>(), "Id", "Name", selectedId);
+            else
+            {
+                ViewBag.CourseId = new SelectList(_courseService.GetAll().Where(m => m.Instructor.Id == GetLoggedInUserId()), "Id", "Name", selectedId);
             }
         }
 

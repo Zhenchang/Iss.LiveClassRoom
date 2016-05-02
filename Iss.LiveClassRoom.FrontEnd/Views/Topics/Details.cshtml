@@ -1,4 +1,4 @@
-﻿@model Iss.LiveClassRoom.FrontEnd.Models.CourseViewModel
+﻿@model Iss.LiveClassRoom.FrontEnd.Models.TopicViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -21,7 +21,7 @@
                     <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
                     <li>@Html.ActionLink("Back to Menu", "Index")</li>
                     <li class="divider"></li>
-                    <li>@Html.ActionLink("Create Quiz", "Create", "Quizs" , new { id = Model.Id }, null)</li>
+                    <li>@Html.ActionLink("Create Topic", "Create", "Topics" , new { id = Model.Id }, null)</li>
                 </ul>
             </div>
         </div>
@@ -33,19 +33,11 @@
 <div class="detailbody">
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Content)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InstructorId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InstructorId)
+            @Html.DisplayFor(model => Model.Content)
         </dd>
     </dl>
 </div>

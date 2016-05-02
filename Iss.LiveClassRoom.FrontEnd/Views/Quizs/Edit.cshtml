@@ -1,0 +1,106 @@
+﻿@model Iss.LiveClassRoom.FrontEnd.Models.QuizViewModel
+
+@{
+    var action = ViewContext.RouteData.Values["action"];
+    if (action.Equals("Edit"))
+    {
+        ViewBag.Title = "Edit question";
+    }
+    else
+    {
+        ViewBag.Title = "Add a new question";
+    }
+}
+
+
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Quiz</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Question, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="block">
+            <button class="btn btn-primary" id="addOptionBtn">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+
+        <div id="options">
+            
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+    </div>
+}
+
+<div id="dummyOption" class="hidden">
+    <div class="form-group">
+        <label for="Options[{0}].Text" class="control-label col-md-2">Option {4}</label>
+        <div class="col-md-10">
+            <input type="text" name="Options[{1}].Text" class="form-control" />
+            <input type="hidden" name="Options[{2}].Id" value="{3}" />
+            <button class="btn btn-danger removeBtn">
+                <span class="glyphicon glyphicon-minus"></span>
+            </button>
+            <span class="text-danger hidden">Invalid Quiz Option</span>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(function () {
+            var addOptionFunction = function (index, id, text) {
+                var dummyOption = $("#dummyOption").html();
+                dummyOption = dummyOption.replace("{0}", index);
+                dummyOption = dummyOption.replace("{1}", index);
+                dummyOption = dummyOption.replace("{2}", index);
+                dummyOption = dummyOption.replace("{3}", id);
+                dummyOption = dummyOption.replace("{4}", index + 1);
+                $("#options").append(dummyOption);
+            }
+
+            $("#addOptionBtn").click(function () {
+                var count = $("#options > .form-group").length;
+                addOptionFunction(count, "", "0");
+            });
+
+            $(".removeBtn").click(function () {
+                var count = $("#options > .form-group").length;
+                addOptionFunction(count, "", "0");
+            });
+
+            @if (action.Equals("Edit"))
+            {
+                int i = 0;
+                foreach (var option in Model.Options)
+                {
+                    @:addOptionFunction(@(i), "@(option.Text)", "@(option.Id)");
+                }
+            }
+        });
+    </script>
+}

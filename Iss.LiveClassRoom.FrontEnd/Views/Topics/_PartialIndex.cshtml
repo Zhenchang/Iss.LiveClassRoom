@@ -2,7 +2,7 @@
 @using Iss.LiveClassRoom.Core.Models;
 @using Iss.LiveClassRoom.FrontEnd.Models;
 
-@model GirdNavViewModel<Course>
+@model GirdNavViewModel<Topic>
 
 @Html.Grid(Model.List.OrderBy(x => x.Name)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
 {

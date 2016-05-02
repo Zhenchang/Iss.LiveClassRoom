@@ -1,0 +1,82 @@
+﻿@model Iss.LiveClassRoom.Core.Models.Quiz
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Quiz</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeCreatedUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeCreatedUtc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeModifiedUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeModifiedUtc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeDeletedUtc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeDeletedUtc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedByUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedByUserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedByUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedByUserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeletedByUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeletedByUserId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,4 +1,5 @@
 ﻿using Iss.LiveClassRoom.Core.Models;
+using Iss.LiveClassRoom.FrontEnd.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,6 +19,12 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
         [Required]
         public string CourseId { get; set; }
 
+        public virtual ICollection<QuizOptionViewModel> Options { get; set; }
+
+        public QuizViewModel()
+        {
+            Options = new List<QuizOptionViewModel>();
+        }
     }
 
 
@@ -25,22 +32,32 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
     {
         public static Quiz ToDomainModel(this QuizViewModel model)
         {
-            return new Quiz()
+            var q = new Quiz()
             {
                 Id = model.Id,
                 Question = model.Question,
-                Course = new Course() { Id = model.Id}
+                Course = new Course() { Id = model.Id }
             };
+            foreach (var option in model.Options)
+            {
+                q.Options.Add(option.ToDomainModel());
+            }
+            return q;
         }
 
         public static QuizViewModel ToViewModel(this Quiz model)
         {
-            return new QuizViewModel()
+            var q = new QuizViewModel()
             {
                 Id = model.Id,
                 Question = model.Question,
-                CourseId = model.Course.Id
+                CourseId = model.Course?.Id
             };
+            foreach (var option in model.Options)
+            {
+                q.Options.Add(option.ToViewModel());
+            }
+            return q;
         }
     }
 }
