@@ -17,6 +17,9 @@ namespace Iss.LiveClassRoom.FrontEnd.Models {
         public string Content { get; set; }
 
         [Required]
+        public string Title { get; set; }
+
+        [Required]
         public string CourseId { get; set; }
     }
 
@@ -27,6 +30,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models {
             {
                 Id = model.Id,
                 Content = model.Content,
+                Title = model.Title,
                 Course = new Course() { Id = model.Id}
             };
         }
@@ -36,6 +40,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models {
             {
                 Id = model.Id,
                 Content = model.Id,
+                Title = model.Title,
                 CourseId = model.Course.Id
             };
         }
