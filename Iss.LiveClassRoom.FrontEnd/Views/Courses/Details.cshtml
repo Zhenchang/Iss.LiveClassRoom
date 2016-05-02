@@ -4,11 +4,27 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<nav class="toolbar top-buffer">
+    <div class="row">
+        <h2 class="col-sm-7 col-xs-12">@ViewBag.Title</h2>
+        <div class="col-sm-5 col-xs-12 toolbar-btn">
+            <div class="btn-group" style="line-height:0;">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span> Options <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu text-left" role="menu">
+                    <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
+                    <li>@Html.ActionLink("Back to Menu", "Index")</li>
+                    <li class="divider"></li>
+                </ul>
+            </div>
+        </div>
 
-<div>
-    <h4>Course</h4>
-    <hr />
+    </div>
+</nav>
+
+
+<div class="detailbody">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -17,9 +33,13 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstructorId)
+        </dt>
+
+        <dd>
+            @ViewBag.InstructorName
+        </dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

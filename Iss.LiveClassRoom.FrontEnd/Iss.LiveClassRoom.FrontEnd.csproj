@@ -210,6 +210,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Quiz\" />
+    <Folder Include="Views\Topics\" />
     <Folder Include="Views\Topic\" />
     <Folder Include="Views\Video\" />
   </ItemGroup>

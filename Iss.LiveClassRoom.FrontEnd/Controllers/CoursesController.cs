@@ -44,7 +44,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             entity.CheckAuthorization(Permissions.View);
 
             RenderStatusAlert(status);
-
+            ViewBag.InstructorName = entity.Instructor.Name;
             return View(entity.ToViewModel());
         }
 
