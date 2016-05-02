@@ -9,6 +9,8 @@ namespace Iss.LiveClassRoom.Core.Services
 {
     public interface IUserService : IService<User>
     {
-            
+        User ValidateUserInfo(string email, string password);
+        Task ChangePassword(string email, string oldPassword, string newPassword, string byUserId);
+        string HashPassword(string password);
     }
 }

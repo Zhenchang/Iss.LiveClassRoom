@@ -69,11 +69,13 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             if (type == "Instructor") {
                 model = new Instructor();
                 model.CheckAuthorization(Permissions.Create);
+                ViewBag.IsInstructor = true;
                 return View("Edit", (model as Instructor).ToViewModel());
             }
             else if (type == "Student") {
                 model = new Student();
                 model.CheckAuthorization(Permissions.Create);
+                ViewBag.IsInstructor = false;
                 return View("Edit", (model as Student).ToViewModel());
             }else {
                 return HttpNotFound();
@@ -82,36 +84,34 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(InstructorViewModel viewModel)
+        public async Task<ActionResult> Create(InstructorViewModel viewModel, string type)
         {
+            User domainModel = null;
+            if ("Instructor".Equals(type)) {
+                domainModel = new Instructor() { IsAdmin = viewModel.IsAdmin };
+                ViewBag.IsInstructor = true;
+            }
+            else if ("Student".Equals(type)) {
+                domainModel = new Student();
+                ViewBag.IsInstructor = false;
+            }
             if (ModelState.IsValid)
             {
-                var domainModel = viewModel.ToDomainModel();
+                domainModel.PasswordHash = _service.HashPassword("123456");
+                domainModel.Name = viewModel.Name;
+                domainModel.Email = viewModel.Email;
+                domainModel.PhoneNumber = viewModel.PhoneNumber;
+
                 domainModel.CheckAuthorization(Permissions.Create);
                 try {
                     await _service.Add(domainModel, GetLoggedInUserId());
-                }
-                catch(Exception ex) {
+                } catch(Exception ex) {
                     ex.Message.ToString();
                 }
-       
                 return RedirectToAction("Index", new { status = 0 });
             }
             return View("Edit", viewModel);
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create(StudentViewModel viewModel) {
-        //    if (ModelState.IsValid) {
-        //        var domainModel = viewModel.ToDomainModel();
-        //        domainModel.CheckAuthorization(Permissions.Create);
-        //        await _service.Add(domainModel, GetLoggedInUserId());
-        //        return RedirectToAction("Index", new { status = 0 });
-        //    }
-        //    return View("Edit", viewModel);
-        //}
-
 
         public async Task<ActionResult> Edit(string id)
         {
@@ -122,12 +122,12 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             entity.CheckAuthorization(Permissions.Edit);
 
             if (entity is Instructor) {
+                ViewBag.IsInstructor = true;
                 return View((entity as Instructor).ToViewModel());
-            }
-            else if (entity is Student) {
+            } else if (entity is Student) {
+                ViewBag.IsInstructor = false;
                 return View((entity as Student).ToViewModel());
-            }
-            else {
+            } else {
                 return HttpNotFound();
             }
         }
@@ -137,40 +137,17 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(InstructorViewModel viewModel)
         {
-
             if (ModelState.IsValid) {
-
                 var domainModel = await _service.GetById(viewModel.Id);
 
                 domainModel.CheckAuthorization(Permissions.Edit);
 
                 domainModel.Name = viewModel.Name;
                 domainModel.Email = viewModel.Email;
-                domainModel.PasswordHash = viewModel.PasswordHash;
                 domainModel.PhoneNumber = viewModel.PhoneNumber;
-
-                await _service.Update(domainModel, GetLoggedInUserId());
-                return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
-
-            }
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(StudentViewModel viewModel) {
-
-            if (ModelState.IsValid) {
-
-                var domainModel = await _service.GetById(viewModel.Id);
-
-                domainModel.CheckAuthorization(Permissions.Edit);
-
-                domainModel.Name = viewModel.Name;
-                domainModel.Email = viewModel.Email;
-                domainModel.PasswordHash = viewModel.PasswordHash;
-                domainModel.PhoneNumber = viewModel.PhoneNumber;
-
+                if (domainModel is Instructor) {
+                    (domainModel as Instructor).IsAdmin = viewModel.IsAdmin;
+                }
                 await _service.Update(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
 

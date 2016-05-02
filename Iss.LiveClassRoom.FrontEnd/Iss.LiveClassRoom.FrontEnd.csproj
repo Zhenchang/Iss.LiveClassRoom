@@ -68,6 +68,7 @@
       <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -155,7 +156,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SignInManager.cs" />
     <Compile Include="App_Start\UrlHelpers.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\QuizsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\CourseViewModel.cs" />
     <Compile Include="Models\InstructorViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\QuizOptionViewModel.cs" />
     <Compile Include="Models\QuizViewModel.cs" />
     <Compile Include="Models\ReplyViewModel.cs" />
@@ -209,6 +213,9 @@
     <Content Include="Views\Topics\Details.cshtml" />
     <Content Include="Views\Topics\Index.cshtml" />
     <Content Include="Views\Topics\Edit.cshtml" />
+    <Content Include="Views\Account\InstructorIndex.cshtml" />
+    <Content Include="Views\Account\StudentIndex.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
