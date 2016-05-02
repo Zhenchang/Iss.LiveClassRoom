@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Home Page"; 
+    var systemName = "Live Class Room"; 
+}
+
+<div class="jumbotron text-center">
+    <h1>@systemName</h1>
+    <p class="lead">NUS-ISS Live Class Room System</p>
+    @if (User.Identity.IsAuthenticated) {
+        <p><a href="@Url.Action("Index", "Account")" class="btn btn-default btn-lg">Control Panel</a></p>
+    }
+    else {
+        <p><a href="@Url.Action("Login", "Account")" class="btn btn-default btn-lg">System Login</a></p>
+    }
+
+</div>
+
+<div class="body-content feature-content">
+    <div class="row feature">
+        <div class="col-md-4">
+            <h2>Videos</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non tortor ipsum. Morbi velit urna, cursus feugiat scelerisque eget, placerat at justo. Sed in ante diam. In lectus tellus, iaculis eu convallis sit amet, molestie sed ex. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean suscipit justo at tortor gravida, in elementum odio vestibulum. Phasellus vitae consequat neque.
+            </p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Topics</h2>
+            <p>
+                Pellentesque in velit metus. Aliquam ornare metus ac odio interdum gravida non vel sapien. Vivamus posuere dignissim nibh, ac euismod massa lobortis sed. Fusce finibus nisl nisi, eu bibendum mi lobortis quis. Sed sed lacinia ex. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. 
+            </p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Quizes</h2>
+            <p>
+                Suspendisse ullamcorper diam leo, malesuada efficitur nulla finibus id. Donec laoreet dui urna, sed rhoncus nisi porttitor sed. Nunc arcu nibh, tincidunt eget ex eu, facilisis tristique mauris. Morbi id velit erat. Aenean at orci at leo tristique pulvinar. Vestibulum tincidunt felis erat, a interdum dui eleifend vel. Morbi rutrum felis in nisi porta fringilla. Nam et arcu nibh.
+            </p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,7 @@
 
 @Html.Grid(Model.List.OrderBy(x => x.Name)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
 {
-    columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "User", new { id = item.Id })).Name = "Href";
+    columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "Users", new { id = item.Id })).Name = "Href";
     columns.Add(m => m.Name).Titled("Name");
     columns.Add(m => m.Email).Titled("Email");
     columns.Add(m => m.PhoneNumber).Titled("Phone Number");
@@ -14,8 +14,8 @@
     columns.Add().RenderValueAs(m => Html.Partial("_PartialEditDeleteButtons",
         new DeleteEditButtonViewModel()
         {
-            EditUrl = Url.Action("Edit", "User", new { id = m.Id }),
-            DeleteMethod = Url.Action("ConfirmDelete", "User", new { id = m.Id }),
+            EditUrl = Url.Action("Edit", "Users", new { id = m.Id }),
+            DeleteMethod = Url.Action("ConfirmDelete", "Users", new { id = m.Id }),
             HasEdit = m.HasAccess(User, Permissions.Edit),
             HasDelete = m.HasAccess(User, Permissions.Delete),
             GridId = Model.GridName,

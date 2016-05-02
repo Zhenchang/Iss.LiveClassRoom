@@ -14,9 +14,9 @@ using System.Web.Mvc;
 
 namespace Iss.LiveClassRoom.FrontEnd.Controllers
 {
+    [Authorize]
     public class VideosController : BaseController
     {
-
         private IVideoService _service;
         private ICourseService _courseService;
         private IUserService _userService;

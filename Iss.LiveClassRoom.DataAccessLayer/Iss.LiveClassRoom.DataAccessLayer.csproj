@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201605021029194_addTitleToTopic.Designer.cs">
       <DependentUpon>201605021029194_addTitleToTopic.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605021218364_addIsAdmin.cs" />
+    <Compile Include="Migrations\201605021218364_addIsAdmin.Designer.cs">
+      <DependentUpon>201605021218364_addIsAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenericRepository.cs" />
@@ -115,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605021029194_addTitleToTopic.resx">
       <DependentUpon>201605021029194_addTitleToTopic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605021218364_addIsAdmin.resx">
+      <DependentUpon>201605021218364_addIsAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

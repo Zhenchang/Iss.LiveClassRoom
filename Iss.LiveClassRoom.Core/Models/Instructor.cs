@@ -9,6 +9,7 @@ namespace Iss.LiveClassRoom.Core.Models
     public class Instructor : User
     {
         public virtual ICollection<Course> Courses { get; set; }
+        public bool IsAdmin { get; set; }
 
         public Instructor() : base()
         {

@@ -21,10 +21,10 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
         public string Email { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }
+        public string PhoneNumber { get; set; }
 
         [Required]
-        public string PhoneNumber { get; set; }
+        public bool IsAdmin { get; set; }
 
 
     }
@@ -39,8 +39,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
                 Id = model.Id,
                 Name = model.Name,
                 Email = model.Email,
-                PasswordHash = model.PasswordHash,
-                PhoneNumber =  model.PhoneNumber
+                PhoneNumber =  model.PhoneNumber,
+                IsAdmin = model.IsAdmin
             };
         }
 
@@ -51,7 +51,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
                 Id = model.Id,
                 Name = model.Name,
                 Email = model.Email,
-                PasswordHash = model.PasswordHash,
+                IsAdmin = model.IsAdmin,
                 PhoneNumber = model.PhoneNumber
             };
         }
