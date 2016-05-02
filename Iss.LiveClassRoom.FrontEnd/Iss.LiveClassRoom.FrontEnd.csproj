@@ -210,6 +210,10 @@
     <Content Include="Views\Topics\Details.cshtml" />
     <Content Include="Views\Topics\Index.cshtml" />
     <Content Include="Views\Topics\Edit.cshtml" />
+    <Content Include="Views\Videos\_PartialIndex.cshtml" />
+    <Content Include="Views\Videos\Details.cshtml" />
+    <Content Include="Views\Videos\Edit.cshtml" />
+    <Content Include="Views\Videos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -219,8 +223,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Videos\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Video\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Iss.LiveClassRoom.Core\Iss.LiveClassRoom.Core.csproj">

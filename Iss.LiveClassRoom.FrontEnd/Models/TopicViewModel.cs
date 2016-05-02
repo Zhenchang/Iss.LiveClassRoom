@@ -39,7 +39,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models {
             return new TopicViewModel()
             {
                 Id = model.Id,
-                Content = model.Id,
+                Content = model.Content,
                 Title = model.Title,
                 CourseId = model.Course.Id
             };

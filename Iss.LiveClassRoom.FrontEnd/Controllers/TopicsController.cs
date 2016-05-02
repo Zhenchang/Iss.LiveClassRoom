@@ -73,9 +73,10 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             }
             if (ModelState.IsValid)
             {
-                var domainModel = viewModel.ToDomainModel();
+                var domainModel = new Topic();
                 domainModel.CheckAuthorization(Permissions.Create);
                 domainModel.Content = viewModel.Content;
+                domainModel.Title = viewModel.Title;
                 domainModel.Course = course;
                 await _service.Add(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Index", new { status = 0 });
@@ -110,10 +111,18 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 domainModel.CheckAuthorization(Permissions.Edit);
 
                 domainModel.Content = viewModel.Content;
-
-                await _service.Update(domainModel, GetLoggedInUserId());
+                domainModel.Title = viewModel.Title;
+                domainModel.Course.ToString();
+                try
+                {
+                    await _service.Update(domainModel, GetLoggedInUserId());
+                }
+                catch(Exception ex)
+                {
+                    ex.Message.ToString();
+                }
+              
                 return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
-
             }
             PopulateDropDownLists(viewModel.CourseId);
             return View(viewModel);
