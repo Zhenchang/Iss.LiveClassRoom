@@ -29,6 +29,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
         public bool IsInstructor { get; set; }
 
+        public ICollection<Course> Courses { get; set; }
+
 
     }
 
@@ -52,6 +54,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
                 Email = model.Email,
                 IsAdmin = model.IsAdmin,
                 PhoneNumber = model.PhoneNumber,
+                Courses = model.Courses,
                 IsInstructor = true
             };
         }
@@ -64,6 +67,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
                 Email = model.Email,
                 PhoneNumber = model.PhoneNumber,
                 IsInstructor = false,
+                Courses = model.Courses,
                 IsAdmin = false
             };
         }

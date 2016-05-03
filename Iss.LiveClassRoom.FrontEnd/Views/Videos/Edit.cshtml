@@ -31,13 +31,15 @@
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            <label for="videoFile" class="control-label col-md-2">Video File</label>
-            <div class="col-md-10">
-                <input type="file" name="videoFile" class="form-control" />
+        @if (!action.Equals("Edit")) {
+            <div class="form-group">
+                <label for="videoFile" class="control-label col-md-2">Video File</label>
+                <div class="col-md-10">
+                    <input type="file" name="videoFile" class="form-control" />
+                </div>
             </div>
-        </div>
+        }
+       
 
         @{
             Html.RenderPartial("_PartialCreateSaveButton", Model.Id);
