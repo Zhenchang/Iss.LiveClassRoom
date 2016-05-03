@@ -64,3 +64,44 @@ Iss.IndexGridFunction = function () {
 function go(id, controller) {
     window.location.href = window.location.protocol + "//" + window.location.host + "/" + controller + "/Details/" + id;
 }
+
+
+
+Iss.ChatFunction = function (feedId) {
+
+    var chatHub = $.connection.chatHub;
+
+
+    $.connection.hub.start().done(function () {
+        $("#commentForm button").click(function () {
+            if ($("textarea[name=commentTxt]").val() == '') return;
+            chatHub.server.send(feedId, $("textarea[name=commentTxt]").val());
+            $("textarea[name=commentTxt]").val('');
+            $("textarea[name=commentTxt]").text('');
+        });
+    });
+
+    // Create a function that the hub can call to broadcast messages.
+    chatHub.client.broadcastMessage = function (name, message, time) {
+        Iss.AddMessageToView(name, message, time);
+        Iss.RefreshView();
+    }
+
+
+}
+
+
+Iss.AddMessageToView = function (name, message, time) {
+    var comments = $("#comments");
+    var dummyMedia = $("#dummyMedia").html();
+    dummyMedia = dummyMedia.replace("{0}", name);
+    dummyMedia = dummyMedia.replace("{1}", message);
+    dummyMedia = dummyMedia.replace("{2}", time);
+    comments.append(dummyMedia);
+};
+
+Iss.RefreshView = function (name, message, time) {
+    var comments = $("#comments");
+    var commentDiv = comments.closest('div');
+    commentDiv.animate({ scrollTop: commentDiv.prop("scrollHeight") - commentDiv.height() }, 500);
+};

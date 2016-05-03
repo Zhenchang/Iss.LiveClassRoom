@@ -30,8 +30,8 @@
 </nav>
 
 
-<div class="detailbody">
-    <video width="320" height="240" controls>
+<div class="detailbody text-center">
+    <video controls style="width:100%; max-height:300px;">
         <source src="~/Content/Videos/@(ViewBag.FileName)" type="video/mp4">
         <source src="~/Content/Videos/@(ViewBag.FileName)" type="video/ogg">
         <source src="~/Content/Videos/@(ViewBag.FileName)" type="video/mpeg">
@@ -39,3 +39,23 @@
         <source src="~/Content/Videos/@(ViewBag.FileName)" type="video/webm">
     </video>
 </div>
+
+
+@{
+    Html.RenderPartial("~/Views/Topics/_PartialFeed.cshtml", Model.Feed);
+}
+
+@section Scripts{
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script src="~/Scripts/site.js"></script>
+    <script>
+        $(function () {
+            Iss.ChatFunction('@Model.Feed.Id');
+            @foreach (var item in Model.Feed.Comments.OrderBy(x => x.TimeCreatedUtc)) {
+                @:Iss.AddMessageToView('@item.User.Name', '@item.Text', '@item.TimeCreatedUtc')
+            }
+            Iss.RefreshView();
+        })
+    </script>
+}

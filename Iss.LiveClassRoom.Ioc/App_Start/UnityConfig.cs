@@ -77,13 +77,9 @@ namespace Iss.LiveClassRoom.Ioc.App_Start
             container.RegisterType<IVideoService, VideoService>();
             container.RegisterType<ITopicService, TopicService>();
             container.RegisterType<IQuizService, QuizService>();
+            container.RegisterType<IFeedService, FeedService>();
             container.RegisterType<QuizHub, QuizHub>(new ContainerControlledLifetimeManager());
-        }
-
-        private static object CreateMyHub(IUnityContainer p) {
-            var myHub = new QuizHub(p.Resolve<IQuizService>());
-
-            return myHub;
+            container.RegisterType<ChatHub, ChatHub>(new ContainerControlledLifetimeManager());
         }
     }
 }

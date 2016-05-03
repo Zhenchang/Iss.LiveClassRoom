@@ -17,6 +17,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
         [Required]
         public string CourseId { get; set; }
+
+        public Feed Feed { get; set; }
     }
     public static class VideoExtension
     {
@@ -36,6 +38,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Title = model.Title,
+                Feed = model,
                 CourseId = model.Course.Id,
             };
         }

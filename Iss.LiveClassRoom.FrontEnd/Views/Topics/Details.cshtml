@@ -41,3 +41,22 @@
         </dd>
     </dl>
 </div>
+
+@{ 
+    Html.RenderPartial("~/Views/Topics/_PartialFeed.cshtml", Model.Feed);
+}
+
+@section Scripts{
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script src="~/Scripts/site.js"></script>
+    <script>
+        $(function () {
+            Iss.ChatFunction('@Model.Feed.Id');
+            @foreach (var item in Model.Feed.Comments.OrderBy(x => x.TimeCreatedUtc)) {
+                @:Iss.AddMessageToView('@item.User.Name', '@item.Text', '@item.TimeCreatedUtc')
+            }
+            Iss.RefreshView();
+        })
+    </script>
+}

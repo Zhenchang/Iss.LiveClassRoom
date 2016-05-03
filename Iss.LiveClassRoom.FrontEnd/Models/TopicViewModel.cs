@@ -21,6 +21,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models {
 
         [Required]
         public string CourseId { get; set; }
+
+        public Feed Feed { get; set; }
     }
 
 
@@ -41,6 +43,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models {
                 Id = model.Id,
                 Content = model.Content,
                 Title = model.Title,
+                Feed = model,
                 CourseId = model.Course.Id
             };
         }

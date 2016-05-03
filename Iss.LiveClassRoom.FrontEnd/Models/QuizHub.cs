@@ -4,6 +4,7 @@ using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models {
@@ -15,7 +16,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Models {
         }
 
         public void Send(string name, string message) {
-            if (Context.User.Identity.Name != name) return;
             // Call the broadcastMessage method to update clients.
             Clients.All.broadcastMessage(Context.User.Identity.GetGivenName(), message);
         }
@@ -24,17 +24,25 @@ namespace Iss.LiveClassRoom.FrontEnd.Models {
     public class ChatHub : Hub {
         private ICommentService _service;
         private IUserService _userService;
+        private IFeedService _feedService;
 
-        public ChatHub(ICommentService service, IUserService userService) {
+        public ChatHub(ICommentService service, IUserService userService, IFeedService feedService) {
             _service = service;
             _userService = userService;
+            _feedService = feedService;
         }
 
-        public void Send(string name, string message) {
-            if (Context.User.Identity.Name != name) return;
-
+        public async Task Send(string name, string message) {
+            var feed = await _feedService.GetById(name);
+            var user = await _userService.GetById(Context.User.Identity.Name);
+            await _service.Add(new Core.Models.Comment()
+            {
+                Feed = feed,
+                Text = message,
+                User = user
+            }, Context.User.Identity.Name);
             // Call the broadcastMessage method to update clients.
-            Clients.All.broadcastMessage(Context.User.Identity.GetGivenName(), message);
+            Clients.All.broadcastMessage(Context.User.Identity.GetGivenName(), message, DateTime.UtcNow.ToString());
         }
     }
 
