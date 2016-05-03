@@ -6,9 +6,32 @@ using Iss.LiveClassRoom.Core.Services;
 using Iss.LiveClassRoom.DataAccessLayer;
 using Iss.LiveClassRoom.Core.Repositories;
 using Iss.LiveClassRoom.ServiceLayer;
+using Microsoft.AspNet.SignalR;
+using System.Collections.Generic;
+using Iss.LiveClassRoom.FrontEnd.Models;
 
 namespace Iss.LiveClassRoom.Ioc.App_Start
 {
+
+    public class SignalRUnityDependencyResolver : DefaultDependencyResolver {
+        private IUnityContainer _container;
+
+        public SignalRUnityDependencyResolver(IUnityContainer container) {
+            _container = container;
+        }
+
+        public override object GetService(Type serviceType) {
+            if (_container.IsRegistered(serviceType)) return _container.Resolve(serviceType);
+            else return base.GetService(serviceType);
+        }
+
+        public override IEnumerable<object> GetServices(Type serviceType) {
+            if (_container.IsRegistered(serviceType)) return _container.ResolveAll(serviceType);
+            else return base.GetServices(serviceType);
+        }
+
+    }
+
     /// <summary>
     /// Specifies the Unity configuration for the main container.
     /// </summary>
@@ -54,6 +77,13 @@ namespace Iss.LiveClassRoom.Ioc.App_Start
             container.RegisterType<IVideoService, VideoService>();
             container.RegisterType<ITopicService, TopicService>();
             container.RegisterType<IQuizService, QuizService>();
+            container.RegisterType<QuizHub, QuizHub>(new ContainerControlledLifetimeManager());
+        }
+
+        private static object CreateMyHub(IUnityContainer p) {
+            var myHub = new QuizHub(p.Resolve<IQuizService>());
+
+            return myHub;
         }
     }
 }

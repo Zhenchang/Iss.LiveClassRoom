@@ -48,11 +48,23 @@
 
 
 @section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
-            $("#submitAnswer").click(function () {
-                $("#answerForm").submit();
+
+            var quiz = $.connection.quizHub;
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $("#submitAnswer").click(function () {
+                    quiz.server.send('@User.Identity.Name', $("input[name=answer]:checked").val());
+                    $("#answerForm").submit();
+                });
             });
+
+
         });
+
+
     </script>
 }

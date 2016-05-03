@@ -15,6 +15,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
         public string Text { get; set; }
 
         public string QuizId { get; set; }
+
+        public int AnswersCount { get; set; }
     }
 
 
@@ -37,7 +39,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Text = model.Text,
-                QuizId = model.Id
+                QuizId = model.Id,
+                AnswersCount = model.StudentAnswers.Count
             };
         }
     }

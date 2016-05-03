@@ -68,14 +68,29 @@
             </dt>
 
             <dd id="@option.Id">
-                0
+                @option.AnswersCount
             </dd>
         }
     </dl>
 </div>
 
 @section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
     <script type="text/javascript">
-        
+            $(function () {
+
+                var quiz = $.connection.quizHub;
+                $.connection.hub.start().done(function () {
+                });
+
+                // Create a function that the hub can call to broadcast messages.
+                quiz.client.broadcastMessage = function (name, message) {
+                    var option = $("#" + message);
+                    option.text(parseInt(option.text()) + 1);
+                };
+
+
+            });
     </script>
 }
