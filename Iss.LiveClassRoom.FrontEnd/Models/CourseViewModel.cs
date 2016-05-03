@@ -19,6 +19,11 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
         [Required]
         public string InstructorId { get; set; }
+
+        public IQueryable<Student> Students { get; set; }
+        public IQueryable<Topic> Topics { get; set; }
+        public IQueryable<Quiz> Quizzes { get; set; }
+        public IQueryable<Video> Videos { get; set; }
     }
 
 
@@ -40,7 +45,11 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Name = model.Name,
-                InstructorId = model.Instructor?.Id
+                InstructorId = model.Instructor?.Id,
+                Videos = model.Videos.AsQueryable(),
+                Quizzes = model.Quizes.AsQueryable(),
+                Students = model.Students.AsQueryable(),
+                Topics = model.Topics.AsQueryable()
             };
         }
     }

@@ -1,4 +1,8 @@
-﻿@model Iss.LiveClassRoom.FrontEnd.Models.CourseViewModel
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+@using Iss.LiveClassRoom.Core.Models;
+
+@model Iss.LiveClassRoom.FrontEnd.Models.CourseViewModel
+
 
 @{
     ViewBag.Title = "Details";
@@ -44,3 +48,94 @@
         </dd>
     </dl>
 </div>
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="top-buffer">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs tab-details" role="tablist">
+                <li role="presentation"><a href="#students" aria-controls="students" role="tab" data-toggle="tab">Students</a></li>
+                <li role="presentation"><a href="#quizzes" aria-controls="quizzes" role="tab" data-toggle="tab">Quizzes</a></li>
+                <li role="presentation"><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab">Topics</a></li>
+                <li role="presentation"><a href="#videos" aria-controls="videos" role="tab" data-toggle="tab">Videos</a></li>
+            </ul>
+
+            <div role="tabpanel">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="students">
+                        @{
+                            var studentsNav = new GirdNavViewModel<User>
+                            {
+                                CreateUrl = null,
+                                Title = "Students in this course",
+                                IsPartial = true,
+                                GridName = "Grid" + nameof(Student),
+                                List = Model.Students.AsQueryable()
+                            };
+                            Html.RenderPartial("~/Views/Shared/_PartialGridNav.cshtml", studentsNav);
+                            Html.RenderPartial("~/Views/Users/_PartialIndex.cshtml", studentsNav);
+                        }
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="quizzes">
+                        @{
+                            var quizzesNav = new GirdNavViewModel<Quiz>
+                            {
+                                CreateUrl = Url.Action("Create", "Quizs", new { id = Model.Id }),
+                                Title = "Quizs",
+                                IsPartial = true,
+                                GridName = "Grid" + nameof(Quiz),
+                                List = Model.Quizzes.AsQueryable()
+                            };
+                            Html.RenderPartial("~/Views/Shared/_PartialGridNav.cshtml", quizzesNav);
+                            Html.RenderPartial("~/Views/Quizs/_PartialIndex.cshtml", quizzesNav);
+                        }
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="topics">
+                        @{
+                            var topicsNav = new GirdNavViewModel<Topic>
+                            {
+                                CreateUrl = Url.Action("Create", "Topics", new { id = Model.Id }),
+                                Title = "Topics",
+                                IsPartial = true,
+                                GridName = "Grid" + nameof(Topic),
+                                List = Model.Topics.AsQueryable()
+                            };
+                            Html.RenderPartial("~/Views/Shared/_PartialGridNav.cshtml", topicsNav);
+                            Html.RenderPartial("~/Views/Topics/_PartialIndex.cshtml", topicsNav);
+                        }
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="videos">
+                        @{
+                            var videosNav = new GirdNavViewModel<Video>
+                            {
+                                CreateUrl = Url.Action("Create", "Videos", new { id = Model.Id }),
+                                Title = "Videos",
+                                IsPartial = true,
+                                GridName = "Grid" + nameof(Video),
+                                List = Model.Videos.AsQueryable()
+                            };
+                            Html.RenderPartial("~/Views/Shared/_PartialGridNav.cshtml", videosNav);
+                            Html.RenderPartial("~/Views/Videos/_PartialIndex.cshtml", videosNav);
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section BodyFoot {
+    @{
+        Html.RenderPartial("_PartialModals", studentsNav);
+        Html.RenderPartial("_PartialModals", quizzesNav);
+        Html.RenderPartial("_PartialModals", topicsNav);
+        Html.RenderPartial("_PartialModals", videosNav);
+    }
+}
+@section Scripts {
+    @{Html.RenderPartial("~/Views/Shared/_PartialGridScript.cshtml", null);}
+}

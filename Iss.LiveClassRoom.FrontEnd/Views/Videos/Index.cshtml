@@ -12,7 +12,7 @@
 @{
     var gridNav = new GirdNavViewModel<Video>
     {
-        CreateUrl = Url.Action("Create"),
+        CreateUrl = null,
         Title = ViewBag.Title,
         IsPartial = false,
         GridName = nameof(Video) + "Grid",
