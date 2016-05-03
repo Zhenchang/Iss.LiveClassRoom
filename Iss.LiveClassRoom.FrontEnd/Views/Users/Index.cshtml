@@ -8,7 +8,7 @@
 @{
         var gridNav = new GirdNavViewModel<User>
         {
-            CreateUrl = Url.Action("Create", new { type = "Instructor" }),
+            CreateUrl = Url.Action("Create", new { type = Request.QueryString.Get("type")?.ToString() }),
             Title = ViewBag.Title,
             IsPartial = false,
             GridName = nameof(User) + "Grid",

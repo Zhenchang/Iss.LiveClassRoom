@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201605021218364_addIsAdmin.Designer.cs">
       <DependentUpon>201605021218364_addIsAdmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605030115087_addDatesToQuiz.cs" />
+    <Compile Include="Migrations\201605030115087_addDatesToQuiz.Designer.cs">
+      <DependentUpon>201605030115087_addDatesToQuiz.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenericRepository.cs" />
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605021218364_addIsAdmin.resx">
       <DependentUpon>201605021218364_addIsAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605030115087_addDatesToQuiz.resx">
+      <DependentUpon>201605030115087_addDatesToQuiz.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

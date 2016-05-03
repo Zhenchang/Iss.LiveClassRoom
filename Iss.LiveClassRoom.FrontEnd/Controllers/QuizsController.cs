@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Iss.LiveClassRoom.Core.Models;
-using Iss.LiveClassRoom.DataAccessLayer;
 using Iss.LiveClassRoom.Core.Services;
 using Iss.LiveClassRoom.FrontEnd.App_Start;
 using Iss.LiveClassRoom.FrontEnd.Models;
@@ -21,11 +20,13 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
     {
         private IQuizService _service;
         private ICourseService _courseService;
+        private IUserService _userService;
 
-        public QuizsController(IQuizService service, ICourseService courseService)
+        public QuizsController(IQuizService service, ICourseService courseService, IUserService userService)
         {
             _service = service;
             _courseService = courseService;
+            _userService = userService;
         }
 
         public ActionResult Index(int? status)
@@ -35,7 +36,40 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             return View(_service.GetAll());
         }
 
-        public async Task<ActionResult> Details(string id, int? status)
+        [HttpPost]
+        public async Task<ActionResult> Answer(string id, string answer) {
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var entity = await _service.GetById(id);
+            if (entity == null) return HttpNotFound();
+
+            var student = await _userService.GetById(GetLoggedInUserId());
+            if (student is Student) {
+                
+                var option = entity.Options.SingleOrDefault(x => x.Id == answer);
+                if (option != null) {
+                    option.StudentAnswers.Add(new StudentAnswer()
+                    {
+                        Time = DateTime.UtcNow,
+                        Student = student as Student,
+                        QuizOption = option
+                    });
+                    try {
+                        entity.Course.ToString();
+                        option.Quiz.ToString();
+                        await _service.Update(entity, GetLoggedInUserId());
+                    }
+                    catch(Exception ex) {
+                        ex.Message.ToString();
+                    }
+              
+                    return RedirectToAction("Index", "Account");
+                }
+            }
+            return RedirectToAction("Details", new { id = entity.Id, type = "Answer", status = 4 });
+        }
+
+        public async Task<ActionResult> Details(string id, string type, int? status)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
@@ -45,8 +79,13 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             entity.CheckAuthorization(Permissions.View);
 
             RenderStatusAlert(status);
-
-            return View(entity.ToViewModel());
+            ViewBag.CourseName = entity.Course.Name;
+            if (type.Equals("Answer")) {
+                return View("Answer", entity.ToViewModel());
+            }
+            else {
+                return View(entity.ToViewModel());
+            }
         }
 
         public async Task<ActionResult> Create(string id)
@@ -57,7 +96,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             var model = new Quiz();
             model.Course = course;
             model.CheckAuthorization(Permissions.Create);
-            PopulateDropDownLists();
 
             var viewModel = model.ToViewModel();
             return View("Edit", viewModel);
@@ -83,6 +121,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 var domainModel = new Quiz();
                 domainModel.CheckAuthorization(Permissions.Create);
                 domainModel.Question = viewModel.Question;
+                domainModel.StartDate = viewModel.StartDate;
+                domainModel.EndDate = viewModel.EndDate;
                 domainModel.Course = course;
                 foreach(var options in viewModel.Options) {
                     domainModel.Options.Add(new QuizOption()
@@ -94,7 +134,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 await _service.Add(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Index", new { status = 0 });
             }
-            PopulateDropDownLists(viewModel.CourseId);
             return View("Edit", viewModel);
 
         }
@@ -107,7 +146,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
             entity.CheckAuthorization(Permissions.Edit);
 
-            PopulateDropDownLists();
             return View(entity.ToViewModel());
         }
 
@@ -136,15 +174,13 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 domainModel.CheckAuthorization(Permissions.Edit);
 
                 domainModel.Question = viewModel.Question;
-                if (domainModel.Course.Id != viewModel.CourseId)
-                {
-                    domainModel.Course = course;
-                }
+                domainModel.StartDate = viewModel.StartDate;
+                domainModel.EndDate = viewModel.EndDate;
+                domainModel.Course.ToString();
+
                 await _service.Update(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
-
             }
-            PopulateDropDownLists(viewModel.CourseId);
             return View(viewModel);
         }
 
@@ -164,18 +200,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 LogException(ex);
             }
             return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
-        }
-
-        protected void PopulateDropDownLists(string selectedId = null)
-        {
-            if (string.IsNullOrEmpty(selectedId))
-            {
-                ViewBag.CourseId = new SelectList(_courseService.GetAll().Where(m => m.Instructor.Id == GetLoggedInUserId()), "Id", "Name");
-            }
-            else
-            {
-                ViewBag.CourseId = new SelectList(_courseService.GetAll().Where(m => m.Instructor.Id == GetLoggedInUserId()), "Id", "Name", selectedId);
-            }
         }
 
         protected override void Dispose(bool disposing)

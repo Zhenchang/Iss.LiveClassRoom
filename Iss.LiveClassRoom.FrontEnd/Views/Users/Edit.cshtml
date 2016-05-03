@@ -1,8 +1,7 @@
-﻿@model Iss.LiveClassRoom.FrontEnd.Models.InstructorViewModel
+﻿@model Iss.LiveClassRoom.FrontEnd.Models.UserViewModel
 
 @{
     var action = ViewContext.RouteData.Values["action"].ToString();
-    bool isInstructor = ViewBag.IsInstructor;
     if (action.Equals("Edit")){
         ViewBag.Title = "Edit: " + Model.Name;
     }
@@ -23,6 +22,7 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IsInstructor)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -46,7 +46,7 @@
                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>
-        @if (isInstructor) {
+        @if (Model.IsInstructor) {
             <div class="form-group">
                 <div class="col-md-10 col-md-offset-2">
                     <div class="checkbox">

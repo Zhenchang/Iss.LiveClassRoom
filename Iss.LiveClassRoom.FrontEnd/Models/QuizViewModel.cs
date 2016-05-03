@@ -13,10 +13,23 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
         [Required]
         public string Id { get; set; }
+
         [Required]
         public string Question { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "0:{dd-MM-yyyy}")]
+        [Display(Name = "Start Date")]
+        public DateTime StartDate { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "0:{dd-MM-yyyy}")]
+        [Display(Name = "End Date")]
+        public DateTime EndDate { get; set; }
+        
+        [Display(Name = "Course")]
         public string CourseId { get; set; }
 
         public virtual ICollection<QuizOptionViewModel> Options { get; set; }
@@ -36,6 +49,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Question = model.Question,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
                 Course = new Course() { Id = model.Id }
             };
             foreach (var option in model.Options)
@@ -51,6 +66,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Question = model.Question,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
                 CourseId = model.Course.Id
             };
             foreach (var option in model.Options)

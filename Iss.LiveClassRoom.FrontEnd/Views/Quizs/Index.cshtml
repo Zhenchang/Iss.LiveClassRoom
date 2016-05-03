@@ -1,0 +1,32 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+@using Iss.LiveClassRoom.Core.Models;
+
+@model IEnumerable<Iss.LiveClassRoom.Core.Models.Quiz>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
+
+@{
+    var gridNav = new GirdNavViewModel<Quiz>
+    {
+        CreateUrl = null,
+        Title = ViewBag.Title,
+        IsPartial = false,
+        GridName = nameof(Quiz) + "Grid",
+        List = Model.AsQueryable()
+    };
+    Html.RenderPartial("_PartialGridNav", gridNav);
+}
+
+@{Html.RenderPartial("~/Views/Quizs/_PartialIndex.cshtml", gridNav);}
+
+@section BodyFoot {
+    @{Html.RenderPartial("_PartialModals", gridNav);}
+}
+
+@section Scripts {
+    @{Html.RenderPartial("~/Views/Shared/_PartialGridScript.cshtml", null);}
+}

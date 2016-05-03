@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models
 {
-    public class InstructorViewModel
+    public class UserViewModel
     {
          
         [Required]
@@ -24,7 +24,10 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
         public string PhoneNumber { get; set; }
 
         [Required]
+        [Display(Name = "Is Admin?")]
         public bool IsAdmin { get; set; }
+
+        public bool IsInstructor { get; set; }
 
 
     }
@@ -32,29 +35,37 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
     public static class InstructorExtension
     {
-        public static Instructor ToDomainModel(this InstructorViewModel model)
-        {
-            return new Instructor()
-            {
-                Id = model.Id,
-                Name = model.Name,
-                Email = model.Email,
-                PhoneNumber =  model.PhoneNumber,
-                IsAdmin = model.IsAdmin
-            };
+
+        public static UserViewModel ToViewModel(this User model) {
+            if (model is Instructor) return (model as Instructor).ToViewModel();
+            if (model is Student) return (model as Student).ToViewModel();
+            return null;
         }
 
-        public static InstructorViewModel ToViewModel(this Instructor model)
+
+        public static UserViewModel ToViewModel(this Instructor model)
         {
-            return new InstructorViewModel()
+            return new UserViewModel()
             {
                 Id = model.Id,
                 Name = model.Name,
                 Email = model.Email,
                 IsAdmin = model.IsAdmin,
-                PhoneNumber = model.PhoneNumber
+                PhoneNumber = model.PhoneNumber,
+                IsInstructor = true
             };
         }
 
+        public static UserViewModel ToViewModel(this Student model) {
+            return new UserViewModel()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                IsInstructor = false,
+                IsAdmin = false
+            };
+        }
     }
 }

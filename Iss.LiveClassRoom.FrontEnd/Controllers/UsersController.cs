@@ -66,35 +66,25 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
         public ActionResult Create(string type)
         {
-            User model = null;           
-            if (type == "Instructor") {
-                model = new Instructor();
-                model.CheckAuthorization(Permissions.Create);
-                ViewBag.IsInstructor = true;
-                return View("Edit", (model as Instructor).ToViewModel());
-            }
-            else if (type == "Student") {
-                model = new Student();
-                model.CheckAuthorization(Permissions.Create);
-                ViewBag.IsInstructor = false;
-                return View("Edit", (model as Student).ToViewModel());
-            }else {
-                return HttpNotFound();
-            }
+            User model = null;
+
+            if (type == "Instructor") model = new Instructor();
+            else if (type == "Student") model = new Student();
+            else return HttpNotFound();
+
+            model.CheckAuthorization(Permissions.Create);
+            return View("Edit", model.ToViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(InstructorViewModel viewModel, string type)
+        public async Task<ActionResult> Create(UserViewModel viewModel)
         {
             User domainModel = null;
-            if ("Instructor".Equals(type)) {
+            if (viewModel.IsInstructor) {
                 domainModel = new Instructor() { IsAdmin = viewModel.IsAdmin };
-                ViewBag.IsInstructor = true;
-            }
-            else if ("Student".Equals(type)) {
+            } else {
                 domainModel = new Student();
-                ViewBag.IsInstructor = false;
             }
             if (ModelState.IsValid)
             {
@@ -122,21 +112,13 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
             entity.CheckAuthorization(Permissions.Edit);
 
-            if (entity is Instructor) {
-                ViewBag.IsInstructor = true;
-                return View((entity as Instructor).ToViewModel());
-            } else if (entity is Student) {
-                ViewBag.IsInstructor = false;
-                return View((entity as Student).ToViewModel());
-            } else {
-                return HttpNotFound();
-            }
+            return View(entity.ToViewModel());
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(InstructorViewModel viewModel)
+        public async Task<ActionResult> Edit(UserViewModel viewModel)
         {
             if (ModelState.IsValid) {
                 var domainModel = await _service.GetById(viewModel.Id);
