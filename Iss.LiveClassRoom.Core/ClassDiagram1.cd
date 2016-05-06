@@ -1,45 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Iss.LiveClassRoom.Core.Models.Comment">
-    <Position X="5.5" Y="1" Width="1.5" />
+    <Position X="5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAIAAA=</HashCode>
+      <HashCode>AAABAgAAAAAAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Models\Comment.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="User" />
+      <Property Name="Feed" />
     </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="Replies" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Iss.LiveClassRoom.Core.Models.Course">
     <Position X="1.25" Y="7" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAAAAAAAAAAAAAQCAAAAAAAAAAQAACAAAAg=</HashCode>
+      <HashCode>AAIAAAAAAAAAAAAEAAAAAAQCAAAAAAAAABQBACAAAAg=</HashCode>
       <FileName>Models\Course.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Instructor" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Students" />
-      <Property Name="Topics" />
-      <Property Name="Videos" />
       <Property Name="Quizes" />
+      <Property Name="Videos" />
+      <Property Name="Topics" />
+      <Property Name="Students" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Iss.LiveClassRoom.Core.Models.Feed">
-    <Position X="7.75" Y="3.75" Width="1.5" />
-    <AssociationLine Name="Comments" Type="Iss.LiveClassRoom.Core.Models.Comment" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="8.094" Y="3.75" />
-        <Point X="8.094" Y="2.25" />
-        <Point X="7" Y="2.25" />
-      </Path>
-    </AssociationLine>
+    <Position X="7.75" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAIAA=</HashCode>
       <FileName>Models\Feed.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -49,7 +40,7 @@
   <Class Name="Iss.LiveClassRoom.Core.Models.Instructor">
     <Position X="1.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAACAAAAAAAAAABABAAAAA=</HashCode>
       <FileName>Models\Instructor.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -57,15 +48,9 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Iss.LiveClassRoom.Core.Models.Quiz">
-    <Position X="2.25" Y="10" Width="1.5" />
-    <AssociationLine Name="Course" Type="Iss.LiveClassRoom.Core.Models.Course" FixedFromPoint="true">
-      <Path>
-        <Point X="2.625" Y="10" />
-        <Point X="2.625" Y="8.684" />
-      </Path>
-    </AssociationLine>
+    <Position X="2.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAEAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAIAAAAAgAAAAAAAEAAABAEBAAAA=</HashCode>
       <FileName>Models\Quiz.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -76,9 +61,9 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Iss.LiveClassRoom.Core.Models.QuizOption">
-    <Position X="6.5" Y="10" Width="1.5" />
+    <Position X="6.5" Y="10.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAACAQAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAABCAQAAAA=</HashCode>
       <FileName>Models\QuizOption.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -88,48 +73,32 @@
       <Property Name="StudentAnswers" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Iss.LiveClassRoom.Core.Models.Reply">
-    <Position X="5.5" Y="3.75" Width="1.5" />
-    <InheritanceLine Type="Iss.LiveClassRoom.Core.Models.Comment" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="5.875" Y="2.877" />
-        <Point X="5.875" Y="3.75" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Reply.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Comment" />
-    </ShowAsAssociation>
-  </Class>
   <Class Name="Iss.LiveClassRoom.Core.Models.Student">
-    <Position X="3.25" Y="4.75" Width="1.5" />
+    <Position X="3.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAABAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAQAABABAIAAA=</HashCode>
       <FileName>Models\Student.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Courses" />
       <Property Name="Answers" />
+      <Property Name="Courses" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Iss.LiveClassRoom.Core.Models.StudentAnswer">
-    <Position X="9.5" Y="5.25" Width="1.5" />
+    <Position X="9.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAQA=</HashCode>
+      <HashCode>AAAAAAAAQAAAAAAEAAAAAAAAAAAAAABAAAABAAAAAQA=</HashCode>
       <FileName>Models\StudentAnswer.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="QuizOption" />
       <Property Name="Student" />
+      <Property Name="QuizOption" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Iss.LiveClassRoom.Core.Models.Topic">
-    <Position X="6.5" Y="6.75" Width="1.5" />
+    <Position X="6.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAEAEAIAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
       <FileName>Models\Topic.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -137,16 +106,16 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Iss.LiveClassRoom.Core.Models.User">
-    <Position X="2.25" Y="1" Width="1.5" />
+    <Position X="2.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAAAAACAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AACAAAAAACAAAAAEAAAAQAQAAAAAAAAAAAABAAAAAAA=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Iss.LiveClassRoom.Core.Models.Video">
-    <Position X="6.5" Y="8" Width="1.5" />
+    <Position X="6.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAEAAAIAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAEAEAIAAAAAAAAAAAAAAAAABAABAAAA=</HashCode>
       <FileName>Models\Video.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
