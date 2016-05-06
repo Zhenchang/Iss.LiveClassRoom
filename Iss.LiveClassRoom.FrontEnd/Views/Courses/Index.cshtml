@@ -11,7 +11,7 @@
 @{
     var gridNav = new GirdNavViewModel<Course>
     {
-        CreateUrl = Url.Action("Create"),
+        CreateUrl = new Course().HasAccess(User, Permissions.Create) ? Url.Action("Create") : null,
         Title = ViewBag.Title,
         IsPartial = false,
         GridName = nameof(Course) + "Grid",

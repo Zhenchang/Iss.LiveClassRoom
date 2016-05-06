@@ -25,13 +25,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             _courseService = courseService;
         }
 
-        public ActionResult Index(int? status)
-        {
-            new Topic().CheckAuthorization(Permissions.List);
-            RenderStatusAlert(status);
-            return View(_service.GetAll());
-        }
-
         public async Task<ActionResult> Details(string id, int? status)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -75,10 +68,10 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             if (ModelState.IsValid)
             {
                 var domainModel = new Topic();
+                domainModel.Course = course;
                 domainModel.CheckAuthorization(Permissions.Create);
                 domainModel.Content = viewModel.Content;
                 domainModel.Title = viewModel.Title;
-                domainModel.Course = course;
                 await _service.Add(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Index", new { status = 0 });
             }

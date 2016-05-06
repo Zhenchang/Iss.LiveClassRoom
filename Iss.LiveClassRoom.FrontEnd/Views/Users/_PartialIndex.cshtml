@@ -14,10 +14,10 @@
     columns.Add().RenderValueAs(m => Html.Partial("_PartialEditDeleteButtons",
         new DeleteEditButtonViewModel()
         {
-            EditUrl = Url.Action("Edit", "Users", new { id = m.Id }),
-            DeleteMethod = Url.Action("ConfirmDelete", "Users", new { id = m.Id }),
-            HasEdit = m.HasAccess(User, Permissions.Edit),
-            HasDelete = m.HasAccess(User, Permissions.Delete),
+            EditUrl = Model.IsPartial ? null : Url.Action("Edit", "Users", new { id = m.Id }),
+            DeleteMethod = Model.IsPartial ? Url.Action("DeassignStudent", "Courses", new { id = ViewContext.RouteData.Values["id"].ToString(), studentId = m.Id }) : Url.Action("ConfirmDelete", "Users", new { id = m.Id }),
+            HasEdit = Model.IsPartial ? false : m.HasAccess(User, Permissions.Edit),
+            HasDelete = Model.IsPartial ? true : m.HasAccess(User, Permissions.Delete),
             GridId = Model.GridName,
             Name = m.ToString()
         }).ToHtmlString()).Sanitized(false).Encoded(false).Css("shrink");

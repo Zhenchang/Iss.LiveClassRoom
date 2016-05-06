@@ -29,13 +29,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             _userService = userService;
         }
 
-        public ActionResult Index(int? status)
-        {
-            new Quiz().CheckAuthorization(Permissions.List);
-            RenderStatusAlert(status);
-            return View(_service.GetAll());
-        }
-
         [HttpPost]
         public async Task<ActionResult> Answer(string id, string answer) {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -119,11 +112,11 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             if (ModelState.IsValid)
             {
                 var domainModel = new Quiz();
+                domainModel.Course = course;
                 domainModel.CheckAuthorization(Permissions.Create);
                 domainModel.Question = viewModel.Question;
                 domainModel.StartDate = viewModel.StartDate;
                 domainModel.EndDate = viewModel.EndDate;
-                domainModel.Course = course;
                 foreach(var options in viewModel.Options) {
                     domainModel.Options.Add(new QuizOption()
                     {
@@ -132,7 +125,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                     });
                 }
                 await _service.Add(domainModel, GetLoggedInUserId());
-                return RedirectToAction("Index", new { status = 0 });
+                return RedirectToAction("Details", new { id = domainModel.Id, status = 0 });
             }
             return View("Edit", viewModel);
 

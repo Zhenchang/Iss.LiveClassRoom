@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IUnitOfWork.cs" />
+    <Compile Include="Services\IStudentService.cs" />
     <Compile Include="Services\IFeedService.cs" />
     <Compile Include="Services\ICommentService.cs" />
     <Compile Include="Services\IVideoService.cs" />

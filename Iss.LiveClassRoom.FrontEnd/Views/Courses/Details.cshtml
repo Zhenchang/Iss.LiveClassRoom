@@ -1,7 +1,7 @@
 ﻿@using Iss.LiveClassRoom.FrontEnd.Models
 @using Iss.LiveClassRoom.Core.Models;
 
-@model Iss.LiveClassRoom.FrontEnd.Models.CourseViewModel
+@model CourseViewModel
 
 
 @{
@@ -17,10 +17,16 @@
                     <span class="glyphicon glyphicon-cog"></span> Options <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu text-left" role="menu">
-                    <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
+                    @if (Model.Entity.HasAccess(User, Permissions.Edit))
+                    {
+                        <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
+                    }
                     <li>@Html.ActionLink("Back to Menu", "Index")</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Create Quiz", "Create", "Quizs", new { id = Model.Id }, null)</li>
+                    @if (Model.Entity.HasAccess(User, Permissions.PartialEdit))
+                    {
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink("Create Quiz", "Create", "Quizs", new { id = Model.Id }, null)</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -40,7 +46,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.InstructorId)
+            Instructor
         </dt>
 
         <dd>
@@ -57,7 +63,10 @@
         <div class="top-buffer">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs tab-details" role="tablist">
-                <li role="presentation"><a href="#students" aria-controls="students" role="tab" data-toggle="tab">Students</a></li>
+                @if (Model.Entity.HasAccess(User, Permissions.Edit))
+                {
+                    <li role="presentation"><a href="#students" aria-controls="students" role="tab" data-toggle="tab">Students</a></li>
+                }
                 <li role="presentation"><a href="#quizzes" aria-controls="quizzes" role="tab" data-toggle="tab">Quizzes</a></li>
                 <li role="presentation"><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab">Topics</a></li>
                 <li role="presentation"><a href="#videos" aria-controls="videos" role="tab" data-toggle="tab">Videos</a></li>
@@ -65,25 +74,31 @@
 
             <div role="tabpanel">
                 <div class="tab-content">
+                    @{ 
+                        var studentsNav = new GirdNavViewModel<User>
+                        {
+                            CreateUrl = Url.Action("AssignStudent", "Courses", new { id = Model.Id }),
+                            Title = "Students in this course",
+                            IsPartial = true,
+                            GridName = "Grid" + nameof(Student),
+                            List = Model.Students.AsQueryable()
+                        };
+                    }
+@if (Model.Entity.HasAccess(User, Permissions.Edit))
+{
                     <div role="tabpanel" class="tab-pane" id="students">
                         @{
-                            var studentsNav = new GirdNavViewModel<User>
-                            {
-                                CreateUrl = null,
-                                Title = "Students in this course",
-                                IsPartial = true,
-                                GridName = "Grid" + nameof(Student),
-                                List = Model.Students.AsQueryable()
-                            };
                             Html.RenderPartial("~/Views/Shared/_PartialGridNav.cshtml", studentsNav);
                             Html.RenderPartial("~/Views/Users/_PartialIndex.cshtml", studentsNav);
                         }
                     </div>
+}
                     <div role="tabpanel" class="tab-pane" id="quizzes">
                         @{
+                            var quizUrl = Url.Action("Create", "Quizs", new { id = Model.Id });
                             var quizzesNav = new GirdNavViewModel<Quiz>
                             {
-                                CreateUrl = Url.Action("Create", "Quizs", new { id = Model.Id }),
+                                CreateUrl = Model.Entity.HasAccess(User, Permissions.PartialEdit) ? quizUrl : null,
                                 Title = "Quizs",
                                 IsPartial = true,
                                 GridName = "Grid" + nameof(Quiz),
@@ -95,9 +110,10 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="topics">
                         @{
+                            var topicsUrl = Url.Action("Create", "Topics", new { id = Model.Id });
                             var topicsNav = new GirdNavViewModel<Topic>
                             {
-                                CreateUrl = Url.Action("Create", "Topics", new { id = Model.Id }),
+                                CreateUrl = Model.Entity.HasAccess(User, Permissions.PartialEdit) ? topicsUrl : null,
                                 Title = "Topics",
                                 IsPartial = true,
                                 GridName = "Grid" + nameof(Topic),
@@ -109,9 +125,10 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="videos">
                         @{
+                            var videosUrl = Url.Action("Create", "Videos", new { id = Model.Id });
                             var videosNav = new GirdNavViewModel<Video>
                             {
-                                CreateUrl = Url.Action("Create", "Videos", new { id = Model.Id }),
+                                CreateUrl = Model.Entity.HasAccess(User, Permissions.PartialEdit) ? videosUrl : null,
                                 Title = "Videos",
                                 IsPartial = true,
                                 GridName = "Grid" + nameof(Video),
@@ -130,7 +147,9 @@
 
 @section BodyFoot {
     @{
-        Html.RenderPartial("_PartialModals", studentsNav);
+        if (Model.Entity.HasAccess(User, Permissions.Edit)) {
+            Html.RenderPartial("_PartialModals", studentsNav);
+        }
         Html.RenderPartial("_PartialModals", quizzesNav);
         Html.RenderPartial("_PartialModals", topicsNav);
         Html.RenderPartial("_PartialModals", videosNav);

@@ -78,6 +78,7 @@ namespace Iss.LiveClassRoom.Ioc.App_Start
             container.RegisterType<ITopicService, TopicService>();
             container.RegisterType<IQuizService, QuizService>();
             container.RegisterType<IFeedService, FeedService>();
+            container.RegisterType<IStudentService, StudentService>();
             container.RegisterType<QuizHub, QuizHub>(new ContainerControlledLifetimeManager());
             container.RegisterType<ChatHub, ChatHub>(new ContainerControlledLifetimeManager());
         }

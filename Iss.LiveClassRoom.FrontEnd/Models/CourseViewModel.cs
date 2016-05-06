@@ -7,11 +7,11 @@ using System.Web;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models
 {
-    public class CourseViewModel
+    public class CourseViewModel : BaseViewModel
     {
 
-        [Required]
-        public string Id { get; set; }
+        public CourseViewModel():base(null) { }
+        public CourseViewModel(IEntity entity) : base(entity) { }
 
         [Required]
         [StringLength(50, MinimumLength = 3)]
@@ -41,7 +41,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
         public static CourseViewModel ToViewModel(this Course model)
         {
-            return new CourseViewModel()
+            return new CourseViewModel(model)
             {
                 Id = model.Id,
                 Name = model.Name,

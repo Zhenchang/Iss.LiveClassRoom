@@ -28,13 +28,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             _courseService = courseService;
         }
 
-        public ActionResult Index(int? status)
-        {
-            new Video().CheckAuthorization(Permissions.List);
-            RenderStatusAlert(status);
-            return View(_service.GetAll());
-        }
-
         public async Task<ActionResult> Details(string id, int? status)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

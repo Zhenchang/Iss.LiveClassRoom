@@ -7,10 +7,12 @@ using System.Web;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models
 {
-    public class CommentViewModel
+    public class CommentViewModel : BaseViewModel
     {
-        [Required]
-        public string Id { get; set; }
+        public CommentViewModel(IEntity entity) : base(entity)
+        {
+
+        }
 
         [Required]
         public string UserID { get; set; }
@@ -31,16 +33,13 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             return new Comment()
             {
                 Id = model.Id,
-                //User = new User() {Id= model.Id },
                 Text=model.Text,
-                //Feed=new Feed() { Id=model.Id},
-                
             };
         }
 
         public static CommentViewModel ToViewModel(this Comment model)
         {
-            return new CommentViewModel()
+            return new CommentViewModel(model)
             {
                 Id = model.Id,
                 UserID=model.User.Id,

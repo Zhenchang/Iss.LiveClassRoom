@@ -4,7 +4,7 @@
 
 @model GirdNavViewModel<Video>
 
-@Html.Grid(Model.List.OrderBy(x => x.Title)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
+@Html.Grid(Model.List.Where(x => x.HasAccess(User, Permissions.View)).OrderByDescending(x => x.TimeCreatedUtc)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
 {
     columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "Videos", new { id = item.Id })).Name = "Href";
     columns.Add(m => m.Title).Titled("Title");

@@ -24,5 +24,10 @@ namespace Iss.LiveClassRoom.Core.Models
         {
             Replies = new HashSet<Reply>();
         }
+
+        public override string ToString()
+        {
+            return Text;
+        }
     }
 }

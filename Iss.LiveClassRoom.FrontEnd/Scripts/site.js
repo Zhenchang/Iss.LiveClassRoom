@@ -2,6 +2,13 @@
 var Iss= {};
 
 Iss.IndexGridFunction = function () {
+
+    $('#selectAll').click(function () {
+        var currentValue = $('#selectAll').prop("checked");
+        $('input[type="checkbox"]').prop("checked", currentValue);
+        $('#selectAll').prop("checked", currentValue)
+    });
+
     for (var key in pageGrids) {
         var grid = pageGrids[key];
         grid.onRowSelect(function (e) {

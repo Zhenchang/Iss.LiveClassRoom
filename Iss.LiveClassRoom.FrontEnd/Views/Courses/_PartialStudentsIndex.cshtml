@@ -1,0 +1,22 @@
+﻿@using GridMvc.Html
+@using Iss.LiveClassRoom.Core.Models;
+@using Iss.LiveClassRoom.FrontEnd.Models;
+
+@model GirdNavViewModel<Student>
+
+@using (Html.BeginForm("AssignStudents", "Courses"))
+{   
+    <input type="hidden" name="id" value="@ViewBag.Course.Id" />
+    @Html.Grid(Model.List.OrderBy(x => x.Name)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
+{
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30)
+        .RenderValueAs(m => { return "<input type='checkbox' name='studentIds' value='" + m.Id + "'/>"; })
+        .Titled("<input type='checkbox' id='selectAll' />");
+
+    columns.Add(m => m.Name).Titled("Name");
+    columns.Add(m => m.Email).Titled("Email");
+    columns.Add(m => m.PhoneNumber).Titled("Phone Number");
+}).WithPaging(Model.PageSize, Model.PageSize, Model.GridName).Sortable().Filterable().WithMultipleFilters().SetRowCssClasses(m => "click-row")
+    <input type="submit" value="Assign" class="btn btn-primary" />
+    <a href="@Url.Action("Details")" class="btn btn-default">Cancel</a>
+}

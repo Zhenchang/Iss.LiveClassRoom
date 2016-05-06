@@ -5,14 +5,13 @@
 @model GirdNavViewModel<Quiz>
 
 
-@Html.Grid(Model.List.OrderByDescending(x => x.TimeCreatedUtc)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
+@Html.Grid(Model.List.Where(x=>x.HasAccess(User, Permissions.View)).OrderByDescending(x => x.TimeCreatedUtc)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
 {
-    columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "Quizs", new { id = item.Id, type = "View" })).Name = "Href";
+    columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "Quizs", new { id = item.Id, type = User.IsInRole("Student") ? "Answer" : "View" })).Name = "Href";
     columns.Add(m => m.Question).Titled("Question");
     columns.Add(m => m.StartDate).Titled("Start Date");
     columns.Add(m => m.EndDate).Titled("End Date");
     columns.Add(m => m.Course.Name).Titled("Course");
-
 
     columns.Add().RenderValueAs(m => Html.Partial("_PartialEditDeleteButtons",
         new DeleteEditButtonViewModel()

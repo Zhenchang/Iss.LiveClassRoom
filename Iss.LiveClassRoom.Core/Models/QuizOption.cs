@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,5 +23,9 @@ namespace Iss.LiveClassRoom.Core.Models
             StudentAnswers = new HashSet<StudentAnswer>();
         }
 
+        public override Permissions GetPermissions(IPrincipal user)
+        {
+            return Quiz.GetPermissions(user);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,16 @@ namespace Iss.LiveClassRoom.Core.Models
         {
         }
 
+
+        public override Permissions GetPermissions(IPrincipal user)
+        {
+            return Permissions.Full;
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
 }

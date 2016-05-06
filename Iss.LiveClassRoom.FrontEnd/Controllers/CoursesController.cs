@@ -21,11 +21,14 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
         private ICourseService _service;
         private IUserService _userService;
+        private IStudentService _studentService;
 
-        public CoursesController(ICourseService service, IUserService userService)
+        public CoursesController(ICourseService service, IUserService userService, 
+            IStudentService studentService)
         {
             _service = service;
             _userService = userService;
+            _studentService = studentService;
         }
 
         public ActionResult Index(int? status)
@@ -46,7 +49,51 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
 
             RenderStatusAlert(status);
             ViewBag.InstructorName = entity.Instructor.Name;
-            return View(entity.ToViewModel());
+            var viewModel = entity.ToViewModel();
+            if (User.IsInRole("Student"))
+            {
+                var student = await _studentService.GetById(User.Identity.Name);
+                viewModel.Quizzes = entity.GetUnAnsweredQuizzesFor(student);
+            }
+            return View(viewModel);
+        }
+
+        public async Task<ActionResult> AssignStudent(string id)
+        {
+            var model = await _service.GetById(id);
+
+            model.CheckAuthorization(Permissions.Link);
+
+            ViewBag.Course = model;
+            var remainingStudents = _studentService.GetAll().ToList().Except(model.Students);
+            return View("AssignStudents", remainingStudents.ToList());
+        }
+        [HttpPost]
+        public async Task<ActionResult> AssignStudents(string[] studentIds, string id)
+        {  
+            if(studentIds == null) RedirectToAction("Details", new { id = id });
+            var course = await _service.GetById(id);
+
+            course.CheckAuthorization(Permissions.Link);
+
+            foreach (var studentId in studentIds)
+            {
+                var student = await _studentService.GetById(studentId);
+                course.Students.Add(student);
+                course.Instructor.ToString();
+                await _service.Update(course, GetLoggedInUserId());
+            }
+            return RedirectToAction("Details", new { id = id });
+        }
+
+        public async Task<ActionResult> DeassignStudent(string id, string studentId)
+        {
+            var student = await _studentService.GetById(studentId);
+            var course = await _service.GetById(id);
+            course.Students.Remove(student);
+            course.Instructor.ToString();
+            await _service.Update(course, GetLoggedInUserId());
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         public ActionResult Create()
