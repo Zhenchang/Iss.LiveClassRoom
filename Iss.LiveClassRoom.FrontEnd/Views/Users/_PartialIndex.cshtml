@@ -1,0 +1,24 @@
+﻿@using GridMvc.Html
+@using Iss.LiveClassRoom.Core.Models;
+@using Iss.LiveClassRoom.FrontEnd.Models;
+
+@model GirdNavViewModel<User>
+
+@Html.Grid(Model.List.OrderBy(x => x.Name)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
+{
+    columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "Users", new { id = item.Id })).Name = "Href";
+    columns.Add(m => m.Name).Titled("Name");
+    columns.Add(m => m.Email).Titled("Email");
+    columns.Add(m => m.PhoneNumber).Titled("Phone Number");
+
+    columns.Add().RenderValueAs(m => Html.Partial("_PartialEditDeleteButtons",
+        new DeleteEditButtonViewModel()
+        {
+            EditUrl = Model.IsPartial ? null : Url.Action("Edit", "Users", new { id = m.Id }),
+            DeleteMethod = Model.IsPartial ? Url.Action("DeassignStudent", "Courses", new { id = ViewContext.RouteData.Values["id"].ToString(), studentId = m.Id }) : Url.Action("ConfirmDelete", "Users", new { id = m.Id }),
+            HasEdit = Model.IsPartial ? false : m.HasAccess(User, Permissions.Edit),
+            HasDelete = Model.IsPartial ? true : m.HasAccess(User, Permissions.Delete),
+            GridId = Model.GridName,
+            Name = m.ToString()
+        }).ToHtmlString()).Sanitized(false).Encoded(false).Css("shrink");
+}).WithPaging(Model.PageSize, Model.PageSize, Model.GridName).Sortable().Filterable().WithMultipleFilters().SetRowCssClasses(m => "click-row")

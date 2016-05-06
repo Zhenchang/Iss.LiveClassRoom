@@ -1,0 +1,15 @@
+﻿@model Iss.LiveClassRoom.FrontEnd.Models.DeleteEditButtonViewModel
+
+<div class="btn-group btn-group-sm btn-group-in-table">
+    @if (Model.HasEdit) {
+        <a href="@Model.EditUrl" class="btn text-info" data-toggle="tooltip" data-placement="bottom" title="Edit">
+            <span class="glyphicon glyphicon-edit"></span>
+        </a>
+    }
+    @if (Model.HasDelete) {
+        <a class="btn delete-button text-danger" data-toggle="tooltip" data-placement="bottom" title="Delete" data-delete-name="@Model.Name" data-delete-href="@Model.DeleteMethod" data-delete-modal="@Model.GridId" data-delete-current="off">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+    }
+
+</div>

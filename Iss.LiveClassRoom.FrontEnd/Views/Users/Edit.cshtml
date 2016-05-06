@@ -1,0 +1,74 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+
+@model UserViewModel
+
+@{
+    var action = ViewContext.RouteData.Values["action"].ToString();
+    if (action.Equals("Edit")){
+        ViewBag.Title = "Edit: " + Model.Name;
+    }
+    else
+    {
+        ViewBag.Title = "Create" ;
+    }
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IsInstructor)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (Model.IsInstructor) {
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <div class="checkbox">
+                        <label>@Html.CheckBoxFor(model => model.IsAdmin) Is Admin</label>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.IsAdmin, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        @{
+            Html.RenderPartial("_PartialCreateSaveButton", new CreateCancelButtonModel()
+            {
+                CancelEditUrl = Url.Action("Details", new { id = Model.Id }),
+                CancelCreateUrl = Url.Action("Index", "Users", new { type = Model.IsInstructor ? "Instructor" : "Student"})
+            });
+        }
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

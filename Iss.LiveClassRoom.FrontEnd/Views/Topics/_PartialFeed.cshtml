@@ -1,0 +1,51 @@
+﻿@model Iss.LiveClassRoom.Core.Models.Feed
+
+
+<nav class="toolbar top-buffer">
+    <div class="row">
+        <h2 class="col-sm-7 col-xs-12">Live Chat</h2>
+        <div class="col-sm-5 col-xs-12 toolbar-btn">
+            
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="detailbody" style="max-height:400px;overflow-y:scroll">
+    <ul class="media-list" id="comments">
+
+    </ul>
+</div>
+
+    <div class="row" id="commentForm">
+        <br />
+        <div class="col-md-1" style="line-height: 54px;text-align: right;">
+            <button type="button" class="btn btn-primary">
+                Send
+            </button>
+        </div>
+        <div class="col-md-11">
+            <textarea class="form-control" name="commentTxt" placeholder="Comment Here ..." style="min-width:100%"></textarea>
+        </div>
+    </div>
+
+    <ul id="dummyMedia" style="display:none;">
+        <li class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="~/Content/img/user.svg">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{0}</h4>
+                <span>
+                    {1}
+                </span>
+                <br />
+                <span class="text-muted" style="font-size: smaller;">
+                    {2}
+                </span>
+            </div>
+        </li>
+    </ul>

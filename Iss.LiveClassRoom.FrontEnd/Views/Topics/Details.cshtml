@@ -1,0 +1,64 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models;
+@using Iss.LiveClassRoom.Core.Models;
+
+@model TopicViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<nav class="toolbar top-buffer">
+    <div class="row">
+        <h2 class="col-sm-7 col-xs-12">@ViewBag.Title</h2>
+        @if (User.IsInRole("Instructor")) {
+            <div class="col-sm-5 col-xs-12 toolbar-btn">
+                <div class="btn-group" style="line-height:0;">
+                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span> Options <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu text-left" role="menu">
+                        @if (Model.Entity.HasAccess(User, Permissions.Edit))
+                        {
+                            <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</nav>
+
+
+<div class="detailbody">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => Model.Content)
+        </dd>
+    </dl>
+</div>
+
+@{
+    if (Model.Entity.HasAccess(User, Permissions.PartialEdit))
+    {
+        Html.RenderPartial("~/Views/Topics/_PartialFeed.cshtml", Model.Feed);
+    }
+}
+
+@section Scripts{
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script src="~/Scripts/site.js"></script>
+    <script>
+        $(function () {
+            Iss.ChatFunction('@Model.Feed.Id');
+            @foreach (var item in Model.Feed.Comments.OrderBy(x => x.TimeCreatedUtc)) {
+                @:Iss.AddMessageToView('@item.User.Name', '@item.Text', '@item.TimeCreatedUtc')
+            }
+            Iss.RefreshView();
+        })
+    </script>
+}

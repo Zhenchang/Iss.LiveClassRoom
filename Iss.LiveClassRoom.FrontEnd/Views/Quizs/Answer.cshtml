@@ -1,0 +1,70 @@
+﻿@model Iss.LiveClassRoom.FrontEnd.Models.QuizViewModel
+
+
+@{
+    ViewBag.Title = "Quiz";
+}
+
+@{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
+
+<nav class="toolbar top-buffer">
+    <div class="row">
+        <h2 class="col-sm-7 col-xs-12">@ViewBag.Title</h2>
+        <div class="col-sm-5 col-xs-12 toolbar-btn">
+            <div class="btn-group" style="line-height:0;">
+                <button type="button" class="btn btn-primary" id="submitAnswer">
+                    <span class="glyphicon glyphicon-ok"></span> Submit Answer
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="detailbody">
+    @using (Html.BeginForm("Answer", "Quizs", FormMethod.Post, new { id="answerForm" })) {
+        @Html.HiddenFor(m=>m.Id)
+        <div class="form-horizontal">
+            <br />
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                    <strong>@Model.Question</strong>
+                </div>
+            </div>
+
+            @foreach (var option in Model.Options) {
+                <div class="form-group" style="margin-left:30px;">
+                    <div class="col-md-10 col-md-offset-2">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="answer" value="@option.Id"> @option.Text
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            var quiz = $.connection.quizHub;
+            // Start the connection.
+            $.connection.hub.start().done(function () {
+                $("#submitAnswer").click(function () {
+                    quiz.server.send('@User.Identity.Name', $("input[name=answer]:checked").val());
+                    $("#answerForm").submit();
+                });
+            });
+
+
+        });
+
+
+    </script>
+}

@@ -1,0 +1,43 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models;
+@using Iss.LiveClassRoom.Core.Models;
+@using Iss.LiveClassRoom.FrontEnd.App_Start;
+
+
+@model IGirdNavViewModel<IEntity>
+
+<nav class="toolbar top-buffer">
+    <div class="row">
+        <h2 class="col-sm-7 col-xs-12">@Model.Title</h2>
+        <div class="col-sm-5 col-xs-12 toolbar-btn">
+            @if (!string.IsNullOrEmpty(Model.CreateUrl)) {
+                <a href="@Model.CreateUrl" class="btn" data-toggle="tooltip" data-placement="bottom" title="Create New">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            }
+            <div class="dropdown">
+                <a class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" data-placement="bottom" title="View">
+                    <span class="glyphicon glyphicon-list"></span>
+                </a>
+                @{
+                    UrlHelperExtensions.RouteValueChange(Url, new { pageSize = 10 });
+                    Url.RouteValueChange(new { pageSize = 10 });
+                }
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.RouteValueChange(new {pageSize = 10 })">10 Items</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.RouteValueChange(new {pageSize = 20 })">20 Items</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.RouteValueChange(new {pageSize = 50 })">50 Items</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.RouteValueChange(new {pageSize = 100 })">100 Items</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.RouteValueChange(new {pageSize = -1 })">All Items</a></li>
+                </ul>
+            </div>
+          
+            @if (!(Model.IsPartial)) {
+                <a href="@Url.Action("Index", "Account")" class="btn" data-toggle="tooltip" data-placement="bottom" title="Control Panel">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            }
+
+        </div>
+    </div>
+</nav>
+

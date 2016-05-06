@@ -1,0 +1,23 @@
+﻿@using GridMvc.Html
+@using Iss.LiveClassRoom.Core.Models;
+@using Iss.LiveClassRoom.FrontEnd.Models;
+
+@model GirdNavViewModel<Course>
+
+@Html.Grid(Model.List.OrderBy(x => x.Name)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
+{
+    columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "Courses", new { id = item.Id })).Name = "Href";
+    columns.Add(m => m.Name).Titled("Name");
+    columns.Add(m => m.Instructor.Name).Titled("Instructor");
+
+    columns.Add().RenderValueAs(m => Html.Partial("_PartialEditDeleteButtons",
+        new DeleteEditButtonViewModel()
+        {
+            EditUrl = Url.Action("Edit", "Courses", new { id = m.Id }),
+            DeleteMethod = Url.Action("ConfirmDelete", "Courses", new { id = m.Id }),
+            HasEdit = m.HasAccess(User, Permissions.Edit),
+            HasDelete = m.HasAccess(User, Permissions.Delete),
+            GridId = Model.GridName,
+            Name = m.ToString()
+        }).ToHtmlString()).Sanitized(false).Encoded(false).Css("shrink");
+}).WithPaging(Model.PageSize, Model.PageSize, Model.GridName).Sortable().Filterable().WithMultipleFilters().SetRowCssClasses(m => "click-row")

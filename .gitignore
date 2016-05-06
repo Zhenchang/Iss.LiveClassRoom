@@ -213,3 +213,5 @@ ModelManifest.xml
 *.mp4
 *.dll
 *.xml
+/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml

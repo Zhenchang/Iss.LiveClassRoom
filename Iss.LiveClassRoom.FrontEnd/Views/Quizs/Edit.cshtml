@@ -1,0 +1,145 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+
+@model QuizViewModel
+
+@{
+    var action = ViewContext.RouteData.Values["action"];
+    if (action.Equals("Edit"))
+    {
+        ViewBag.Title = "Edit question";
+    }
+    else
+    {
+        ViewBag.Title = "Add a new question";
+    }
+}
+
+
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Quiz</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CourseId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Question, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Question, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Question, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-10">
+
+                <button class="btn btn-primary" id="addOptionBtn" type="button">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+        </div>
+
+        <div id="options">
+            
+        </div>
+
+        @{
+            Html.RenderPartial("_PartialCreateSaveButton", new CreateCancelButtonModel()
+            {
+                CancelEditUrl = Url.Action("Details", new { id = Model.Id }),
+                CancelCreateUrl = Url.Action("Details", "Courses", new { id = Model.CourseId })
+            });
+        }
+
+    </div>
+}
+
+<div id="dummyOption" class="hidden">
+    <div class="form-group">
+        <label for="" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <input type="hidden" name="" value="{0}" />
+
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-danger removeBtn" type="button">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                </span>
+                <input type="text" name="" value="{1}" class="form-control" placeholder="Option Answer ..." />
+                
+            </div>
+            <span class="text-danger hidden">Invalid Quiz Option</span>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(function () {
+            var addOptionFunction = function (id, text) {
+                var dummyOption = $("#dummyOption").html();
+                dummyOption = dummyOption.replace("{0}", id);
+                dummyOption = dummyOption.replace("{1}", text);
+                $("#options").append(dummyOption);
+            }
+
+            $("#addOptionBtn").click(function () {
+                addOptionFunction("0", "");
+                refreshList();
+            });
+
+
+
+            var refreshList = function()
+            {
+                $(".removeBtn").off();
+                $("#options > .form-group").each(function(index) {
+                    $(this).find("input[type='hidden']").attr('name', "Options[" + index + "].Id");
+                    $(this).find("input[type='text']").attr('name', "Options[" + index + "].Text");
+                    $(this).find("label").attr('for', "Options[" + index + "].Text");
+                    $(this).find("label").text("Option " + index);
+                    $(this).find(".removeBtn").on("click", function () {
+                        $(this).closest(".form-group").remove();
+                        refreshList();
+                    });
+                });
+               
+            }
+
+            @foreach (var option in Model.Options)
+            {
+                @:addOptionFunction("@(option.Id)", "@(option.Text)");
+            }
+            refreshList();
+        });
+    </script>
+}

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Iss.LiveClassRoom.Core</RootNamespace>
     <AssemblyName>Iss.LiveClassRoom.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,14 +39,6 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -57,51 +50,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain Models.cs" />
-    <Compile Include="Migrations\201604040951486_FixFeed.cs" />
-    <Compile Include="Migrations\201604040951486_FixFeed.Designer.cs">
-      <DependentUpon>201604040951486_FixFeed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604040956554_AddFileNameForVideo.cs" />
-    <Compile Include="Migrations\201604040956554_AddFileNameForVideo.Designer.cs">
-      <DependentUpon>201604040956554_AddFileNameForVideo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604180721347_FixIdentity.cs" />
-    <Compile Include="Migrations\201604180721347_FixIdentity.Designer.cs">
-      <DependentUpon>201604180721347_FixIdentity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604180813377_AnotiationComplete.cs" />
-    <Compile Include="Migrations\201604180813377_AnotiationComplete.Designer.cs">
-      <DependentUpon>201604180813377_AnotiationComplete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604180820343_FixTiming.cs" />
-    <Compile Include="Migrations\201604180820343_FixTiming.Designer.cs">
-      <DependentUpon>201604180820343_FixTiming.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\BaseEntitiy.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Feed.cs" />
+    <Compile Include="Models\IEntity.cs" />
+    <Compile Include="Models\Instructor.cs" />
+    <Compile Include="Models\Quiz.cs" />
+    <Compile Include="Models\QuizOption.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentAnswer.cs" />
+    <Compile Include="Models\Topic.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SystemContext.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IUnitOfWork.cs" />
+    <Compile Include="Services\IStudentService.cs" />
+    <Compile Include="Services\IFeedService.cs" />
+    <Compile Include="Services\ICommentService.cs" />
+    <Compile Include="Services\IVideoService.cs" />
+    <Compile Include="Services\ITopicService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Repositories\SoftDelete.cs" />
+    <Compile Include="Services\ICourseService.cs" />
+    <Compile Include="Services\IQuizService.cs" />
+    <Compile Include="Services\IService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604040951486_FixFeed.resx">
-      <DependentUpon>201604040951486_FixFeed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604040956554_AddFileNameForVideo.resx">
-      <DependentUpon>201604040956554_AddFileNameForVideo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604180721347_FixIdentity.resx">
-      <DependentUpon>201604180721347_FixIdentity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604180813377_AnotiationComplete.resx">
-      <DependentUpon>201604180813377_AnotiationComplete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604180820343_FixTiming.resx">
-      <DependentUpon>201604180820343_FixTiming.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="ToDo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

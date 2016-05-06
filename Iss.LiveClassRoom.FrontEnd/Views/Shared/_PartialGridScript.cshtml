@@ -1,0 +1,57 @@
+﻿<script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"></script>
+@*<script src="~/Scripts/gridmvc.lang.ar.js"></script>*@
+<script src="~/Scripts/site.js"></script>
+<script>
+    $(document).ready(Iss.IndexGridFunction);
+</script>
+
+<script type="text/javascript">
+        $(function () {
+
+            updateHashes();
+            function updateHashes() {
+                if (window.location.hash) {
+                    $(".grid-header-title > a").each(changeHref);
+                    $(".dropdown a").each(changeHref);
+                }
+            }
+
+            function changeHref() {
+                var hash = location.hash.replace('#', '');
+                var originalHref = $(this).attr('href');
+                if (typeof originalHref === 'undefined') {
+                } else {
+                    if (originalHref.indexOf("#") == 0) {
+
+                    } else {
+                        if (originalHref.indexOf("#") != -1) {
+                            originalHref = originalHref.substring(0, originalHref.indexOf("#"));
+                        }
+                        $(this).attr('href', originalHref + '#' + hash);
+                    }
+                }
+            }
+
+            // Javascript to enable link to tab
+            var url = document.location.toString();
+            if (url.match('#')) {
+                $('.nav-tabs a[href=#' + url.split('#')[1] + ']').tab('show');
+            }
+
+            // Change hash for page-reload
+            var tabs$ = $(".nav-tabs a");
+            tabs$.on('shown.bs.tab', function (e) {
+                window.location.hash = e.target.hash;
+                window.scrollTo(0, 0);
+            });
+            $(window).on("hashchange", function () {
+                var hash = window.location.hash; // get current hash
+                if (hash.length != 0) {
+                    menu_item$ = tabs$.filter("[href=" + hash + "]"); // get the menu element
+                    menu_item$.tab("show"); // call bootstrap to show the tab
+                }
+                updateHashes();
+            }).trigger("hashchange");
+        });
+</script>
+

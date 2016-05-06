@@ -1,0 +1,28 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+@using Iss.LiveClassRoom.Core.Models;
+
+@model IEnumerable<Iss.LiveClassRoom.Core.Models.User>
+
+@{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
+
+@{
+        var gridNav = new GirdNavViewModel<User>
+        {
+            CreateUrl = Url.Action("Create", new { type = Request.QueryString.Get("type")?.ToString() }),
+            Title = ViewBag.Title,
+            IsPartial = false,
+            GridName = nameof(User) + "Grid",
+            List = Model.AsQueryable()
+        };
+        Html.RenderPartial("_PartialGridNav", gridNav);
+    }
+
+@{Html.RenderPartial("~/Views/Users/_PartialIndex.cshtml", gridNav);}
+
+@section BodyFoot {
+    @{Html.RenderPartial("_PartialModals", gridNav);}
+}
+
+@section Scripts {
+    @{Html.RenderPartial("~/Views/Shared/_PartialGridScript.cshtml", null);}
+}

@@ -1,0 +1,28 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+@using Iss.LiveClassRoom.Core.Models;
+
+@model IEnumerable<Student>
+@{  
+    ViewBag.Title = "Assign students to " + ViewBag.Course.Name;
+}
+
+@{
+    var gridNav = new GirdNavViewModel<Student>
+    {
+        CreateUrl = null,
+        Title = ViewBag.Title,
+        IsPartial = false,
+        GridName = nameof(Student) + "Grid",
+        List = Model.AsQueryable()
+    };
+    Html.RenderPartial("~/Views/Shared/_PartialGridNav.cshtml", gridNav);
+    Html.RenderPartial("~/Views/Courses/_PartialStudentsIndex.cshtml", gridNav);
+}
+
+@section BodyFoot {
+    @{Html.RenderPartial("_PartialModals", gridNav);}
+}
+
+@section Scripts {
+    @{Html.RenderPartial("~/Views/Shared/_PartialGridScript.cshtml", null);}
+}

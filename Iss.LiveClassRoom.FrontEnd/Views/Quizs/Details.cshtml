@@ -1,0 +1,100 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models;
+@using Iss.LiveClassRoom.Core.Models;
+
+@model QuizViewModel
+
+@{
+    ViewBag.Title = "Quiz Details";
+}
+
+@{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
+
+<nav class="toolbar top-buffer">
+    <div class="row">
+        <h2 class="col-sm-7 col-xs-12">@ViewBag.Title</h2>
+        <div class="col-sm-5 col-xs-12 toolbar-btn">
+            <div class="btn-group" style="line-height:0;">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span> Options <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu text-left" role="menu">
+                    @if (Model.Entity.HasAccess(User, Permissions.Edit))
+                    {
+                        <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="detailbody">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Question)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Question)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Model.StartDate.ToShortDateString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Model.EndDate.ToShortDateString()
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseId)
+        </dt>
+
+        <dd>
+            @ViewBag.CourseName
+        </dd>
+    </dl>
+
+    <hr />
+
+    <dl class="dl-horizontal" id="answers">
+        @foreach (var option in Model.Options) {
+            <dt>
+                @option.Text
+            </dt>
+
+            <dd id="@option.Id">
+                @option.AnswersCount
+            </dd>
+        }
+    </dl>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script type="text/javascript">
+            $(function () {
+
+                var quiz = $.connection.quizHub;
+                $.connection.hub.start().done(function () {
+                });
+
+                // Create a function that the hub can call to broadcast messages.
+                quiz.client.broadcastMessage = function (name, message) {
+                    var option = $("#" + message);
+                    option.text(parseInt(option.text()) + 1);
+                };
+
+
+            });
+    </script>
+}

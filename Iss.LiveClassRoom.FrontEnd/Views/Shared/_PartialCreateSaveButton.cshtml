@@ -1,0 +1,24 @@
+﻿@model Iss.LiveClassRoom.FrontEnd.Models.CreateCancelButtonModel
+
+   
+@{
+    var action = ViewContext.RouteData.Values["action"];
+}
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <div class="btn-group">
+            @if (action.Equals("Edit"))
+            {
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a href="@Model.CancelEditUrl" class="btn btn-default">Cancel</a>
+            }
+            else
+            {
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a href="@Model.CancelCreateUrl" class="btn btn-default">Cancel</a>
+            }
+        </div>
+    </div>
+</div>
+

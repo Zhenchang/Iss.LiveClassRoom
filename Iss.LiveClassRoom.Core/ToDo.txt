@@ -1,0 +1,20 @@
+﻿# Admin Panel
+	- Courses (Manage)
+	- Students (Manage, Assign To Course)
+	- Instructors (Manage, Assign To Course)
+
+
+# Instructor
+	- Quizes (Manage) / Create Answer Options / View Answers.
+	- Videos (Manage)
+	- Topics (Manage)
+
+
+# Student
+	- View Quiz / Answer
+
+
+# Shared: Student / Instructor
+	- Comment on Topic
+	- Reply on Comments
+	- View
