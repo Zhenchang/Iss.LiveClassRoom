@@ -90,7 +90,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             {
                 domainModel.PasswordHash = _service.HashPassword("123456");
                 domainModel.Name = viewModel.Name;
-                domainModel.Email = viewModel.Email;
+                domainModel.Email = viewModel.Email.ToLower();
                 domainModel.PhoneNumber = viewModel.PhoneNumber;
 
                 domainModel.CheckAuthorization(Permissions.Create);
@@ -126,7 +126,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 domainModel.CheckAuthorization(Permissions.Edit);
 
                 domainModel.Name = viewModel.Name;
-                domainModel.Email = viewModel.Email;
+                domainModel.Email = viewModel.Email.ToLower();
                 domainModel.PhoneNumber = viewModel.PhoneNumber;
                 if (domainModel is Instructor) {
                     (domainModel as Instructor).IsAdmin = viewModel.IsAdmin;

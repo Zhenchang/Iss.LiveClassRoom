@@ -17,6 +17,7 @@ namespace Iss.LiveClassRoom.ServiceLayer.Services
         }
 
         public async Task ChangePassword(string email, string oldPassword, string newPassword, string byUserId) {
+            email = email.ToLower();
             var user = ValidateUserInfo(email, oldPassword);
             user.PasswordHash = HashPassword(newPassword);
             await Update(user, byUserId);
@@ -24,6 +25,7 @@ namespace Iss.LiveClassRoom.ServiceLayer.Services
 
         public User ValidateUserInfo(string email, string password) {
             string hashedPassword = HashPassword(password);
+            email = email.ToLower();
             var user = GetAll().SingleOrDefault(x => x.Email.Equals(email) && x.PasswordHash.Equals(hashedPassword));
             return user;
         }
