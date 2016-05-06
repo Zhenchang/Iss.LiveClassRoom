@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iss.LiveClassRoom.FrontEnd", "Iss.LiveClassRoom.FrontEnd\Iss.LiveClassRoom.FrontEnd.csproj", "{9A31F4D8-966F-4837-AC3C-D0BFEB096083}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A69279BE-AE4A-4E8D-8363-493EB9E87BF4} = {A69279BE-AE4A-4E8D-8363-493EB9E87BF4}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iss.LiveClassRoom.Core", "Iss.LiveClassRoom.Core\Iss.LiveClassRoom.Core.csproj", "{A69279BE-AE4A-4E8D-8363-493EB9E87BF4}"
 EndProject

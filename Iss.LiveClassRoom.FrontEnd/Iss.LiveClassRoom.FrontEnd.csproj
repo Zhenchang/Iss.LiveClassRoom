@@ -29,7 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -274,14 +274,6 @@
     <ProjectReference Include="..\Iss.LiveClassRoom.Core\Iss.LiveClassRoom.Core.csproj">
       <Project>{a69279be-ae4a-4e8d-8363-493eb9e87bf4}</Project>
       <Name>Iss.LiveClassRoom.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Iss.LiveClassRoom.DataAccessLayer\Iss.LiveClassRoom.DataAccessLayer.csproj">
-      <Project>{861cc834-592e-4934-a25d-5c9887eabfda}</Project>
-      <Name>Iss.LiveClassRoom.DataAccessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Iss.LiveClassRoom.ServiceLayer\Iss.LiveClassRoom.ServiceLayer.csproj">
-      <Project>{73AC98DB-2669-489B-A07D-E098872B854F}</Project>
-      <Name>Iss.LiveClassRoom.ServiceLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
