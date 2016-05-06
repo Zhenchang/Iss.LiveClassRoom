@@ -34,6 +34,10 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
         {
             Options = new List<QuizOptionViewModel>();
         }
+
+        public QuizViewModel() : this(null)
+        {
+        }
     }
 
 

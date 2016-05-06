@@ -9,6 +9,9 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 {
     public class CommentViewModel : BaseViewModel
     {
+        public CommentViewModel() : this(null)
+        {
+        }
         public CommentViewModel(IEntity entity) : base(entity)
         {
 

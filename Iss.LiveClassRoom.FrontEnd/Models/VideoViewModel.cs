@@ -9,6 +9,9 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 {
     public class VideoViewModel : BaseViewModel
     {
+        public VideoViewModel() : base(null)
+        {
+        }
         public VideoViewModel(IEntity entity) : base(entity)
         {
         }

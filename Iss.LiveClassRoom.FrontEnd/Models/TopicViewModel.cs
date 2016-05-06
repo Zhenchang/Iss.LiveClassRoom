@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 namespace Iss.LiveClassRoom.FrontEnd.Models {
 
     public class TopicViewModel : BaseViewModel{
+
+        public TopicViewModel() : base(null)
+        {
+        }
         public TopicViewModel(IEntity entity) : base(entity)
         {
         }

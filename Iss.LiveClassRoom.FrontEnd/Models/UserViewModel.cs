@@ -9,6 +9,9 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 {
     public class UserViewModel : BaseViewModel
     {
+        public UserViewModel() : this(null)
+        {
+        }
         public UserViewModel(IEntity entity) : base(entity)
         {
         }
