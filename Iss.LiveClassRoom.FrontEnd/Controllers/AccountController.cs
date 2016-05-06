@@ -71,6 +71,5 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
     }
 }
