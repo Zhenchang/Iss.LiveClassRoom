@@ -7,10 +7,11 @@ using System.Web;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models
 {
-    public class VideoViewModel
+    public class VideoViewModel : BaseViewModel
     {
-        [Required]
-        public string Id { get; set; }
+        public VideoViewModel(IEntity entity) : base(entity)
+        {
+        }
 
         [Required]
         public string Title { get; set; }
@@ -19,6 +20,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
         public string CourseId { get; set; }
 
         public Feed Feed { get; set; }
+
     }
     public static class VideoExtension
     {
@@ -34,7 +36,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
         public static VideoViewModel ToViewModel(this Video model)
         {
-            return new VideoViewModel()
+            return new VideoViewModel(model)
             {
                 Id = model.Id,
                 Title = model.Title,

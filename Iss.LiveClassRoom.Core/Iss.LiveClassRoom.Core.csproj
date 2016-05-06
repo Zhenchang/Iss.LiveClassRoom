@@ -58,7 +58,6 @@
     <Compile Include="Models\Instructor.cs" />
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\QuizOption.cs" />
-    <Compile Include="Models\Reply.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\StudentAnswer.cs" />
     <Compile Include="Models\Topic.cs" />

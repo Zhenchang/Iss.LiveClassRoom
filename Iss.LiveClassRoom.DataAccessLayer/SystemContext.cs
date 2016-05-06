@@ -139,7 +139,6 @@ namespace Iss.LiveClassRoom.DataAccessLayer
         public DbSet<Quiz> Quizes { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Reply> Replies { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Topic> Topics { get; set; }
 

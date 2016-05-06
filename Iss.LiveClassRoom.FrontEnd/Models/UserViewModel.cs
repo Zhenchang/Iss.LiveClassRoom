@@ -7,11 +7,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models
 {
-    public class UserViewModel
+    public class UserViewModel : BaseViewModel
     {
-         
-        [Required]
-        public string Id { get; set; }
+        public UserViewModel(IEntity entity) : base(entity)
+        {
+        }
 
         [Required, MaxLength(50)]
         public string Name { get; set; }
@@ -47,7 +47,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
         public static UserViewModel ToViewModel(this Instructor model)
         {
-            return new UserViewModel()
+            return new UserViewModel(model)
             {
                 Id = model.Id,
                 Name = model.Name,
@@ -60,7 +60,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
         }
 
         public static UserViewModel ToViewModel(this Student model) {
-            return new UserViewModel()
+            return new UserViewModel(model)
             {
                 Id = model.Id,
                 Name = model.Name,

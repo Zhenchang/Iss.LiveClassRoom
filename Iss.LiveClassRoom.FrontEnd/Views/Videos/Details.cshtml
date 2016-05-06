@@ -1,4 +1,7 @@
-﻿@model Iss.LiveClassRoom.FrontEnd.Models.VideoViewModel
+﻿@using Iss.LiveClassRoom.FrontEnd.Models;
+@using Iss.LiveClassRoom.Core.Models;
+
+@model VideoViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -7,21 +10,16 @@
 <nav class="toolbar top-buffer">
     <div class="row">
         <h2 class="col-sm-7 col-xs-12">@ViewBag.Title</h2>
-        @if (User.IsInRole("Admin"))
-        {
-
-        }
-
         <div class="col-sm-5 col-xs-12 toolbar-btn">
             <div class="btn-group" style="line-height:0;">
                 <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-cog"></span> Options <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu text-left" role="menu">
-                    <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
-                    <li>@Html.ActionLink("Back to Menu", "Index")</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Create Topic", "Create", "Topics" , new { id = Model.Id }, null)</li>
+                    @if (Model.Entity.HasAccess(User, Permissions.Edit))
+                    {
+                        <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -40,11 +38,12 @@
     </video>
 </div>
 
-
 @{
-    Html.RenderPartial("~/Views/Topics/_PartialFeed.cshtml", Model.Feed);
+    if (Model.Entity.HasAccess(User, Permissions.PartialEdit))
+    {
+        Html.RenderPartial("~/Views/Topics/_PartialFeed.cshtml", Model.Feed);
+    }
 }
-
 @section Scripts{
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
     <script src="~/signalr/hubs" type="text/javascript"></script>

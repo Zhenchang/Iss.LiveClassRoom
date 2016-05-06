@@ -1,4 +1,7 @@
-﻿@model Iss.LiveClassRoom.FrontEnd.Models.QuizViewModel
+﻿@using Iss.LiveClassRoom.FrontEnd.Models;
+@using Iss.LiveClassRoom.Core.Models;
+
+@model QuizViewModel
 
 @{
     ViewBag.Title = "Quiz Details";
@@ -15,9 +18,10 @@
                     <span class="glyphicon glyphicon-cog"></span> Options <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu text-left" role="menu">
-                    <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
-                    <li>@Html.ActionLink("Back to Menu", "Index")</li>
-                    <li class="divider"></li>
+                    @if (Model.Entity.HasAccess(User, Permissions.Edit))
+                    {
+                        <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
+                    }
                 </ul>
             </div>
         </div>

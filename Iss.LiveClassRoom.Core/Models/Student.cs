@@ -18,6 +18,10 @@ namespace Iss.LiveClassRoom.Core.Models
             Courses = new HashSet<Course>();
         }
 
+        public bool HasAnsweredQuiz(Quiz quiz)
+        {
+            return Answers.Any(x => x.QuizOption.Quiz.Id == quiz.Id);
+        }
 
         public override Permissions GetPermissions(IPrincipal user)
         {

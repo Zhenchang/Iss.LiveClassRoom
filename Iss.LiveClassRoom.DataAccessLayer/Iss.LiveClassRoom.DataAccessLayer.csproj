@@ -89,6 +89,10 @@
     <Compile Include="Migrations\201605030115087_addDatesToQuiz.Designer.cs">
       <DependentUpon>201605030115087_addDatesToQuiz.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605061147176_deleteReplay.cs" />
+    <Compile Include="Migrations\201605061147176_deleteReplay.Designer.cs">
+      <DependentUpon>201605061147176_deleteReplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenericRepository.cs" />
@@ -129,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605030115087_addDatesToQuiz.resx">
       <DependentUpon>201605030115087_addDatesToQuiz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605061147176_deleteReplay.resx">
+      <DependentUpon>201605061147176_deleteReplay.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

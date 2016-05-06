@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models {
 
-    public class TopicViewModel {
-
-        [Required]
-        public string Id { get; set; }
+    public class TopicViewModel : BaseViewModel{
+        public TopicViewModel(IEntity entity) : base(entity)
+        {
+        }
 
         [Required]
         public string Content { get; set; }
@@ -38,7 +38,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models {
         }
 
         public static TopicViewModel ToViewModel(this Topic model) {
-            return new TopicViewModel()
+            return new TopicViewModel(model)
             {
                 Id = model.Id,
                 Content = model.Content,

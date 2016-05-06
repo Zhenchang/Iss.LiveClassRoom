@@ -8,12 +8,8 @@ using System.Web;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models
 {
-    public class QuizViewModel
+    public class QuizViewModel : BaseViewModel
     {
-
-        [Required]
-        public string Id { get; set; }
-
         [Required]
         public string Question { get; set; }
 
@@ -34,7 +30,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
         public virtual ICollection<QuizOptionViewModel> Options { get; set; }
 
-        public QuizViewModel()
+        public QuizViewModel(IEntity entity) : base(entity)
         {
             Options = new List<QuizOptionViewModel>();
         }
@@ -62,7 +58,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
 
         public static QuizViewModel ToViewModel(this Quiz model)
         {
-            var q = new QuizViewModel()
+            var q = new QuizViewModel(model)
             {
                 Id = model.Id,
                 Question = model.Question,

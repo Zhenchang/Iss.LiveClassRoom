@@ -18,13 +18,6 @@ namespace Iss.LiveClassRoom.Core.Models
         [Required]
         public virtual Feed Feed { get; set; }
 
-        public virtual ICollection<Reply> Replies { get; set; }
-
-        public Comment() : base()
-        {
-            Replies = new HashSet<Reply>();
-        }
-
         public override string ToString()
         {
             return Text;

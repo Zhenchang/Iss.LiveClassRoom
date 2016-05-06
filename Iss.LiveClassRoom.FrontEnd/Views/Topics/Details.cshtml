@@ -1,4 +1,7 @@
-﻿@model Iss.LiveClassRoom.FrontEnd.Models.TopicViewModel
+﻿@using Iss.LiveClassRoom.FrontEnd.Models;
+@using Iss.LiveClassRoom.Core.Models;
+
+@model TopicViewModel
 
 @{
     ViewBag.Title = Model.Title;
@@ -14,9 +17,10 @@
                         <span class="glyphicon glyphicon-cog"></span> Options <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu text-left" role="menu">
-                        <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
-                        <li>@Html.ActionLink("Back to Menu", "Index")</li>
-                        <li class="divider"></li>
+                        @if (Model.Entity.HasAccess(User, Permissions.Edit))
+                        {
+                            <li>@Html.ActionLink("Edit", "Edit", new { id = Model.Id })</li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -37,8 +41,11 @@
     </dl>
 </div>
 
-@{ 
-    Html.RenderPartial("~/Views/Topics/_PartialFeed.cshtml", Model.Feed);
+@{
+    if (Model.Entity.HasAccess(User, Permissions.PartialEdit))
+    {
+        Html.RenderPartial("~/Views/Topics/_PartialFeed.cshtml", Model.Feed);
+    }
 }
 
 @section Scripts{

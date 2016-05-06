@@ -205,7 +205,6 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\QuizOptionViewModel.cs" />
     <Compile Include="Models\QuizViewModel.cs" />
-    <Compile Include="Models\ReplyViewModel.cs" />
     <Compile Include="Models\StudentAnswerViewModel.cs" />
     <Compile Include="Models\GridViewModels.cs" />
     <Compile Include="Models\TopicViewModel.cs" />

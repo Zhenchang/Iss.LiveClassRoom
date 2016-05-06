@@ -20,27 +20,30 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
     {
         private IQuizService _service;
         private ICourseService _courseService;
-        private IUserService _userService;
+        private IStudentService _studentService;
 
-        public QuizsController(IQuizService service, ICourseService courseService, IUserService userService)
+        public QuizsController(IQuizService service, ICourseService courseService, IStudentService studentService)
         {
             _service = service;
             _courseService = courseService;
-            _userService = userService;
+            _studentService = studentService;
         }
 
         [HttpPost]
         public async Task<ActionResult> Answer(string id, string answer) {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var entity = await _service.GetById(id);
-            if (entity == null) return HttpNotFound();
+            var quiz = await _service.GetById(id);
+            if (quiz == null) return HttpNotFound();
 
-            var student = await _userService.GetById(GetLoggedInUserId());
+            quiz.CheckAuthorization(Permissions.PartialEdit);
+
+            var student = await _studentService.GetById(GetLoggedInUserId());
             if (student is Student) {
                 
-                var option = entity.Options.SingleOrDefault(x => x.Id == answer);
-                if (option != null) {
+                var option = quiz.Options.SingleOrDefault(x => x.Id == answer);
+                // The Student Can't Answer Again
+                if (option != null && !student.HasAnsweredQuiz(quiz)) {
                     option.StudentAnswers.Add(new StudentAnswer()
                     {
                         Time = DateTime.UtcNow,
@@ -48,9 +51,9 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                         QuizOption = option
                     });
                     try {
-                        entity.Course.ToString();
+                        quiz.Course.ToString();
                         option.Quiz.ToString();
-                        await _service.Update(entity, GetLoggedInUserId());
+                        await _service.Update(quiz, GetLoggedInUserId());
                     }
                     catch(Exception ex) {
                         ex.Message.ToString();
@@ -59,7 +62,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                     return RedirectToAction("Index", "Account");
                 }
             }
-            return RedirectToAction("Details", new { id = entity.Id, type = "Answer", status = 4 });
+            return RedirectToAction("Details", new { id = quiz.Id, type = "Answer", status = 4 });
         }
 
         public async Task<ActionResult> Details(string id, string type, int? status)
