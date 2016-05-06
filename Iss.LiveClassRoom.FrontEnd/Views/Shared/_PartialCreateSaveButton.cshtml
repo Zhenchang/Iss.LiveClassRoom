@@ -1,5 +1,6 @@
-﻿@model string
+﻿@model Iss.LiveClassRoom.FrontEnd.Models.CreateCancelButtonModel
 
+   
 @{
     var action = ViewContext.RouteData.Values["action"];
 }
@@ -10,12 +11,12 @@
             @if (action.Equals("Edit"))
             {
                 <input type="submit" value="Save" class="btn btn-primary" />
-                <a href="@Url.Action("Details", new { id = Model})" class="btn btn-default">Cancel</a>
+                <a href="@Model.CancelEditUrl" class="btn btn-default">Cancel</a>
             }
             else
             {
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <a href="@Url.Action("Index")" class="btn btn-default">Cancel</a>
+                <a href="@Model.CancelCreateUrl" class="btn btn-default">Cancel</a>
             }
         </div>
     </div>

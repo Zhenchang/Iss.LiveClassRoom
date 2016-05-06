@@ -1,4 +1,5 @@
-﻿@model Iss.LiveClassRoom.FrontEnd.Models.TopicViewModel
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+@model TopicViewModel
 
 @{
     var action = ViewContext.RouteData.Values["action"].ToString();
@@ -42,7 +43,11 @@
         </div>
 
         @{
-            Html.RenderPartial("_PartialCreateSaveButton", Model.Id);
+            Html.RenderPartial("_PartialCreateSaveButton", new CreateCancelButtonModel()
+            {
+                CancelEditUrl = Url.Action("Details", new { id = Model.Id }),
+                CancelCreateUrl = Url.Action("Details", "Courses", new { id = Model.CourseId })
+            });
         }
 
     </div>

@@ -5,6 +5,12 @@ using System.Linq;
 using System.Web;
 
 namespace Iss.LiveClassRoom.FrontEnd.Models {
+
+    public class CreateCancelButtonModel {
+        public string CancelCreateUrl { get; set; }
+        public string CancelEditUrl { get; set; }
+
+    }
     public class DeleteEditButtonViewModel {
         public string Name { get; set; }
         public string DeleteMethod { get; set; }

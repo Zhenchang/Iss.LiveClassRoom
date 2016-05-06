@@ -1,4 +1,6 @@
-﻿@model Iss.LiveClassRoom.FrontEnd.Models.QuizViewModel
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+
+@model QuizViewModel
 
 @{
     var action = ViewContext.RouteData.Values["action"];
@@ -67,11 +69,13 @@
             
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        @{
+            Html.RenderPartial("_PartialCreateSaveButton", new CreateCancelButtonModel()
+            {
+                CancelEditUrl = Url.Action("Details", new { id = Model.Id }),
+                CancelCreateUrl = Url.Action("Details", "Courses", new { id = Model.CourseId })
+            });
+        }
 
     </div>
 }

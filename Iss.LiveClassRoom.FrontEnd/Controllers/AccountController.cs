@@ -58,9 +58,10 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 var result = SignInManager.SignIn(user);
                 if (!result) return View(model);
 
+                if (string.IsNullOrEmpty(ReturnUrl)) {
+                    return RedirectToAction("Index", "Account");
+                }
                 return RedirectToLocal(ReturnUrl);
-
-                //return RedirectToAction("Index");
             }
             return View(model);
         }
