@@ -163,6 +163,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Grid.mvc.readme" />
+    <None Include="Properties\PublishProfiles\LiveClassRoom - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\LiveClassRoom - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
