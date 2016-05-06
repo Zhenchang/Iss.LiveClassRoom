@@ -17,6 +17,9 @@
     columns.Add(m => m.Email).Titled("Email");
     columns.Add(m => m.PhoneNumber).Titled("Phone Number");
 }).WithPaging(Model.PageSize, Model.PageSize, Model.GridName).Sortable().Filterable().WithMultipleFilters().SetRowCssClasses(m => "click-row")
+
+
     <input type="submit" value="Assign" class="btn btn-primary" />
-    <a href="@Url.Action("Details")" class="btn btn-default">Cancel</a>
+    <a href="@Url.Action("Details", new { id = ViewContext.RouteData.Values["id"].ToString() })" class="btn btn-default">Cancel</a>
+
 }

@@ -72,10 +72,11 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 var path = Path.Combine(Server.MapPath("~/Content/videos"), fileName);
                 videoFile.SaveAs(path);
                 var domainModel = new Video();
+                domainModel.Course = course;
                 domainModel.CheckAuthorization(Permissions.Create);
                 domainModel.Title = viewModel.Title;
                 domainModel.FileName = fileName;
-                domainModel.Course = course;
+           
                 // Get the course
                 await _service.Add(domainModel, GetLoggedInUserId());
                 return RedirectToAction("Index", new { status = 0 });

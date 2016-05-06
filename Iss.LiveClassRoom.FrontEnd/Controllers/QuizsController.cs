@@ -128,7 +128,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                     });
                 }
                 await _service.Add(domainModel, GetLoggedInUserId());
-                return RedirectToAction("Details", new { id = domainModel.Id, status = 0 });
+                return RedirectToAction("Details", new { id = domainModel.Id, status = 0, type="View" });
             }
             return View("Edit", viewModel);
 
@@ -175,7 +175,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 domainModel.Course.ToString();
 
                 await _service.Update(domainModel, GetLoggedInUserId());
-                return RedirectToAction("Details", new { id = domainModel.Id, status = 1 });
+                return RedirectToAction("Details", new { id = domainModel.Id, status = 1, type = "View" });
             }
             return View(viewModel);
         }
