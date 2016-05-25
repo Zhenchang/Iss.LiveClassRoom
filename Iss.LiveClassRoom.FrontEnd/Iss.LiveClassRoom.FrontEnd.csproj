@@ -94,6 +94,7 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -214,6 +215,11 @@
     <Compile Include="Models\TopicViewModel.cs" />
     <Compile Include="Models\VideoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web_Services\AccountService.cs" />
+    <Compile Include="Web_Services\Authenticator.cs" />
+    <Compile Include="Web_Services\DataContracts.cs" />
+    <Compile Include="Web_Services\IAccountService.cs" />
+    <Compile Include="Web_Services\ICourseService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -275,6 +281,14 @@
     <ProjectReference Include="..\Iss.LiveClassRoom.Core\Iss.LiveClassRoom.Core.csproj">
       <Project>{a69279be-ae4a-4e8d-8363-493eb9e87bf4}</Project>
       <Name>Iss.LiveClassRoom.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iss.LiveClassRoom.DataAccessLayer\Iss.LiveClassRoom.DataAccessLayer.csproj">
+      <Project>{861CC834-592E-4934-A25D-5C9887EABFDA}</Project>
+      <Name>Iss.LiveClassRoom.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iss.LiveClassRoom.ServiceLayer\Iss.LiveClassRoom.ServiceLayer.csproj">
+      <Project>{73AC98DB-2669-489B-A07D-E098872B854F}</Project>
+      <Name>Iss.LiveClassRoom.ServiceLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

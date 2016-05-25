@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{83C50258-B997-4D47-9571-C3352B359E55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iss.LiveClassRoom.WebService", "Iss.LiveClassRoom.WebService\Iss.LiveClassRoom.WebService.csproj", "{71FDDB8F-9A14-4632-B9ED-1053B94C0453}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{60A484EB-B46F-4412-BFAC-2A53A77A6833}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60A484EB-B46F-4412-BFAC-2A53A77A6833}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60A484EB-B46F-4412-BFAC-2A53A77A6833}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71FDDB8F-9A14-4632-B9ED-1053B94C0453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71FDDB8F-9A14-4632-B9ED-1053B94C0453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71FDDB8F-9A14-4632-B9ED-1053B94C0453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71FDDB8F-9A14-4632-B9ED-1053B94C0453}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,5 +67,6 @@ Global
 		{73AC98DB-2669-489B-A07D-E098872B854F} = {60EBB95B-8AE0-4C6F-A596-0E55FDAECA1E}
 		{60A484EB-B46F-4412-BFAC-2A53A77A6833} = {7B717762-1B7B-46E1-B55D-5FD09E4B425F}
 		{83C50258-B997-4D47-9571-C3352B359E55} = {7B717762-1B7B-46E1-B55D-5FD09E4B425F}
+		{71FDDB8F-9A14-4632-B9ED-1053B94C0453} = {7A312C3F-26AB-4092-A7A2-84EF7028A3D1}
 	EndGlobalSection
 EndGlobal
