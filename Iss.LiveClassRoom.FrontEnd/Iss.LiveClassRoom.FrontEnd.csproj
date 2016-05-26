@@ -215,11 +215,6 @@
     <Compile Include="Models\TopicViewModel.cs" />
     <Compile Include="Models\VideoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web_Services\AccountService.cs" />
-    <Compile Include="Web_Services\Authenticator.cs" />
-    <Compile Include="Web_Services\DataContracts.cs" />
-    <Compile Include="Web_Services\IAccountService.cs" />
-    <Compile Include="Web_Services\ICourseService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
