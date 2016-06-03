@@ -9,6 +9,6 @@ namespace Iss.LiveClassRoom.Core.Services
 {
     public interface IQuizService : IService<Quiz>
     {
-
+        Quiz GetByOption(string optionId);
     }
 }

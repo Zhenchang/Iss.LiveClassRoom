@@ -38,7 +38,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             return View();
         }
 
-        public async System.Threading.Tasks.Task<ActionResult> Install()
+        public ActionResult Install()
         {
             var User = new Instructor();
             User.Name = "admin";
@@ -46,9 +46,9 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             User.Email = "admin@iss.com";
             User.PhoneNumber = "8888888";
             User.IsAdmin = true;
-            await _service.Add(User, "###");
-            await _service.Update(User, "###");
-            await _service.Update(User, "###");
+            _service.Add(User, "###").Wait();
+            _service.Update(User, "###");
+            _service.Update(User, "###");
             return RedirectToAction("Login", "Account");
         }
     }

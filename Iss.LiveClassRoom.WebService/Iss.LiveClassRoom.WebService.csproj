@@ -70,6 +70,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -91,15 +92,22 @@
   <ItemGroup>
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="Services\CourseWService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthorizationPolicy.cs" />
     <Compile Include="DataContracts\CourseData.cs" />
+    <Compile Include="DataContracts\QuizData.cs" />
+    <Compile Include="DataContracts\VideoData.cs" />
     <Compile Include="ServiceContracts\ICourseWService.cs" />
-    <Compile Include="Services\CourseWService.cs" />
+    <Compile Include="Services\CourseWService.svc.cs">
+      <DependentUpon>CourseWService.svc</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserAuthentication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -120,6 +128,14 @@
     <ProjectReference Include="..\Iss.LiveClassRoom.Core\Iss.LiveClassRoom.Core.csproj">
       <Project>{A69279BE-AE4A-4E8D-8363-493EB9E87BF4}</Project>
       <Name>Iss.LiveClassRoom.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iss.LiveClassRoom.DataAccessLayer\Iss.LiveClassRoom.DataAccessLayer.csproj">
+      <Project>{861CC834-592E-4934-A25D-5C9887EABFDA}</Project>
+      <Name>Iss.LiveClassRoom.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iss.LiveClassRoom.ServiceLayer\Iss.LiveClassRoom.ServiceLayer.csproj">
+      <Project>{73AC98DB-2669-489B-A07D-E098872B854F}</Project>
+      <Name>Iss.LiveClassRoom.ServiceLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

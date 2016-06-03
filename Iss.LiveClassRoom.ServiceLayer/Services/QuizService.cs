@@ -16,5 +16,13 @@ namespace Iss.LiveClassRoom.ServiceLayer.Services
         {
 
         }
+
+        public Quiz GetByOption(string optionId)
+        {
+            QuizOption option = _uow.GetRepository<QuizOption>().GetById(optionId).Result;
+            IQueryable<Quiz> quizs = _uow.GetRepository<Quiz>().GetAll();
+            Quiz quiz = quizs.SingleOrDefault(n => n.Options.Contains(option));
+            return quiz;
+        }
     }
 }

@@ -7,22 +7,22 @@ using System.Web;
 namespace Iss.LiveClassRoom.WebService.DataContracts
 {   
     [DataContract]
-    public class CourseData
-    {
+    public class VideoData
+    {   
         [DataMember]
         public string Id { get; set; }
 
         [DataMember]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         [DataMember]
-        public string Instructor { get; set; }
+        public string FileName { get; set; }
 
-        public CourseData(string id, string name, string instructor)
+        public VideoData(string id, string title, string fileName)
         {
             Id = id;
-            Name = name;
-            Instructor = instructor;
+            Title = title;
+            FileName = fileName;
         }
     }
 }
