@@ -32,7 +32,6 @@ namespace Iss.LiveClassRoom.TestWebServices
 
             if (myCF != null && myCF.State != CommunicationState.Closed)
                 myCF.Close();
-
         }
     }
 }

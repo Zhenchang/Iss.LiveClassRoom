@@ -8,6 +8,7 @@ using Iss.LiveClassRoom.DataAccessLayer;
 using System;
 using System.Linq;
 using System.Security.Permissions;
+using System.ServiceModel;
 
 namespace Iss.LiveClassRoom.WebService.Services
 {
@@ -52,11 +53,11 @@ namespace Iss.LiveClassRoom.WebService.Services
             }
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role="Student")]
         public ICollection<CourseData> GetCoursesByStudentEmail()
         {
-            string email = "abc@ddd.com";
-
-            Console.WriteLine("test----------------");
+            string email = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
+            System.Diagnostics.Debug.WriteLine("test----------------" + email);
 
             IStudentService studentService = new StudentService(new UnitOfWork(new SystemContext()));
             Student student = studentService.GetAll().SingleOrDefault(n => n.Email.Equals(email));
