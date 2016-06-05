@@ -16,12 +16,25 @@ namespace Iss.LiveClassRoom.ServiceLayer.Services
 
         }
 
-        public void AssignStudent(Student student, Course course, string byUserId)
+        public async Task AssignStudent(Student student, Course course, string byUserId)
         {
-            course.Students.Add(student);
-            student.Courses.Add(course);
-            _uow.GetRepository<Student>().Update(student);
-            _uow.Save(byUserId);
+            if (course.CurrentStudentNumber == course.MaxStudentNumber)
+            {
+                throw new Exception("The class already reached maximum student number.");
+            }
+            else
+            {
+                course.Students.Add(student);
+                course.CurrentStudentNumber++;
+                student.Courses.Add(course);
+                _uow.GetRepository<Student>().Update(student);
+                await _uow.Save(byUserId);
+            }
+        }
+
+        public void ChangeMaxStudentNumber(Course course, int maxStudentNumber)
+        {
+            
         }
 
         public void RemoveStudent(Student student, Course course, string byUserId)

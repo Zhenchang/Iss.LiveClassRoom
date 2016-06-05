@@ -79,7 +79,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             foreach (var studentId in studentIds)
             {
                 var student = await _studentService.GetById(studentId);
-                course.Students.Add(student);
+                //course.Students.Add(student);
+                await _service.AssignStudent(student, course, GetLoggedInUserId());
                 course.Instructor.ToString();
                 await _service.Update(course, GetLoggedInUserId());
             }
@@ -91,9 +92,11 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             var student = await _studentService.GetById(studentId);
             var course = await _service.GetById(id);
             course.Students.Remove(student);
+            course.CurrentStudentNumber--;
             course.Instructor.ToString();
             await _service.Update(course, GetLoggedInUserId());
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            //return new HttpStatusCodeResult(HttpStatusCode.OK);
+            return RedirectToAction("Details", new { id = id });
         }
 
         public ActionResult Create()
@@ -163,6 +166,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 domainModel.CheckAuthorization(Permissions.Edit);
 
                 domainModel.Name = viewModel.Name;
+                domainModel.MaxStudentNumber = viewModel.MaxStudentNumber;
                 if (domainModel.Instructor.Id != viewModel.InstructorId) {
                     domainModel.Instructor = instructor;
                 }
