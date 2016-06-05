@@ -15,6 +15,10 @@ namespace Iss.LiveClassRoom.Core.Models
         [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
 
+        //[Required]
+        [Range(1,500)]
+        public int MaxStudentNumber { get; set; }
+
         [Required]
         public virtual Instructor Instructor { get; set; }
 
