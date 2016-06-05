@@ -97,6 +97,10 @@
     <Compile Include="Migrations\201606051559292_add MaxStudentNumber in Course table.Designer.cs">
       <DependentUpon>201606051559292_add MaxStudentNumber in Course table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606051609267_add CurrentStudentNumber field in Course table.cs" />
+    <Compile Include="Migrations\201606051609267_add CurrentStudentNumber field in Course table.Designer.cs">
+      <DependentUpon>201606051609267_add CurrentStudentNumber field in Course table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenericRepository.cs" />
@@ -143,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606051559292_add MaxStudentNumber in Course table.resx">
       <DependentUpon>201606051559292_add MaxStudentNumber in Course table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606051609267_add CurrentStudentNumber field in Course table.resx">
+      <DependentUpon>201606051609267_add CurrentStudentNumber field in Course table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

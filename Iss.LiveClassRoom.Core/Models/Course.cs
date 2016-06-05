@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Iss.LiveClassRoom.Core.Models
 {
@@ -16,8 +12,12 @@ namespace Iss.LiveClassRoom.Core.Models
         public string Name { get; set; }
 
         //[Required]
-        [Range(1,500)]
+        [Range(1,int.MaxValue)]
         public int MaxStudentNumber { get; set; }
+
+        //[Required]
+        [Range(0, int.MaxValue)]
+        public int CurrentStudentNumber { get; set; }
 
         [Required]
         public virtual Instructor Instructor { get; set; }
