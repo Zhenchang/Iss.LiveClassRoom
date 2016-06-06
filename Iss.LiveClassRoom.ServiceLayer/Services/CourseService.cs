@@ -32,9 +32,10 @@ namespace Iss.LiveClassRoom.ServiceLayer.Services
             }
         }
 
-        public void ChangeMaxStudentNumber(Course course, int maxStudentNumber)
+        public bool IsFull(string id)
         {
-            
+            Course course = _uow.GetRepository<Course>().GetById(id).Result;
+            return course.CurrentStudentNumber.Equals(course.MaxStudentNumber);
         }
 
         public void RemoveStudent(Student student, Course course, string byUserId)
