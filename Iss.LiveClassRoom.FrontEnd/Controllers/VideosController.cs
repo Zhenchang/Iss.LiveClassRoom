@@ -69,6 +69,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             if (ModelState.IsValid)
             {
                 var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(videoFile.FileName);
+                //var path = Path.Combine(Server.MapPath("~/Content/videos"), fileName);
                 var path = Path.Combine(Server.MapPath("~/Content/videos"), fileName);
                 videoFile.SaveAs(path);
                 var domainModel = new Video();

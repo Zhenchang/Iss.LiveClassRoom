@@ -18,7 +18,10 @@ namespace Iss.LiveClassRoom.Core.Models
 
         [Required]
         public virtual Course Course { get; set; }
+        
+        public bool IsAccept { get; set; }
 
+        public string Comment { get; set; }
 
         public override Permissions GetPermissions(IPrincipal user)
         {

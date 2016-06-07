@@ -39,6 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -97,6 +98,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Compile Include="Activities\CheckStudentNumber.cs" />
+    <Compile Include="Activities\ReceiveAcceptAndChangeDatabase.cs" />
+    <Compile Include="Activities\UploadAndSendtoReviewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +126,10 @@
     <ProjectReference Include="..\Iss.LiveClassRoom.Core\Iss.LiveClassRoom.Core.csproj">
       <Project>{a69279be-ae4a-4e8d-8363-493eb9e87bf4}</Project>
       <Name>Iss.LiveClassRoom.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iss.LiveClassRoom.DataAccessLayer\Iss.LiveClassRoom.DataAccessLayer.csproj">
+      <Project>{861cc834-592e-4934-a25d-5c9887eabfda}</Project>
+      <Name>Iss.LiveClassRoom.DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Iss.LiveClassRoom.ServiceLayer\Iss.LiveClassRoom.ServiceLayer.csproj">
       <Project>{73ac98db-2669-489b-a07d-e098872b854f}</Project>
