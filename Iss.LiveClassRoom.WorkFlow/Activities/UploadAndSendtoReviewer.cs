@@ -55,9 +55,7 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
             //add the file to content folder
             //add the video information to database
 
-            //var course =_db.Set<Course>().SingleOrDefault(x => x.Id == CourseId);
-            /*
-            var course = _courseService.GetById(CourseId).Result;
+            var course =_db.Set<Course>().SingleOrDefault(x => x.Id == CourseId);
             var allowedExt = new string[] { ".mp4", ".ogg", ".mpeg" };
             if (allowedExt.Contains(Path.GetExtension(videoFile.FileName)))
             {
@@ -76,14 +74,9 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
                 _videoService.Add(domainModel, InstructorId);
                 context.SetValue(VideoId, domainModel.Id);
             }
-            */
+            
+                //System.IO.File.WriteAllBytes(context.GetValue(FilePath), System.IO.File.ReadAllBytes(""));
 
-            //System.IO.File.WriteAllBytes(context.GetValue(FilePath), System.IO.File.ReadAllBytes(""));
-
-            //send it to reviewer,do some change in web view in the admin home page
-            //set value
-
-
-        }
+            //send the
     }
 }

@@ -57,7 +57,14 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 viewModel.Quizzes = entity.GetUnAnsweredQuizzesFor(student);
             }
             IService<EnrollmentRequest> enrollService = new Service<EnrollmentRequest>(new UnitOfWork(new SystemContext()));
-            ViewBag.enrollRequest = enrollService.GetAll().Where(n => n.CourseId.Equals(id)).AsEnumerable();
+            ICollection<EnrollRequestViewModel> requests = new List<EnrollRequestViewModel>();
+            foreach (var item in enrollService.GetAll().Where(n => n.CourseId.Equals(id)).AsEnumerable())
+            {
+                EnrollRequestViewModel requestViewModel = new EnrollRequestViewModel(item);
+                requestViewModel.Student = _studentService.GetById(item.StudentId).Result.ToViewModel();
+                requests.Add(requestViewModel);
+            }
+            ViewBag.enrollRequests = requests;
             return View(viewModel);
         }
 
