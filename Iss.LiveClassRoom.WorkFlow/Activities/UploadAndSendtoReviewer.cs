@@ -54,7 +54,7 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
 
             //add the file to content folder
             //add the video information to database
-
+            /*
             var course =_db.Set<Course>().SingleOrDefault(x => x.Id == CourseId);
             var allowedExt = new string[] { ".mp4", ".ogg", ".mpeg" };
             if (allowedExt.Contains(Path.GetExtension(videoFile.FileName)))
@@ -78,5 +78,6 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
                 //System.IO.File.WriteAllBytes(context.GetValue(FilePath), System.IO.File.ReadAllBytes(""));
 
             //send the
+            */
     }
 }
