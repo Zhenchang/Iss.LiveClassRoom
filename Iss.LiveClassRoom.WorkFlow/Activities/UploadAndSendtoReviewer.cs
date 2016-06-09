@@ -33,7 +33,7 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
             SystemContext _db = new SystemContext();
             UnitOfWork _uow = new UnitOfWork(_db);
             ICourseService _courseService = new CourseService(_uow);
-            IVideoService _videoService= new VideoService(_uow);
+            IVideoService _videoService = new VideoService(_uow);
             string CourseId = context.GetValue(this.CourseId);
             string InstructorId = context.GetValue(this.InstructorId);
             string Title = context.GetValue(this.Title);
@@ -41,7 +41,7 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
             //add the file to content folder
             //add the video information to database
 
-            var course =_db.Set<Course>().SingleOrDefault(x => x.Id == CourseId);
+            var course = _db.Set<Course>().SingleOrDefault(x => x.Id == CourseId);
             var allowedExt = new string[] { ".mp4", ".ogg", ".mpeg" };
             if (allowedExt.Contains(Path.GetExtension(videoFile.FileName)))
             {
@@ -58,9 +58,10 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
 
                 _videoService.Add(domainModel, InstructorId);
             }
-            
-                //System.IO.File.WriteAllBytes(context.GetValue(FilePath), System.IO.File.ReadAllBytes(""));
+
+            //System.IO.File.WriteAllBytes(context.GetValue(FilePath), System.IO.File.ReadAllBytes(""));
 
             //send the
+        }
     }
 }

@@ -209,6 +209,7 @@
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\CourseViewModel.cs" />
+    <Compile Include="Models\EnrollRequestViewModel.cs" />
     <Compile Include="Models\QuizHub.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
