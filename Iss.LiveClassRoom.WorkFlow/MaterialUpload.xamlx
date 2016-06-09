@@ -101,7 +101,7 @@
     </ilwa:UploadAndSendtoReviewer>
     <Receive sap2010:WorkflowViewState.IdRef="Receive_2" OperationName="ReceiveAcceptOrNot" ServiceContractName="fileupload">
       <Receive.CorrelatesOn>
-        <XPathMessageQuery x:Key="key1">
+        <XPathMessageQuery x:Key="VideoId">
           <XPathMessageQuery.Namespaces>
             <ssx:XPathMessageContextMarkup>
               <x:String x:Key="xgSc">http://tempuri.org/</x:String>

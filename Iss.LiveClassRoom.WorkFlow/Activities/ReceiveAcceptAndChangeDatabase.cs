@@ -28,7 +28,7 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
             
             var video = _videoService.GetById(VideoId).Result;
             video.IsAccept = IsAccept?1:0;
-            _videoService.Update(video, AdminId).Wait();
+            _videoService.Update(video, AdminId);
         }
         
     }
