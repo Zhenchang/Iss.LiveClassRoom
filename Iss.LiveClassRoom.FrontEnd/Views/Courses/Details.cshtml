@@ -30,7 +30,6 @@
                 </ul>
             </div>
         </div>
-
     </div>
 </nav>
 
@@ -67,7 +66,6 @@
         <dd>
             @Html.DisplayFor(model => model.CurrentStudentNumber)
         </dd>
-        </dd>
     </dl>
 </div>
 
@@ -86,7 +84,8 @@
                 <li role="presentation"><a href="#quizzes" aria-controls="quizzes" role="tab" data-toggle="tab">Quizzes</a></li>
                 <li role="presentation"><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab">Topics</a></li>
                 <li role="presentation"><a href="#videos" aria-controls="videos" role="tab" data-toggle="tab">Videos</a></li>
-            </ul>
+                <li role="presentation"><a href="#enrollments" aria-controls="enrollments" role="tab" data-toggle="tab">Enrollments</a></li>
+             </ul>
 
             <div role="tabpanel">
                 <div class="tab-content">
@@ -153,6 +152,27 @@
                             Html.RenderPartial("~/Views/Shared/_PartialGridNav.cshtml", videosNav);
                             Html.RenderPartial("~/Views/Videos/_PartialIndex.cshtml", videosNav);
                         }
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="enrollments">
+                        <table>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Student email</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            @{ 
+                                foreach (var item in ViewBag.enrollRequest)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Email</td>
+                                        <td>@Html.ActionLink("Accept", "Accept", new { courseId = item.courseId, studentId = item.studentId })</td>
+                                        <td>@Html.ActionLink("Reject", "Reject", new { courseId = item.courseId, studentId = item.studentId })</td>
+                                     </tr>
+                                }
+                            }
+                        </table>
                     </div>
                 </div>
             </div>

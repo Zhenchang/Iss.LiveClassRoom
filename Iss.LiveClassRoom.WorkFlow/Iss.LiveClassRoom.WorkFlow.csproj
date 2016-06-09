@@ -89,7 +89,9 @@
   <ItemGroup>
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -97,6 +99,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Compile Include="Activities\CheckStudentNumber.cs" />
+    <Compile Include="Activities\EnrollStudentModifyLimititation.cs" />
+    <Compile Include="Activities\EnrollStudent.cs" />
+    <Compile Include="Activities\PushEnrollmentRequest.cs" />
+    <Compile Include="Activities\RemoveEnrollmentRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +129,10 @@
     <ProjectReference Include="..\Iss.LiveClassRoom.Core\Iss.LiveClassRoom.Core.csproj">
       <Project>{a69279be-ae4a-4e8d-8363-493eb9e87bf4}</Project>
       <Name>Iss.LiveClassRoom.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Iss.LiveClassRoom.DataAccessLayer\Iss.LiveClassRoom.DataAccessLayer.csproj">
+      <Project>{861CC834-592E-4934-A25D-5C9887EABFDA}</Project>
+      <Name>Iss.LiveClassRoom.DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\Iss.LiveClassRoom.ServiceLayer\Iss.LiveClassRoom.ServiceLayer.csproj">
       <Project>{73ac98db-2669-489b-a07d-e098872b854f}</Project>

@@ -1,0 +1,43 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+@using Iss.LiveClassRoom.Core.Models;
+
+@model IEnumerable<Iss.LiveClassRoom.Core.Models.Course>
+
+@{
+    ViewBag.Title = "Register a new course.";
+}
+
+@{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
+
+<table>
+    <tr class="grid-table">
+        <th class="grid-header-title">
+            @Html.ActionLink("Course", "Register", new { sortOrder = ViewBag.CourseSortParam})      
+        </th>
+        <th>
+            @Html.ActionLink("Instructor", "Register", new { sortOrder = ViewBag.InstructorSortParam})
+        </th>
+        <th>
+            @Html.ActionLink("Current Student Number", "Register", new { sortOrder = ViewBag.CurrNumSortParam})
+        </th>
+        <th>
+            @Html.ActionLink("Max Student Number", "Register", new { sortOrder = ViewBag.MaxNumSortParam})
+        </th>
+        <th></th>
+    </tr>
+    @{foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Instructor</td>
+                <td>@item.CurrentStudentNumber</td>
+                <td>@item.MaxStudentNumber</td>
+                <td>@Html.ActionLink("Register", "RegisterCourse", new { courseId = item.Id })</td>
+            </tr>
+        }
+    }
+</table>
+
+@section Scripts {
+    @{Html.RenderPartial("~/Views/Shared/_PartialGridScript.cshtml", null);}
+}
