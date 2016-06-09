@@ -31,8 +31,8 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
         // and return the value from the Execute method.
         protected override void Execute(CodeActivityContext context)
         {
-//            System.Diagnostics.Debug.WriteLine("*********************************************");
-//            throw new Exception("********************************************");
+            //            System.Diagnostics.Debug.WriteLine("*********************************************");
+            //            throw new Exception("********************************************");
             string VideoId = context.GetValue(this.VideoId);
             string InstructorId = context.GetValue(this.InstructorId);
             SystemContext _db = new SystemContext();
@@ -79,5 +79,6 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
 
             //send the
             */
+        }
     }
 }
