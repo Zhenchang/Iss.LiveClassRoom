@@ -8,32 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace System.Web
-{
-    using System.Runtime.Serialization;
-    
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="HttpPostedFileBase", Namespace="http://schemas.datacontract.org/2004/07/System.Web")]
-    public partial class HttpPostedFileBase : object, System.Runtime.Serialization.IExtensibleDataObject
-    {
-        
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
-        {
-            get
-            {
-                return this.extensionDataField;
-            }
-            set
-            {
-                this.extensionDataField = value;
-            }
-        }
-    }
-}
 
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -42,10 +16,10 @@ public interface fileupload
 {
     
     [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/fileupload/ReceiveUploadMessage")]
-    void ReceiveUploadMessage(System.Web.HttpPostedFileBase videoFile, string Title, string CourseId, string InstructorId);
+    void ReceiveUploadMessage(string InstructorId, string VideoId);
     
     [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/fileupload/ReceiveUploadMessage")]
-    System.Threading.Tasks.Task ReceiveUploadMessageAsync(System.Web.HttpPostedFileBase videoFile, string Title, string CourseId, string InstructorId);
+    System.Threading.Tasks.Task ReceiveUploadMessageAsync(string InstructorId, string VideoId);
     
     [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/fileupload/ReceiveAcceptOrNot")]
     void ReceiveAcceptOrNot(bool IsAccept, string VideoId, string AdminId);
@@ -88,14 +62,14 @@ public partial class fileuploadClient : System.ServiceModel.ClientBase<fileuploa
     {
     }
     
-    public void ReceiveUploadMessage(System.Web.HttpPostedFileBase videoFile, string Title, string CourseId, string InstructorId)
+    public void ReceiveUploadMessage(string InstructorId, string VideoId)
     {
-        base.Channel.ReceiveUploadMessage(videoFile, Title, CourseId, InstructorId);
+        base.Channel.ReceiveUploadMessage(InstructorId, VideoId);
     }
     
-    public System.Threading.Tasks.Task ReceiveUploadMessageAsync(System.Web.HttpPostedFileBase videoFile, string Title, string CourseId, string InstructorId)
+    public System.Threading.Tasks.Task ReceiveUploadMessageAsync(string InstructorId, string VideoId)
     {
-        return base.Channel.ReceiveUploadMessageAsync(videoFile, Title, CourseId, InstructorId);
+        return base.Channel.ReceiveUploadMessageAsync(InstructorId, VideoId);
     }
     
     public void ReceiveAcceptOrNot(bool IsAccept, string VideoId, string AdminId)
