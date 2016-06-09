@@ -9,6 +9,7 @@ using Iss.LiveClassRoom.ServiceLayer.Services;
 using Iss.LiveClassRoom.DataAccessLayer;
 using System.IO;
 using Iss.LiveClassRoom.Core.Models;
+using System.Threading.Tasks;
 
 namespace Iss.LiveClassRoom.WorkFlow.Activities
 {
@@ -26,7 +27,7 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
         */
         public InArgument<string> VideoId { get; set; }
         public InArgument<string> InstructorId { get; set; }
-
+    
         // If your activity returns a value, derive from CodeActivity<TResult>
         // and return the value from the Execute method.
         protected override void Execute(CodeActivityContext context)
@@ -38,9 +39,14 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
             SystemContext _db = new SystemContext();
             UnitOfWork _uow = new UnitOfWork(_db);
             IVideoService _videoService = new VideoService(_uow);
-            var video = _videoService.GetById(VideoId).Result;
-            video.IsAccept = 2;
-            _videoService.Update(video, InstructorId);
+            Task.Run(async () =>
+            {
+                var video = await _videoService.GetById(VideoId);
+                video.IsAccept = 2;
+                video.Course.ToString();
+                await _videoService.Update(video, InstructorId);
+            }).Wait();
+         
             // Obtain the runtime value of the Text input argument
 
             //HttpPostedFileBase videoFile = context.GetValue(this.videoFile);

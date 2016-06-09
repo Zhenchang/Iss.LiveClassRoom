@@ -77,6 +77,9 @@
                                 @if (new Course().HasAccess(User, Permissions.List)) {
                                     <a class="list-group-item" href="@Url.Action("Index", "Courses")">Courses</a>
                                 }
+                                @if (new Course().HasAccess(User, Permissions.List)){
+                                    <a class="list-group-item" href="@Url.Action("Index", "FileReview")">UploadedFileReview</a>
+                                }
                             </div>
                         </div>
                     </div>

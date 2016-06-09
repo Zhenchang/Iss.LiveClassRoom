@@ -196,6 +196,7 @@
     <Compile Include="App_Start\UrlHelpers.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FileReviewController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuizsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
@@ -267,6 +268,7 @@
     <Content Include="Views\Courses\AssignStudents.cshtml" />
     <Content Include="Views\Courses\_PartialStudentsIndex.cshtml" />
     <Content Include="Views\Courses\Register.cshtml" />
+    <Content Include="Views\FileReview\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

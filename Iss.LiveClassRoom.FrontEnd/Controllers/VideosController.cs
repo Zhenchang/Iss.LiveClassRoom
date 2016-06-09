@@ -80,7 +80,10 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
            
                 // Get the course
                 await _service.Add(domainModel, GetLoggedInUserId());
-                return RedirectToAction("Index", new { status = 0 });
+
+                UploadFile(domainModel.Id);
+
+                return RedirectToAction("Details","Courses",new { id=course.Id});
             }
             return View("Edit", viewModel);
         }
@@ -161,6 +164,13 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 _service.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void UploadFile(string videoId)
+        {
+            //invoke workflow
+            fileuploadClient client = new fileuploadClient();
+            client.ReceiveUploadMessage(GetLoggedInUserId(), videoId);
         }
     }
 }
