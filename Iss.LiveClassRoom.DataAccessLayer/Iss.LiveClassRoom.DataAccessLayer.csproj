@@ -113,17 +113,13 @@
     <Compile Include="Migrations\201606070608003_modify EnrollRequest table.Designer.cs">
       <DependentUpon>201606070608003_modify EnrollRequest table.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606080749365_changeIsacceptInVideo.cs" />
-    <Compile Include="Migrations\201606080749365_changeIsacceptInVideo.Designer.cs">
-      <DependentUpon>201606080749365_changeIsacceptInVideo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606090833427_Initial.cs" />
-    <Compile Include="Migrations\201606090833427_Initial.Designer.cs">
-      <DependentUpon>201606090833427_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201606090836556_ignore changes.cs" />
     <Compile Include="Migrations\201606090836556_ignore changes.Designer.cs">
       <DependentUpon>201606090836556_ignore changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606091123034_initial again.cs" />
+    <Compile Include="Migrations\201606091123034_initial again.Designer.cs">
+      <DependentUpon>201606091123034_initial again.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -178,20 +174,17 @@
     <EmbeddedResource Include="Migrations\201606061039056_changeVideo.resx">
       <DependentUpon>201606061039056_changeVideo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606080749365_changeIsacceptInVideo.resx">
-      <DependentUpon>201606080749365_changeIsacceptInVideo.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606070413172_add EnrollmentRequest table.resx">
       <DependentUpon>201606070413172_add EnrollmentRequest table.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606070608003_modify EnrollRequest table.resx">
       <DependentUpon>201606070608003_modify EnrollRequest table.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606090833427_Initial.resx">
-      <DependentUpon>201606090833427_Initial.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606090836556_ignore changes.resx">
       <DependentUpon>201606090836556_ignore changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606091123034_initial again.resx">
+      <DependentUpon>201606091123034_initial again.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

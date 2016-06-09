@@ -7,13 +7,13 @@ namespace Iss.LiveClassRoom.DataAccessLayer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class initialagain : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialagain));
         
         string IMigrationMetadata.Id
         {
-            get { return "201606090833427_Initial"; }
+            get { return "201606091123034_initial again"; }
         }
         
         string IMigrationMetadata.Source

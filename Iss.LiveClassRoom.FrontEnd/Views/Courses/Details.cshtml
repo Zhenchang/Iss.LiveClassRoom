@@ -165,10 +165,10 @@
                                 foreach (var item in ViewBag.enrollRequests)
                                 {
                                     <tr>
-                                        <td>@item.Name</td>
-                                        <td>@item.Email</td>
-                                        <td>@Html.ActionLink("Accept", "Accept", new { courseId = item.courseId, studentId = item.studentId })</td>
-                                        <td>@Html.ActionLink("Reject", "Reject", new { courseId = item.courseId, studentId = item.studentId })</td>
+                                        <td>@item.Student.Name</td>
+                                        <td>@item.Student.Email</td>
+                                        <td>@Html.ActionLink("Accept", "Accept", new { courseId = Model.Id, studentId = item.Student.Id })</td>
+                                        <td>@Html.ActionLink("Reject", "Reject", new { courseId = Model.Id, studentId = item.Student.Id })</td>
                                      </tr>
                                 }
                             }
@@ -179,7 +179,6 @@
         </div>
     </div>
 </div>
-
 
 @section BodyFoot {
     @{

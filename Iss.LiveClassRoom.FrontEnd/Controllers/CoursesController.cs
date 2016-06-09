@@ -61,7 +61,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             foreach (var item in enrollService.GetAll().Where(n => n.CourseId.Equals(id)).AsEnumerable())
             {
                 EnrollRequestViewModel requestViewModel = new EnrollRequestViewModel(item);
-                requestViewModel.Student = _studentService.GetById(item.StudentId).Result.ToViewModel();
+                Student student = _studentService.GetById(item.StudentId).Result;
+                requestViewModel.Student = student.ToViewModel();
                 requests.Add(requestViewModel);
             }
             ViewBag.enrollRequests = requests;
@@ -233,15 +234,15 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             //invoke workflow
             EnrollStudentServiceClient client = new EnrollStudentServiceClient();
             client.EnrollDecision(true, studentId, courseId);
-            return RedirectToRoute("Courses/Detail/" + courseId + "#enrollments");
+            return Redirect("/Courses/Details/" + courseId + "#enrollments");
         }
 
         public ActionResult Reject(string studentId, string courseId)
         {
             //invoke workflow
             EnrollStudentServiceClient client = new EnrollStudentServiceClient();
-            client.EnrollDecision(true, studentId, courseId);
-            return RedirectToRoute("Courses/Detail/" + courseId + "#enrollments");
+            client.EnrollDecision(false, studentId, courseId);
+            return Redirect("/Courses/Details/" + courseId + "#enrollments");
         }
 
         protected override void Dispose(bool disposing)
