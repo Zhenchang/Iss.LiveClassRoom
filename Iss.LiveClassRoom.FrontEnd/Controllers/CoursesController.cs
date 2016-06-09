@@ -12,6 +12,8 @@ using Iss.LiveClassRoom.Core.Services;
 using Iss.LiveClassRoom.FrontEnd.Models;
 using Iss.LiveClassRoom.FrontEnd.App_Start;
 using System.ComponentModel.DataAnnotations;
+using Iss.LiveClassRoom.ServiceLayer;
+using Iss.LiveClassRoom.DataAccessLayer;
 
 namespace Iss.LiveClassRoom.FrontEnd.Controllers
 {
@@ -22,7 +24,6 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         private ICourseService _service;
         private IUserService _userService;
         private IStudentService _studentService;
-
         public CoursesController(ICourseService service, IUserService userService, 
             IStudentService studentService)
         {
@@ -55,6 +56,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                 var student = await _studentService.GetById(User.Identity.Name);
                 viewModel.Quizzes = entity.GetUnAnsweredQuizzesFor(student);
             }
+            IService<EnrollmentRequest> enrollService = new Service<EnrollmentRequest>(new UnitOfWork(new SystemContext()));
+            ViewBag.enrollRequest = enrollService.GetAll().Where(n => n.CourseId.Equals(id)).AsEnumerable();
             return View(viewModel);
         }
 
@@ -200,6 +203,38 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             else {
                 ViewBag.InstructorId = new SelectList(_userService.GetAll().OfType<Instructor>(), "Id", "Name", selectedId);
             }
+        }
+
+        public async Task<ActionResult> Register(string sortOrder)
+        {
+            //ViewBag.CourseSortParam = String.IsNullOrEmpty(sortOrder) ? "course_desc" : "";
+            Student student = await _studentService.GetById(GetLoggedInUserId());
+            IEnumerable<Course> courses =  _service.GetAll().Where(n => !n.Students.Any(m => m.Id.Equals(student.Id))).AsEnumerable();
+            return View(courses); 
+        }
+
+        public ActionResult RegisterCourse(string courseId)
+        {   
+            //invoke workflow
+            EnrollStudentServiceClient client = new EnrollStudentServiceClient();
+            client.RecvEnrollmentReq(GetLoggedInUserId(), courseId);
+            return RedirectToAction("", "Account");
+        }
+
+        public ActionResult Accept(string studentId, string courseId)
+        {
+            //invoke workflow
+            EnrollStudentServiceClient client = new EnrollStudentServiceClient();
+            client.EnrollDecision(true, studentId, courseId);
+            return RedirectToRoute("Courses/Detail/" + courseId + "#enrollments");
+        }
+
+        public ActionResult Reject(string studentId, string courseId)
+        {
+            //invoke workflow
+            EnrollStudentServiceClient client = new EnrollStudentServiceClient();
+            client.EnrollDecision(true, studentId, courseId);
+            return RedirectToRoute("Courses/Detail/" + courseId + "#enrollments");
         }
 
         protected override void Dispose(bool disposing)

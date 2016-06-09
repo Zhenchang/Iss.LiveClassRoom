@@ -3,21 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Activities;
+using Iss.LiveClassRoom.Core.Services;
+using Iss.LiveClassRoom.ServiceLayer.Services;
+using Iss.LiveClassRoom.DataAccessLayer;
+using Iss.LiveClassRoom.Core.Models;
+using System.ComponentModel;
 
 namespace Iss.LiveClassRoom.WorkFlow.Activities
 {
 
     public sealed class CheckStudentNumber : CodeActivity
     {
-        // Define an activity input argument of type string
-        public InArgument<string> Text { get; set; }
+        public InArgument<string> CourseId { get; set; }
+        
+        public OutArgument<int> CurrentStudentNumber { get; set; }
 
-        // If your activity returns a value, derive from CodeActivity<TResult>
-        // and return the value from the Execute method.
+        public OutArgument<int> MaxStudentNumber { get; set; }
+
+        public OutArgument<string> WorkFlowInstanceId { get; set; }
+
         protected override void Execute(CodeActivityContext context)
         {
-            // Obtain the runtime value of the Text input argument
-            string text = context.GetValue(this.Text);
+            string courseId = context.GetValue(CourseId);
+            ICourseService service = new CourseService(new UnitOfWork(new SystemContext()));
+            Course course = service.GetById(courseId).Result;
+            context.SetValue(MaxStudentNumber, course.MaxStudentNumber);
+            context.SetValue(CurrentStudentNumber, course.CurrentStudentNumber);
+            //context.SetValue(this.WorkFlowInstanceId, context.WorkflowInstanceId);
         }
     }
 }

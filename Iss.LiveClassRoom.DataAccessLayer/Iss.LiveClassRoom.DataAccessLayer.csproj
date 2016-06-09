@@ -105,6 +105,14 @@
     <Compile Include="Migrations\201606061039056_changeVideo.Designer.cs">
       <DependentUpon>201606061039056_changeVideo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606070413172_add EnrollmentRequest table.cs" />
+    <Compile Include="Migrations\201606070413172_add EnrollmentRequest table.Designer.cs">
+      <DependentUpon>201606070413172_add EnrollmentRequest table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606070608003_modify EnrollRequest table.cs" />
+    <Compile Include="Migrations\201606070608003_modify EnrollRequest table.Designer.cs">
+      <DependentUpon>201606070608003_modify EnrollRequest table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201606080749365_changeIsacceptInVideo.cs" />
     <Compile Include="Migrations\201606080749365_changeIsacceptInVideo.Designer.cs">
       <DependentUpon>201606080749365_changeIsacceptInVideo.cs</DependentUpon>
@@ -164,6 +172,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606080749365_changeIsacceptInVideo.resx">
       <DependentUpon>201606080749365_changeIsacceptInVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606070413172_add EnrollmentRequest table.resx">
+      <DependentUpon>201606070413172_add EnrollmentRequest table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606070608003_modify EnrollRequest table.resx">
+      <DependentUpon>201606070608003_modify EnrollRequest table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

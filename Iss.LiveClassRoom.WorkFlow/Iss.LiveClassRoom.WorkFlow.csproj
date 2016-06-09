@@ -90,7 +90,9 @@
   <ItemGroup>
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -100,6 +102,10 @@
     <Compile Include="Activities\CheckStudentNumber.cs" />
     <Compile Include="Activities\ReceiveAcceptAndChangeDatabase.cs" />
     <Compile Include="Activities\UploadAndSendtoReviewer.cs" />
+    <Compile Include="Activities\EnrollStudentModifyLimititation.cs" />
+    <Compile Include="Activities\EnrollStudent.cs" />
+    <Compile Include="Activities\PushEnrollmentRequest.cs" />
+    <Compile Include="Activities\RemoveEnrollmentRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
