@@ -1,4 +1,4 @@
-﻿<WorkflowService mc:Ignorable="sap sap2010 sads" p:TextExpression.Namespaces="{x:Reference __ReferenceID0}" p:TextExpression.References="{x:Reference __ReferenceID1}" ConfigurationName="Service1" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="WorkflowService_1" Name="EnrollmentService"
+﻿<WorkflowService mc:Ignorable="sap sap2010 sads" p:TextExpression.Namespaces="{x:Reference __ReferenceID2}" p:TextExpression.References="{x:Reference __ReferenceID3}" ConfigurationName="Service1" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="WorkflowService_1" Name="EnrollmentService"
  xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
  xmlns:ilwa="clr-namespace:Iss.LiveClassRoom.WorkFlow.Activities;assembly=Iss.LiveClassRoom.WorkFlow"
  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,7 +13,7 @@
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <p:Sequence DisplayName="Sequential Service" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <p:TextExpression.Namespaces>
-      <sco:Collection x:TypeArguments="x:String" x:Name="__ReferenceID0">
+      <sco:Collection x:TypeArguments="x:String" x:Name="__ReferenceID2">
         <x:String>System</x:String>
         <x:String>System.Collections.Generic</x:String>
         <x:String>System.Data</x:String>
@@ -23,7 +23,8 @@
       </sco:Collection>
     </p:TextExpression.Namespaces>
     <p:TextExpression.References>
-      <sco:Collection x:TypeArguments="p:AssemblyReference" x:Name="__ReferenceID1">
+      <sco:Collection x:TypeArguments="p:AssemblyReference" x:Name="__ReferenceID3">
+        <p:AssemblyReference>EntityFramework</p:AssemblyReference>
         <p:AssemblyReference>Microsoft.AI.Agent.Intercept</p:AssemblyReference>
         <p:AssemblyReference>Microsoft.AI.DependencyCollector</p:AssemblyReference>
         <p:AssemblyReference>Microsoft.AI.PerfCounterCollector</p:AssemblyReference>
@@ -62,8 +63,10 @@
       <p:Variable x:TypeArguments="x:Int32" Name="currentStudentNumber" />
       <p:Variable x:TypeArguments="x:Int32" Name="maxStudentNumber" />
       <p:Variable x:TypeArguments="CorrelationHandle" Name="workFlowInstanceHandle" />
+      <p:Variable x:TypeArguments="x:Int32" Default="0" Name="state" />
+      <p:Variable x:TypeArguments="x:String" Name="message" />
     </p:Sequence.Variables>
-    <Receive CanCreateInstance="True" sap2010:WorkflowViewState.IdRef="Receive_2" OperationName="RecvEnrollmentReq" ServiceContractName="EnrollStudentService">
+    <Receive x:Name="__ReferenceID0" CanCreateInstance="True" DisplayName="ReceiveEnrollment" sap2010:WorkflowViewState.IdRef="Receive_2" OperationName="RecvEnrollmentReq" ServiceContractName="EnrollStudentService">
       <ReceiveParametersContent>
         <p:OutArgument x:TypeArguments="x:String" x:Key="studentId">
           <mca:CSharpReference x:TypeArguments="x:String">studentId</mca:CSharpReference>
@@ -110,23 +113,41 @@
         </p:InArgument>
       </p:If.Condition>
       <p:If.Then>
-        <ilwa:EnrollStudent sap2010:WorkflowViewState.IdRef="EnrollStudent_1">
-          <ilwa:EnrollStudent.CourseId>
-            <p:InArgument x:TypeArguments="x:String">
-              <mca:CSharpValue x:TypeArguments="x:String">courseId</mca:CSharpValue>
-            </p:InArgument>
-          </ilwa:EnrollStudent.CourseId>
-          <ilwa:EnrollStudent.CurrentStudentNumber>
-            <p:OutArgument x:TypeArguments="x:Int32">
-              <mca:CSharpReference x:TypeArguments="x:Int32">currentStudentNumber</mca:CSharpReference>
-            </p:OutArgument>
-          </ilwa:EnrollStudent.CurrentStudentNumber>
-          <ilwa:EnrollStudent.StudentId>
-            <p:InArgument x:TypeArguments="x:String">
-              <mca:CSharpValue x:TypeArguments="x:String">studentId</mca:CSharpValue>
-            </p:InArgument>
-          </ilwa:EnrollStudent.StudentId>
-        </ilwa:EnrollStudent>
+        <p:Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+          <ilwa:EnrollStudent sap2010:WorkflowViewState.IdRef="EnrollStudent_1">
+            <ilwa:EnrollStudent.CourseId>
+              <p:InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">courseId</mca:CSharpValue>
+              </p:InArgument>
+            </ilwa:EnrollStudent.CourseId>
+            <ilwa:EnrollStudent.CurrentStudentNumber>
+              <p:OutArgument x:TypeArguments="x:Int32">
+                <mca:CSharpReference x:TypeArguments="x:Int32">currentStudentNumber</mca:CSharpReference>
+              </p:OutArgument>
+            </ilwa:EnrollStudent.CurrentStudentNumber>
+            <ilwa:EnrollStudent.StudentId>
+              <p:InArgument x:TypeArguments="x:String">
+                <mca:CSharpValue x:TypeArguments="x:String">studentId</mca:CSharpValue>
+              </p:InArgument>
+            </ilwa:EnrollStudent.StudentId>
+            <ilwa:EnrollStudent.message>
+              <p:OutArgument x:TypeArguments="x:String">
+                <mca:CSharpReference x:TypeArguments="x:String">message</mca:CSharpReference>
+              </p:OutArgument>
+            </ilwa:EnrollStudent.message>
+            <ilwa:EnrollStudent.state>
+              <p:OutArgument x:TypeArguments="x:Int32">
+                <mca:CSharpReference x:TypeArguments="x:Int32">state</mca:CSharpReference>
+              </p:OutArgument>
+            </ilwa:EnrollStudent.state>
+          </ilwa:EnrollStudent>
+          <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendReplyToReceive" sap2010:WorkflowViewState.IdRef="SendReply_1">
+            <SendParametersContent>
+              <p:InArgument x:TypeArguments="x:Int32" x:Key="state" />
+              <p:InArgument x:TypeArguments="x:String" x:Key="message" />
+            </SendParametersContent>
+          </SendReply>
+        </p:Sequence>
       </p:If.Then>
       <p:If.Else>
         <p:Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
@@ -144,8 +165,24 @@
                 <mca:CSharpValue x:TypeArguments="x:String">studentId</mca:CSharpValue>
               </p:InArgument>
             </ilwa:PushEnrollmentRequest.StudentId>
+            <ilwa:PushEnrollmentRequest.message>
+              <p:OutArgument x:TypeArguments="x:String">
+                <mca:CSharpReference x:TypeArguments="x:String">message</mca:CSharpReference>
+              </p:OutArgument>
+            </ilwa:PushEnrollmentRequest.message>
+            <ilwa:PushEnrollmentRequest.state>
+              <p:OutArgument x:TypeArguments="x:Int32">
+                <mca:CSharpReference x:TypeArguments="x:Int32">state</mca:CSharpReference>
+              </p:OutArgument>
+            </ilwa:PushEnrollmentRequest.state>
           </ilwa:PushEnrollmentRequest>
-          <Receive CanCreateInstance="True" sap2010:WorkflowViewState.IdRef="Receive_3" OperationName="EnrollDecision" ServiceContractName="EnrollStudentService">
+          <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendReplyToReceive" sap2010:WorkflowViewState.IdRef="SendReply_2">
+            <SendParametersContent>
+              <p:InArgument x:TypeArguments="x:Int32" x:Key="state" />
+              <p:InArgument x:TypeArguments="x:String" x:Key="message" />
+            </SendParametersContent>
+          </SendReply>
+          <Receive x:Name="__ReferenceID1" CanCreateInstance="True" DisplayName="ReceiveDecision" sap2010:WorkflowViewState.IdRef="Receive_3" OperationName="EnrollDecision" ServiceContractName="EnrollStudentService">
             <Receive.CorrelatesOn>
               <XPathMessageQuery x:Key="studentId">
                 <XPathMessageQuery.Namespaces>
@@ -196,6 +233,11 @@
                       <mca:CSharpReference x:TypeArguments="x:Int32">currentStudentNumber</mca:CSharpReference>
                     </p:OutArgument>
                   </ilwa:EnrollStudentModifyLimititation.CurrentStudentNumber>
+                  <ilwa:EnrollStudentModifyLimititation.State>
+                    <p:OutArgument x:TypeArguments="x:Int32">
+                      <mca:CSharpReference x:TypeArguments="x:Int32">state</mca:CSharpReference>
+                    </p:OutArgument>
+                  </ilwa:EnrollStudentModifyLimititation.State>
                   <ilwa:EnrollStudentModifyLimititation.StudentId>
                     <p:InArgument x:TypeArguments="x:String">
                       <mca:CSharpValue x:TypeArguments="x:String">studentId</mca:CSharpValue>
@@ -208,6 +250,16 @@
                       <mca:CSharpValue x:TypeArguments="x:String">courseId</mca:CSharpValue>
                     </p:InArgument>
                   </ilwa:RemoveEnrollmentRequest.CourseId>
+                  <ilwa:RemoveEnrollmentRequest.Message>
+                    <p:OutArgument x:TypeArguments="x:String">
+                      <mca:CSharpReference x:TypeArguments="x:String">message</mca:CSharpReference>
+                    </p:OutArgument>
+                  </ilwa:RemoveEnrollmentRequest.Message>
+                  <ilwa:RemoveEnrollmentRequest.State>
+                    <p:InArgument x:TypeArguments="x:Int32">
+                      <mca:CSharpValue x:TypeArguments="x:Int32">state</mca:CSharpValue>
+                    </p:InArgument>
+                  </ilwa:RemoveEnrollmentRequest.State>
                   <ilwa:RemoveEnrollmentRequest.StudentId>
                     <p:InArgument x:TypeArguments="x:String">
                       <mca:CSharpValue x:TypeArguments="x:String">studentId</mca:CSharpValue>
@@ -223,6 +275,16 @@
                     <mca:CSharpValue x:TypeArguments="x:String">courseId</mca:CSharpValue>
                   </p:InArgument>
                 </ilwa:RemoveEnrollmentRequest.CourseId>
+                <ilwa:RemoveEnrollmentRequest.Message>
+                  <p:OutArgument x:TypeArguments="x:String">
+                    <mca:CSharpReference x:TypeArguments="x:String">message</mca:CSharpReference>
+                  </p:OutArgument>
+                </ilwa:RemoveEnrollmentRequest.Message>
+                <ilwa:RemoveEnrollmentRequest.State>
+                  <p:InArgument x:TypeArguments="x:Int32">
+                    <mca:CSharpValue x:TypeArguments="x:Int32">state</mca:CSharpValue>
+                  </p:InArgument>
+                </ilwa:RemoveEnrollmentRequest.State>
                 <ilwa:RemoveEnrollmentRequest.StudentId>
                   <p:InArgument x:TypeArguments="x:String">
                     <mca:CSharpValue x:TypeArguments="x:String">studentId</mca:CSharpValue>
@@ -231,18 +293,37 @@
               </ilwa:RemoveEnrollmentRequest>
             </p:If.Else>
           </p:If>
+          <SendReply Request="{x:Reference __ReferenceID1}" DisplayName="SendReplyToReceive" sap2010:WorkflowViewState.IdRef="SendReply_3">
+            <SendParametersContent>
+              <p:InArgument x:TypeArguments="x:Int32" x:Key="state">
+                <mca:CSharpValue x:TypeArguments="x:Int32">state</mca:CSharpValue>
+              </p:InArgument>
+              <p:InArgument x:TypeArguments="x:String" x:Key="message">
+                <mca:CSharpValue x:TypeArguments="x:String">message</mca:CSharpValue>
+              </p:InArgument>
+            </SendParametersContent>
+          </SendReply>
         </p:Sequence>
       </p:If.Else>
     </p:If>
-    <sads:DebugSymbol.Symbol>d1dEOlxXb3Jrc3BhY2VcR2l0UmVwb1xJc3MuTGl2ZUNsYXNzUm9vbVxJc3MuTGl2ZUNsYXNzUm9vbS5Xb3JrRmxvd1xDbGFzc0Vucm9sbG1lbnQueGFtbHgoDgPuARABAUIFSw8CrAFMBVgdApkBWQVpHwKGAWoF7AEMAQJFC0VaArMBSAtIWQKtAVMJU1ACpgFWCVZPAqABTwtPaAKaAWELYWQCkwFmC2ZgAo0BXAtcUQKHAW0LbXQBA3EJgQEeAXOEAQnqARYBCXkPeWgCgAF0D3RVAXp+D35WAXSIAQuTASgBZJQBC7MBFQFHtAEL6QESAQqLARGLAVcBbJABEZABWAFlrQERrQFgAV2lARGlAW4BVqoBEaoBYAFPsAERsAFfAUi3ARG3AVgBC7sBD9kBHAEh3AEP5wEuARK8ARHMATgBMc0BEdgBMAEi3wEV3wFbARrkARXkAVwBE8QBF8QBcAFAvwEXvwFdATnJARfJAV4BMtABF9ABXQEq1QEX1QFeASM=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d1dEOlxXb3Jrc3BhY2VcR2l0UmVwb1xJc3MuTGl2ZUNsYXNzUm9vbVxJc3MuTGl2ZUNsYXNzUm9vbS5Xb3JrRmxvd1xDbGFzc0Vucm9sbG1lbnQueGFtbHg4DgO2AhABAUI1QjgBAkUFTg8CwgJPBVsdAqkCXAVsHwKQAm0FtAIMAQNIC0haAssCSwtLWQLDAlYJVlACugJZCVlPArICUgtSaAKqAmQLZGQCoQJpC2lgApkCXwtfUQKRAnALcHQBBHQJlgEWAuUBmQEJsgIWAQx1C48BIALnAZABC5UBFwLmAZ0BC7IBKALAAbMBC7gBFwK/AbkBC9gBFQKaAdkBC6cCEgEgqAILsQIXAQ19EX1qAogCeBF4VwKAAoIBEYIBWAL4AYwBEYwBWwLwAYcBEYcBXgLoAaABEaABVwLcAaUBEaUBWALTAa8BEa8BWwLKAaoBEaoBXgLBAdIBEdIBYAK2AcoBEcoBbgKtAc8BEc8BYAKkAdUBEdUBXwKbAdwBEdwBWAEh4AEPjQIcAU+QAg+lAi4BKqsCEasCUwEXrgIRrgJWAQ7hARH2ATgBdfcBEYwCMAFQmAIVmAJiAUaTAhWTAlsBPaICFaICXAE0nQIVnQJXASvpARfpAXACkQHkARfkAV0CiAHzARfzAV4Bf+4BF+4BYQF2/wEX/wFkAWz6ARf6AV0BY4kCF4kCXgFahAIXhAJZAVE=</sads:DebugSymbol.Symbol>
   </p:Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Receive_2" sap:VirtualizedContainerService.HintSize="711,86" />
-      <sap2010:ViewStateData Id="InitializeCorrelation_1" sap:VirtualizedContainerService.HintSize="711,97" />
-      <sap2010:ViewStateData Id="CheckStudentNumber_1" sap:VirtualizedContainerService.HintSize="711,22" />
-      <sap2010:ViewStateData Id="EnrollStudent_1" sap:VirtualizedContainerService.HintSize="200,22" />
+      <sap2010:ViewStateData Id="Receive_2" sap:VirtualizedContainerService.HintSize="788,86" />
+      <sap2010:ViewStateData Id="InitializeCorrelation_1" sap:VirtualizedContainerService.HintSize="788,97" />
+      <sap2010:ViewStateData Id="CheckStudentNumber_1" sap:VirtualizedContainerService.HintSize="788,22" />
+      <sap2010:ViewStateData Id="EnrollStudent_1" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="SendReply_1" sap:VirtualizedContainerService.HintSize="255,86" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="277,272">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="PushEnrollmentRequest_1" sap:VirtualizedContainerService.HintSize="464,22" />
+      <sap2010:ViewStateData Id="SendReply_2" sap:VirtualizedContainerService.HintSize="464,86" />
       <sap2010:ViewStateData Id="Receive_3" sap:VirtualizedContainerService.HintSize="464,86" />
       <sap2010:ViewStateData Id="EnrollStudentModifyLimititation_2" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="RemoveEnrollmentRequest_2" sap:VirtualizedContainerService.HintSize="200,22" />
@@ -255,22 +336,23 @@
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="RemoveEnrollmentRequest_1" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,358" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="486,670">
+      <sap2010:ViewStateData Id="SendReply_3" sap:VirtualizedContainerService.HintSize="464,86" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="486,922">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="711,820" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="733,1269">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="788,1072" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="810,1521">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="763,1339" />
+      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="840,1591" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </WorkflowService>

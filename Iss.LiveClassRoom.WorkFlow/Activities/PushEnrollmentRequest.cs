@@ -16,31 +16,30 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
     {
         public InArgument<string> CourseId { get; set; }
         public InArgument<string> StudentId { get; set; }
+        public OutArgument<int> state { set; get; }
+        public OutArgument<string> message { set; get; }
 
         protected override void Execute(CodeActivityContext context)
         {
-            string courseId = context.GetValue(CourseId);
-            string studentId = context.GetValue(StudentId);
-            //WorkflowDataContext dataContext = context.DataContext;
-            //PropertyDescriptorCollection propertyDescriptorCollection = dataContext.GetProperties();
-            //foreach (PropertyDescriptor propertyDesc in propertyDescriptorCollection)
-            //{
-            //    if (propertyDesc.Name == "CourseId")
-            //    {
-            //        courseId = propertyDesc.GetValue(dataContext).ToString();
-            //        //propertyDesc.SetValue(dataContext, newData);
-            //    }
-            //    else if (propertyDesc.Name == "StudentId")
-            //    {
-            //        studentId = propertyDesc.GetValue(dataContext).ToString();
-            //    }
-            //}
-            IService<EnrollmentRequest> service = new Service<EnrollmentRequest>(new UnitOfWork(new SystemContext()));
-            EnrollmentRequest request = new EnrollmentRequest();
-            request.StudentId = studentId;
-            request.CourseId = courseId;
-            //request.InstanceId = context.WorkflowInstanceId.ToString();
-            service.Add(request, studentId).Wait();
+            try
+            {
+                string courseId = context.GetValue(CourseId);
+                string studentId = context.GetValue(StudentId);
+                IService<EnrollmentRequest> service = new Service<EnrollmentRequest>(new UnitOfWork(new SystemContext()));
+                EnrollmentRequest request = new EnrollmentRequest();
+                request.StudentId = studentId;
+                request.CourseId = courseId;
+                //request.InstanceId = context.WorkflowInstanceId.ToString();
+                service.Add(request, studentId).Wait();
+                context.SetValue(state, 0);
+                context.SetValue(message, "Maximu student limitation. The registration will be reviewed by the instructor.");
+            }
+            catch (Exception ex)
+            {
+                context.SetValue(state, 0);
+                context.SetValue(message, ex.Message);
+            }
+
         }
     }
 }

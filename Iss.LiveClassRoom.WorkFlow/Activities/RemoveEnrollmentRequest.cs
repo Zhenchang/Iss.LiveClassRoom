@@ -17,6 +17,8 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
         public InArgument<string> StudentId { get; set; }
 
         public InArgument<string> CourseId { get; set; }
+        public InArgument<int> State { set; get; }
+        public OutArgument<string> Message { get; set; }
 
         protected override void Execute(CodeActivityContext context)
         {
@@ -26,6 +28,11 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
             EnrollmentRequest request = service.GetAll().SingleOrDefault(n => n.CourseId.Equals(courseId) & n.StudentId.Equals(studentId));
             request.IsDeleted = true;
             service.Update(request, "###").Wait();
+            int state = context.GetValue(State);
+            if (state.Equals(1))
+                context.SetValue(Message, "Registration successful!");
+            else
+                context.SetValue(Message, "Instructor rejected your registration.");
         }
     }
 }

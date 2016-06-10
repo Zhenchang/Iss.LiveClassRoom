@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.errLabel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.pwdTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,7 +37,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.courseGridView = new System.Windows.Forms.DataGridView();
-            this.errLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.courseGridView)).BeginInit();
@@ -54,6 +54,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(476, 150);
             this.panel1.TabIndex = 0;
+            // 
+            // errLabel
+            // 
+            this.errLabel.AutoSize = true;
+            this.errLabel.ForeColor = System.Drawing.Color.Red;
+            this.errLabel.Location = new System.Drawing.Point(118, 124);
+            this.errLabel.Name = "errLabel";
+            this.errLabel.Size = new System.Drawing.Size(0, 13);
+            this.errLabel.TabIndex = 5;
             // 
             // button1
             // 
@@ -109,20 +118,13 @@
             // 
             // courseGridView
             // 
+            this.courseGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.courseGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.courseGridView.Location = new System.Drawing.Point(3, 3);
             this.courseGridView.Name = "courseGridView";
             this.courseGridView.Size = new System.Drawing.Size(469, 189);
             this.courseGridView.TabIndex = 0;
-            // 
-            // errLabel
-            // 
-            this.errLabel.AutoSize = true;
-            this.errLabel.ForeColor = System.Drawing.Color.Red;
-            this.errLabel.Location = new System.Drawing.Point(118, 124);
-            this.errLabel.Name = "errLabel";
-            this.errLabel.Size = new System.Drawing.Size(0, 13);
-            this.errLabel.TabIndex = 5;
+            this.courseGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.courseGridView_CellContentClick);
             // 
             // GetCourseList
             // 
