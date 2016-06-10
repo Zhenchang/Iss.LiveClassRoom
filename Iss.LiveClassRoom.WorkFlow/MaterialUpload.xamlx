@@ -66,6 +66,7 @@
       <p:Variable x:TypeArguments="x:String" Name="VideoId" />
       <p:Variable x:TypeArguments="x:String" Name="AdminId" />
       <p:Variable x:TypeArguments="CorrelationHandle" Name="MaterialUploadHandler" />
+      <p:Variable x:TypeArguments="x:String" Name="comment" />
     </p:Sequence.Variables>
     <Receive CanCreateInstance="True" sap2010:WorkflowViewState.IdRef="Receive_1" OperationName="ReceiveUploadMessage" ServiceContractName="fileupload">
       <ReceiveParametersContent>
@@ -123,6 +124,9 @@
         <p:OutArgument x:TypeArguments="x:String" x:Key="AdminId">
           <mca:CSharpReference x:TypeArguments="x:String">AdminId</mca:CSharpReference>
         </p:OutArgument>
+        <p:OutArgument x:TypeArguments="x:String" x:Key="comment">
+          <mca:CSharpReference x:TypeArguments="x:String">comment</mca:CSharpReference>
+        </p:OutArgument>
       </ReceiveParametersContent>
     </Receive>
     <ilwa:ReceiveAcceptAndChangeDatabase sap2010:WorkflowViewState.IdRef="ReceiveAcceptAndChangeDatabase_1">
@@ -141,8 +145,13 @@
           <mca:CSharpValue x:TypeArguments="x:String">VideoId</mca:CSharpValue>
         </p:InArgument>
       </ilwa:ReceiveAcceptAndChangeDatabase.VideoId>
+      <ilwa:ReceiveAcceptAndChangeDatabase.comment>
+        <p:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">comment</mca:CSharpValue>
+        </p:InArgument>
+      </ilwa:ReceiveAcceptAndChangeDatabase.comment>
     </ilwa:ReceiveAcceptAndChangeDatabase>
-    <sads:DebugSymbol.Symbol>d2RDOlxVc2Vyc1xXYW5nIFh1ZW1pblxTb3VyY2VcUmVwb3NcSXNzLkxpdmVDbGFzc1Jvb20yXElzcy5MaXZlQ2xhc3NSb29tLldvcmtGbG93XE1hdGVyaWFsVXBsb2FkLnhhbWx4Ew4DkgEQAQFGBU8PAV5QBVkdAU1aBWUkATxmBX8PARuAAQWQASsBAkwLTFgBZ0kLSV0BX1cJV04BVlMLU2cBTmILYlABRV0LXVUBPXELcWcBNHkLeVgBLHYLdloBJHwLfFgBHI0BC40BUAETiAELiAFSAQuDAQuDAVABAw==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2RDOlxVc2Vyc1xXYW5nIFh1ZW1pblxTb3VyY2VcUmVwb3NcSXNzLkxpdmVDbGFzc1Jvb20yXElzcy5MaXZlQ2xhc3NSb29tLldvcmtGbG93XE1hdGVyaWFsVXBsb2FkLnhhbWx4FQ4DmwEQAQFHBVAPAXtRBVodAWhbBWYkAVVnBYMBDwEnhAEFmQErAQJNC01YAoUBSgtKXQF8WAlYTgFyVAtUZwFpYwtjUAFfXgteVQFWcgtyZwFMegt6WAFDdwt3WgE6fQt9WAExgAELgAFYASiRAQuRAVABHowBC4wBUgEVhwELhwFQAQyWAQuWAVABAw==</sads:DebugSymbol.Symbol>
   </p:Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>

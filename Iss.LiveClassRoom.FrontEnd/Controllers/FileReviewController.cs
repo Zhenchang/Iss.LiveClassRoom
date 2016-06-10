@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -23,16 +24,23 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         {
             //invoke workflow
             fileuploadClient client = new fileuploadClient();
-            client.ReceiveAcceptOrNot(true, videoId, GetLoggedInUserId());
+            client.ReceiveAcceptOrNot(true, videoId,GetLoggedInUserId(),"");
             return Redirect("/FileReview/");
         }
 
-        public ActionResult Reject(string videoId)
+        [HttpPost]
+        public ActionResult Reject(string videoId,string comment)
         {
             //invoke workflow
             fileuploadClient client = new fileuploadClient();
-            client.ReceiveAcceptOrNot(false, videoId, GetLoggedInUserId());
+            client.ReceiveAcceptOrNot(false, videoId, GetLoggedInUserId(), comment);
             return Redirect("/FileReview/");
+        }
+
+        public ActionResult AddComment(string videoId)
+        {
+            //invoke workflow
+            return View(_service.GetById(videoId).Result);
         }
     }
 }

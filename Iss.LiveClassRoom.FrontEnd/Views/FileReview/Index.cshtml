@@ -7,7 +7,7 @@
 }
 
 @{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
-
+<script src="~/scripts/jquery-2.2.3.min.js"></script>
 <table class="table">
     <tr>
         <th>File Title</th>
@@ -21,7 +21,8 @@
                 <td>@item.Course.Name</td>
                 <td>
                     @Html.ActionLink("Accept", "Accept", new { videoId = item.Id }) |
-                    @Html.ActionLink("Reject", "Reject", new { videoId = item.Id })</td>
+                    @Html.ActionLink("Reject", "AddComment", new { videoId = item.Id })    
+                </td>
             </tr>
         }
     }
@@ -29,6 +30,8 @@
 
 
 
+
 @section Scripts {
     @{Html.RenderPartial("~/Views/Shared/_PartialGridScript.cshtml", null);}
+    
 }

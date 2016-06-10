@@ -269,6 +269,7 @@
     <Content Include="Views\Courses\_PartialStudentsIndex.cshtml" />
     <Content Include="Views\Courses\Register.cshtml" />
     <Content Include="Views\FileReview\Index.cshtml" />
+    <Content Include="Views\FileReview\AddComment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

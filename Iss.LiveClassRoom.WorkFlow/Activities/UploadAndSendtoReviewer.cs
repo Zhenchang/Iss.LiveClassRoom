@@ -43,6 +43,7 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
             {
                 var video = await _videoService.GetById(VideoId);
                 video.IsAccept = 2;
+                video.Comment = "";
                 video.Course.ToString();
                 await _videoService.Update(video, InstructorId);
             }).Wait();

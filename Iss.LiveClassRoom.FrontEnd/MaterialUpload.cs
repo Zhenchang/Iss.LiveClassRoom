@@ -22,10 +22,10 @@ public interface fileupload
     System.Threading.Tasks.Task ReceiveUploadMessageAsync(string InstructorId, string VideoId);
     
     [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/fileupload/ReceiveAcceptOrNot")]
-    void ReceiveAcceptOrNot(bool IsAccept, string VideoId, string AdminId);
+    void ReceiveAcceptOrNot(bool IsAccept, string VideoId, string AdminId, string comment);
     
     [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/fileupload/ReceiveAcceptOrNot")]
-    System.Threading.Tasks.Task ReceiveAcceptOrNotAsync(bool IsAccept, string VideoId, string AdminId);
+    System.Threading.Tasks.Task ReceiveAcceptOrNotAsync(bool IsAccept, string VideoId, string AdminId, string comment);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -72,13 +72,13 @@ public partial class fileuploadClient : System.ServiceModel.ClientBase<fileuploa
         return base.Channel.ReceiveUploadMessageAsync(InstructorId, VideoId);
     }
     
-    public void ReceiveAcceptOrNot(bool IsAccept, string VideoId, string AdminId)
+    public void ReceiveAcceptOrNot(bool IsAccept, string VideoId, string AdminId, string comment)
     {
-        base.Channel.ReceiveAcceptOrNot(IsAccept, VideoId, AdminId);
+        base.Channel.ReceiveAcceptOrNot(IsAccept, VideoId, AdminId, comment);
     }
     
-    public System.Threading.Tasks.Task ReceiveAcceptOrNotAsync(bool IsAccept, string VideoId, string AdminId)
+    public System.Threading.Tasks.Task ReceiveAcceptOrNotAsync(bool IsAccept, string VideoId, string AdminId, string comment)
     {
-        return base.Channel.ReceiveAcceptOrNotAsync(IsAccept, VideoId, AdminId);
+        return base.Channel.ReceiveAcceptOrNotAsync(IsAccept, VideoId, AdminId, comment);
     }
 }
