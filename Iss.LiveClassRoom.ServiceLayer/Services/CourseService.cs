@@ -11,26 +11,37 @@ namespace Iss.LiveClassRoom.ServiceLayer.Services
 {
     public class CourseService : Service<Course>, ICourseService
     {
+        private Object thisLock = new object();
+
         public CourseService(IUnitOfWork uow) : base(uow)
         {
 
         }
 
-        public async Task AssignStudent(Student student, Course course, string byUserId)
+        public void AssignStudent(Student student, Course course, string byUserId)
         {
-            if (course.CurrentStudentNumber == course.MaxStudentNumber)
+            lock (thisLock)
             {
-                throw new Exception("The class already reached maximum student number.");
+                if (course.CurrentStudentNumber == course.MaxStudentNumber)
+                {
+                    //EnrollmentRequest request = new EnrollmentRequest();
+                    //request.CourseId = course.Id;
+                    //request.StudentId = student.Id;
+                    //_uow.GetRepository<EnrollmentRequest>().Add(request);
+                    //var i = _uow.Save(byUserId).Result;
+                    throw new Exception("The class already reached maximum student number.");
+                }
+                else
+                {
+                    course.Students.Add(student);
+                    course.CurrentStudentNumber++;
+                    student.Courses.Add(course);
+                    _uow.GetRepository<Course>().Update(course);
+                    _uow.GetRepository<Student>().Update(student);
+                    var i = _uow.Save(byUserId).Result;
+                }
             }
-            else
-            {
-                course.Students.Add(student);
-                course.CurrentStudentNumber++;
-                student.Courses.Add(course);
-                _uow.GetRepository<Course>().Update(course);
-                _uow.GetRepository<Student>().Update(student);
-                await _uow.Save(byUserId);
-            }
+
         }
 
         public void AssignStudentSync(Student student, Course course, string byUserId)

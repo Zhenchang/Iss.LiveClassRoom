@@ -9,7 +9,7 @@
 
 @{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
 
-<table>
+<table class="table">
     <tr class="grid-table">
         <th class="grid-header-title">
             @Html.ActionLink("Course", "Register", new { sortOrder = ViewBag.CourseSortParam})      
@@ -23,7 +23,7 @@
         <th>
             @Html.ActionLink("Max Student Number", "Register", new { sortOrder = ViewBag.MaxNumSortParam})
         </th>
-        <th></th>
+        <th>state</th>
     </tr>
     @{foreach (var item in Model)
         {
@@ -32,7 +32,14 @@
                 <td>@item.Instructor</td>
                 <td>@item.CurrentStudentNumber</td>
                 <td>@item.MaxStudentNumber</td>
-                <td>@Html.ActionLink("Register", "RegisterCourse", new { courseId = item.Id })</td>
+                @if (ViewBag.enrollingCourseIds.Contains(item.Id))
+                {
+                    <td>Waiting to be reviewed.</td>
+                }
+                else
+                {
+                    <td>@Html.ActionLink("Register", "RegisterCourse", new { courseId = item.Id })</td>
+                }
             </tr>
         }
     }

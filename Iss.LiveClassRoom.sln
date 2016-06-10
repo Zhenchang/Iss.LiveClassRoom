@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iss.LiveClassRoom.TestWebSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iss.LiveClassRoom.WorkFlow", "Iss.LiveClassRoom.WorkFlow\Iss.LiveClassRoom.WorkFlow.csproj", "{69FE3C67-2352-4BD0-AA00-09729C9632A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Iss.LiveClassRoom.TestUI", "Iss.LiveClassRoom.TestUI\Iss.LiveClassRoom.TestUI.csproj", "{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,14 @@ Global
 		{69FE3C67-2352-4BD0-AA00-09729C9632A6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{69FE3C67-2352-4BD0-AA00-09729C9632A6}.Release|x86.ActiveCfg = Release|Any CPU
 		{69FE3C67-2352-4BD0-AA00-09729C9632A6}.Release|x86.Build.0 = Release|Any CPU
+		{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203}.Debug|x86.Build.0 = Debug|Any CPU
+		{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203}.Release|x86.ActiveCfg = Release|Any CPU
+		{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,5 +126,6 @@ Global
 		{71FDDB8F-9A14-4632-B9ED-1053B94C0453} = {7A312C3F-26AB-4092-A7A2-84EF7028A3D1}
 		{F0F38D7E-234B-45D9-A4C3-5A07757DBFED} = {83C50258-B997-4D47-9571-C3352B359E55}
 		{69FE3C67-2352-4BD0-AA00-09729C9632A6} = {7A312C3F-26AB-4092-A7A2-84EF7028A3D1}
+		{8ACF3E60-B47B-497A-8ABF-AAD8DB4D1203} = {83C50258-B997-4D47-9571-C3352B359E55}
 	EndGlobalSection
 EndGlobal

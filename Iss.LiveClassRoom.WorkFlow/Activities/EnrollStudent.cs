@@ -31,11 +31,8 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
             IStudentService studentService = new StudentService(uow);
             Course course = service.GetById(courseId).Result;
             Student student = studentService.GetById(studentId).Result;
-            System.Diagnostics.Debug.WriteLine("***" + course.Name);
-            System.Diagnostics.Debug.WriteLine("***" + student.Name);
-            service.AssignStudent(student, course, course.Instructor.Id).Wait();
+            service.AssignStudent(student, course, course.Instructor.Id);
             service.Update(course, course.Instructor.Id).Wait();
-            System.Diagnostics.Debug.WriteLine("***Finish EnrollStudent Activity***");
         }
     }
 }

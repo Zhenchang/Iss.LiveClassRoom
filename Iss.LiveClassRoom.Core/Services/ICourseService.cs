@@ -9,7 +9,7 @@ namespace Iss.LiveClassRoom.Core.Services
 {
     public interface ICourseService : IService<Course>
     {
-        Task AssignStudent(Student student, Course course, string byUserId);
+        void AssignStudent(Student student, Course course, string byUserId);
 
         void AssignStudentSync(Student student, Course course, string byUserId);
 

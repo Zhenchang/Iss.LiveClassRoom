@@ -21,7 +21,7 @@ namespace Iss.LiveClassRoom.ServiceLayer.Services
         {
             QuizOption option = _uow.GetRepository<QuizOption>().GetById(optionId).Result;
             IQueryable<Quiz> quizs = _uow.GetRepository<Quiz>().GetAll();
-            Quiz quiz = quizs.SingleOrDefault(n => n.Options.Contains(option));
+            Quiz quiz = quizs.SingleOrDefault(n => n.Options.Any(m => m.Id.Equals(optionId)));
             return quiz;
         }
     }

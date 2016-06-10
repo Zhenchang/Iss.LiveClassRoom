@@ -145,7 +145,7 @@
               </p:InArgument>
             </ilwa:PushEnrollmentRequest.StudentId>
           </ilwa:PushEnrollmentRequest>
-          <Receive sap2010:WorkflowViewState.IdRef="Receive_3" OperationName="EnrollDecision" ServiceContractName="EnrollStudentService">
+          <Receive CanCreateInstance="True" sap2010:WorkflowViewState.IdRef="Receive_3" OperationName="EnrollDecision" ServiceContractName="EnrollStudentService">
             <Receive.CorrelatesOn>
               <XPathMessageQuery x:Key="studentId">
                 <XPathMessageQuery.Namespaces>

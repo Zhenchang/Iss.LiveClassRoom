@@ -8,7 +8,12 @@ namespace Iss.LiveClassRoom.WebService.DataContracts
 {   
     [DataContract]
     public class QuizData
-    {  
+    {
+        public QuizData()
+        {
+            Options = new List<OptionData>();
+        }
+
         [DataMember] 
         public string Id { get; set; }
 

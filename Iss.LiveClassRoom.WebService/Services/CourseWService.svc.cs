@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Security.Permissions;
 using System.ServiceModel;
+using Iss.LiveClassRoom.Core.Repositories;
 
 namespace Iss.LiveClassRoom.WebService.Services
 {
@@ -17,14 +18,14 @@ namespace Iss.LiveClassRoom.WebService.Services
         [PrincipalPermission(SecurityAction.Demand, Role = "Student")]
         public void AnswerQuiz(string optionId)
         {
-            string userId = "";
-
-            IQuizService quizService = new QuizService(new UnitOfWork(new SystemContext()));
-            IStudentService studentService = new StudentService(new UnitOfWork(new SystemContext()));
+            string email = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
+            IUnitOfWork uow = new UnitOfWork(new SystemContext());
+            IQuizService quizService = new QuizService(uow);
+            IStudentService studentService = new StudentService(uow);
             Quiz quiz = quizService.GetByOption(optionId);
             //quiz.CheckAuthorization(Permissions.PartialEdit);
 
-            var student = studentService.GetById(userId).Result;
+            var student = studentService.GetAll().SingleOrDefault(n => n.Email.Equals(email));
             if (student is Student)
             {
 
@@ -39,11 +40,12 @@ namespace Iss.LiveClassRoom.WebService.Services
                         QuizOption = option
                     });
 
+
                     try
                     {
                         quiz.Course.ToString();
                         option.Quiz.ToString();
-                        quizService.Update(quiz, userId);
+                        quizService.Update(quiz, student.Id);
                     }
                     catch (Exception ex)
                     {
@@ -57,8 +59,6 @@ namespace Iss.LiveClassRoom.WebService.Services
         public ICollection<CourseData> GetCoursesByStudentEmail()
         {
             string email = OperationContext.Current.ServiceSecurityContext.PrimaryIdentity.Name;
-            System.Diagnostics.Debug.WriteLine("test----------------" + email);
-
             IStudentService studentService = new StudentService(new UnitOfWork(new SystemContext()));
             Student student = studentService.GetAll().SingleOrDefault(n => n.Email.Equals(email));
             ICollection<Course> courses = student.Courses;

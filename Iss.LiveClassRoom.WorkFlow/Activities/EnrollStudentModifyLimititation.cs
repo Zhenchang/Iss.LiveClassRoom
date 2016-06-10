@@ -32,7 +32,7 @@ namespace Iss.LiveClassRoom.WorkFlow.Activities
             course.MaxStudentNumber++;
             service.Update(course, course.Instructor.Id).Wait();
             Student student = studentService.GetById(studentId).Result;
-            service.AssignStudent(student, course, course.Instructor.Id).Wait();
+            service.AssignStudent(student, course, course.Instructor.Id);
             service.Update(course, course.Instructor.Id).Wait();
             course.Instructor.ToString();
         }
