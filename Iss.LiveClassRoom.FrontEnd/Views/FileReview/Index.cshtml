@@ -8,11 +8,10 @@
 
 @{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
 
-<table>
+<table class="table">
     <tr>
         <th>File Title</th>
         <th>Course name</th>
-        <th></th>
         <th></th>
     </tr>
     @{foreach (var item in Model.Where(x => (x.IsAccept == 2)))
@@ -20,8 +19,9 @@
             <tr>
                 <td>@item.Title</td>
                 <td>@item.Course.Name</td>
-                <td>@Html.ActionLink("Accept", "Accept", new { videoId = item.Id })</td>
-                <td>@Html.ActionLink("Reject", "Reject", new { videoId = item.Id })</td>
+                <td>
+                    @Html.ActionLink("Accept", "Accept", new { videoId = item.Id }) |
+                    @Html.ActionLink("Reject", "Reject", new { videoId = item.Id })</td>
             </tr>
         }
     }

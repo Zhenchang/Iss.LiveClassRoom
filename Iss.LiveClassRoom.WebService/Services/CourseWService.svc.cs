@@ -95,7 +95,7 @@ namespace Iss.LiveClassRoom.WebService.Services
         {
             ICourseService service = new CourseService(new UnitOfWork(new SystemContext()));
             Course course = service.GetAll().SingleOrDefault(n => n.Name.Equals(courseName));
-            ICollection<Video> videos = course.Videos;
+            ICollection<Video> videos = course.Videos.Where(n => n.IsAccept == 1).ToList();
             ICollection<VideoData> videosData = new List<VideoData>();
             foreach (Video video in videos)
             {
