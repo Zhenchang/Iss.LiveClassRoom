@@ -11,21 +11,119 @@
 
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-[System.ServiceModel.ServiceContractAttribute(ConfigurationName="EnrollStudentService")]
+[System.ServiceModel.ServiceContractAttribute(ConfigurationName = "EnrollStudentService")]
 public interface EnrollStudentService
 {
-    
-    [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/EnrollStudentService/RecvEnrollmentReq")]
-    void RecvEnrollmentReq(string studentId, string courseId);
-    
-    [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/EnrollStudentService/RecvEnrollmentReq")]
-    System.Threading.Tasks.Task RecvEnrollmentReqAsync(string studentId, string courseId);
-    
-    [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/EnrollStudentService/EnrollDecision")]
-    void EnrollDecision(bool isAccept, string studentId, string courseId);
-    
-    [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/EnrollStudentService/EnrollDecision")]
-    System.Threading.Tasks.Task EnrollDecisionAsync(bool isAccept, string studentId, string courseId);
+
+    [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/EnrollStudentService/RecvEnrollmentReq", ReplyAction = "http://tempuri.org/EnrollStudentService/RecvEnrollmentReqResponse")]
+    RecvEnrollmentReqResponse RecvEnrollmentReq(RecvEnrollmentReqRequest request);
+
+    // CODEGEN: Generating message contract since the operation has multiple return values.
+    [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/EnrollStudentService/RecvEnrollmentReq", ReplyAction = "http://tempuri.org/EnrollStudentService/RecvEnrollmentReqResponse")]
+    System.Threading.Tasks.Task<RecvEnrollmentReqResponse> RecvEnrollmentReqAsync(RecvEnrollmentReqRequest request);
+
+    [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/EnrollStudentService/EnrollDecision", ReplyAction = "http://tempuri.org/EnrollStudentService/EnrollDecisionResponse")]
+    EnrollDecisionResponse EnrollDecision(EnrollDecisionRequest request);
+
+    // CODEGEN: Generating message contract since the operation has multiple return values.
+    [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/EnrollStudentService/EnrollDecision", ReplyAction = "http://tempuri.org/EnrollStudentService/EnrollDecisionResponse")]
+    System.Threading.Tasks.Task<EnrollDecisionResponse> EnrollDecisionAsync(EnrollDecisionRequest request);
+}
+
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+[System.ServiceModel.MessageContractAttribute(WrapperName = "RecvEnrollmentReq", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
+public partial class RecvEnrollmentReqRequest
+{
+
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
+    public string studentId;
+
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 1)]
+    public string courseId;
+
+    public RecvEnrollmentReqRequest()
+    {
+    }
+
+    public RecvEnrollmentReqRequest(string studentId, string courseId)
+    {
+        this.studentId = studentId;
+        this.courseId = courseId;
+    }
+}
+
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+[System.ServiceModel.MessageContractAttribute(WrapperName = "RecvEnrollmentReqResponse", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
+public partial class RecvEnrollmentReqResponse
+{
+
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
+    public int state;
+
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 1)]
+    public string message;
+
+    public RecvEnrollmentReqResponse()
+    {
+    }
+
+    public RecvEnrollmentReqResponse(int state, string message)
+    {
+        this.state = state;
+        this.message = message;
+    }
+}
+
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+[System.ServiceModel.MessageContractAttribute(WrapperName = "EnrollDecision", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
+public partial class EnrollDecisionRequest
+{
+
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
+    public bool isAccept;
+
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 1)]
+    public string studentId;
+
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 2)]
+    public string courseId;
+
+    public EnrollDecisionRequest()
+    {
+    }
+
+    public EnrollDecisionRequest(bool isAccept, string studentId, string courseId)
+    {
+        this.isAccept = isAccept;
+        this.studentId = studentId;
+        this.courseId = courseId;
+    }
+}
+
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+[System.ServiceModel.MessageContractAttribute(WrapperName = "EnrollDecisionResponse", WrapperNamespace = "http://tempuri.org/", IsWrapped = true)]
+public partial class EnrollDecisionResponse
+{
+
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 0)]
+    public int state;
+
+    [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://tempuri.org/", Order = 1)]
+    public string message;
+
+    public EnrollDecisionResponse()
+    {
+    }
+
+    public EnrollDecisionResponse(int state, string message)
+    {
+        this.state = state;
+        this.message = message;
+    }
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -37,48 +135,71 @@ public interface EnrollStudentServiceChannel : EnrollStudentService, System.Serv
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
 public partial class EnrollStudentServiceClient : System.ServiceModel.ClientBase<EnrollStudentService>, EnrollStudentService
 {
-    
+
     public EnrollStudentServiceClient()
     {
     }
-    
-    public EnrollStudentServiceClient(string endpointConfigurationName) : 
+
+    public EnrollStudentServiceClient(string endpointConfigurationName) :
             base(endpointConfigurationName)
     {
     }
-    
-    public EnrollStudentServiceClient(string endpointConfigurationName, string remoteAddress) : 
+
+    public EnrollStudentServiceClient(string endpointConfigurationName, string remoteAddress) :
             base(endpointConfigurationName, remoteAddress)
     {
     }
-    
-    public EnrollStudentServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+
+    public EnrollStudentServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) :
             base(endpointConfigurationName, remoteAddress)
     {
     }
-    
-    public EnrollStudentServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+
+    public EnrollStudentServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
             base(binding, remoteAddress)
     {
     }
-    
-    public void RecvEnrollmentReq(string studentId, string courseId)
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    RecvEnrollmentReqResponse EnrollStudentService.RecvEnrollmentReq(RecvEnrollmentReqRequest request)
     {
-        base.Channel.RecvEnrollmentReq(studentId, courseId);
+        return base.Channel.RecvEnrollmentReq(request);
     }
-    
-    public System.Threading.Tasks.Task RecvEnrollmentReqAsync(string studentId, string courseId)
+
+    public int RecvEnrollmentReq(string studentId, string courseId, out string message)
     {
-        return base.Channel.RecvEnrollmentReqAsync(studentId, courseId);
+        RecvEnrollmentReqRequest inValue = new RecvEnrollmentReqRequest();
+        inValue.studentId = studentId;
+        inValue.courseId = courseId;
+        RecvEnrollmentReqResponse retVal = ((EnrollStudentService)(this)).RecvEnrollmentReq(inValue);
+        message = retVal.message;
+        return retVal.state;
     }
-    
-    public void EnrollDecision(bool isAccept, string studentId, string courseId)
+
+    public System.Threading.Tasks.Task<RecvEnrollmentReqResponse> RecvEnrollmentReqAsync(RecvEnrollmentReqRequest request)
     {
-        base.Channel.EnrollDecision(isAccept, studentId, courseId);
+        return base.Channel.RecvEnrollmentReqAsync(request);
     }
-    
-    public System.Threading.Tasks.Task EnrollDecisionAsync(bool isAccept, string studentId, string courseId)
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    EnrollDecisionResponse EnrollStudentService.EnrollDecision(EnrollDecisionRequest request)
     {
-        return base.Channel.EnrollDecisionAsync(isAccept, studentId, courseId);
+        return base.Channel.EnrollDecision(request);
+    }
+
+    public int EnrollDecision(bool isAccept, string studentId, string courseId, out string message)
+    {
+        EnrollDecisionRequest inValue = new EnrollDecisionRequest();
+        inValue.isAccept = isAccept;
+        inValue.studentId = studentId;
+        inValue.courseId = courseId;
+        EnrollDecisionResponse retVal = ((EnrollStudentService)(this)).EnrollDecision(inValue);
+        message = retVal.message;
+        return retVal.state;
+    }
+
+    public System.Threading.Tasks.Task<EnrollDecisionResponse> EnrollDecisionAsync(EnrollDecisionRequest request)
+    {
+        return base.Channel.EnrollDecisionAsync(request);
     }
 }

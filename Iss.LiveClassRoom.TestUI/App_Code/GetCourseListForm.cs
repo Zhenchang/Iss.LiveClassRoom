@@ -57,5 +57,10 @@ namespace Iss.LiveClassRoom.TestUI.App_Code
             DataView dataView = table.DefaultView;
             courseGridView.DataSource = dataView;
         }
+
+        private void courseGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

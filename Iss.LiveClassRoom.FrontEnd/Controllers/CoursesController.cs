@@ -99,7 +99,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
                     if (e.Message.Equals("The class already reached maximum student number."))
                     {
                         EnrollStudentServiceClient client = new EnrollStudentServiceClient();
-                        client.RecvEnrollmentReq(student.Id, course.Id);
+                        string message;
+                        client.RecvEnrollmentReq(student.Id, course.Id, out message);
                     }
                 }
                 course.Instructor.ToString();
@@ -256,7 +257,9 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         {
             //invoke workflow
             EnrollStudentServiceClient client = new EnrollStudentServiceClient();
-            client.RecvEnrollmentReq(GetLoggedInUserId(), courseId);
+            string message;
+            client.RecvEnrollmentReq(GetLoggedInUserId(), courseId, out message);
+            System.Diagnostics.Debug.WriteLine("*****************" + message);
             return RedirectToAction("", "Account");
         }
 
@@ -264,7 +267,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         {
             //invoke workflow
             EnrollStudentServiceClient client = new EnrollStudentServiceClient();
-            client.EnrollDecision(true, studentId, courseId);
+            string message;
+            client.EnrollDecision(true, studentId, courseId, out message);
             return Redirect("/Courses/Details/" + courseId + "#enrollments");
         }
 
@@ -272,7 +276,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
         {
             //invoke workflow
             EnrollStudentServiceClient client = new EnrollStudentServiceClient();
-            client.EnrollDecision(false, studentId, courseId);
+            string message;
+            client.EnrollDecision(false, studentId, courseId, out message);
             return Redirect("/Courses/Details/" + courseId + "#enrollments");
         }
 
