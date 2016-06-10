@@ -70,6 +70,7 @@ namespace Iss.LiveClassRoom.WebService.Services
             return coursesData;
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Student")]
         public ICollection<QuizData> GetQuizListByCourseName(string courseName)
         {
             ICourseService service = new CourseService(new UnitOfWork(new SystemContext()));
