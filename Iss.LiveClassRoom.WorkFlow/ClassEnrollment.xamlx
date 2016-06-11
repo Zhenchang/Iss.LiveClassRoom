@@ -143,8 +143,12 @@
           </ilwa:EnrollStudent>
           <SendReply Request="{x:Reference __ReferenceID0}" DisplayName="SendReplyToReceive" sap2010:WorkflowViewState.IdRef="SendReply_1">
             <SendParametersContent>
-              <p:InArgument x:TypeArguments="x:Int32" x:Key="state" />
-              <p:InArgument x:TypeArguments="x:String" x:Key="message" />
+              <p:InArgument x:TypeArguments="x:Int32" x:Key="state">
+                <mca:CSharpValue x:TypeArguments="x:Int32">state</mca:CSharpValue>
+              </p:InArgument>
+              <p:InArgument x:TypeArguments="x:String" x:Key="message">
+                <mca:CSharpValue x:TypeArguments="x:String">message</mca:CSharpValue>
+              </p:InArgument>
             </SendParametersContent>
           </SendReply>
         </p:Sequence>
@@ -306,16 +310,16 @@
         </p:Sequence>
       </p:If.Else>
     </p:If>
-    <sads:DebugSymbol.Symbol>d1dEOlxXb3Jrc3BhY2VcR2l0UmVwb1xJc3MuTGl2ZUNsYXNzUm9vbVxJc3MuTGl2ZUNsYXNzUm9vbS5Xb3JrRmxvd1xDbGFzc0Vucm9sbG1lbnQueGFtbHg4DgO2AhABAUI1QjgBAkUFTg8CwgJPBVsdAqkCXAVsHwKQAm0FtAIMAQNIC0haAssCSwtLWQLDAlYJVlACugJZCVlPArICUgtSaAKqAmQLZGQCoQJpC2lgApkCXwtfUQKRAnALcHQBBHQJlgEWAuUBmQEJsgIWAQx1C48BIALnAZABC5UBFwLmAZ0BC7IBKALAAbMBC7gBFwK/AbkBC9gBFQKaAdkBC6cCEgEgqAILsQIXAQ19EX1qAogCeBF4VwKAAoIBEYIBWAL4AYwBEYwBWwLwAYcBEYcBXgLoAaABEaABVwLcAaUBEaUBWALTAa8BEa8BWwLKAaoBEaoBXgLBAdIBEdIBYAK2AcoBEcoBbgKtAc8BEc8BYAKkAdUBEdUBXwKbAdwBEdwBWAEh4AEPjQIcAU+QAg+lAi4BKqsCEasCUwEXrgIRrgJWAQ7hARH2ATgBdfcBEYwCMAFQmAIVmAJiAUaTAhWTAlsBPaICFaICXAE0nQIVnQJXASvpARfpAXACkQHkARfkAV0CiAHzARfzAV4Bf+4BF+4BYQF2/wEX/wFkAWz6ARf6AV0BY4kCF4kCXgFahAIXhAJZAVE=</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d2VDOlxVc2Vyc1xXYW5nIFh1ZW1pblxTb3VyY2VcUmVwb3NcSXNzLkxpdmVDbGFzc1Jvb20yXElzcy5MaXZlQ2xhc3NSb29tLldvcmtGbG93XENsYXNzRW5yb2xsbWVudC54YW1seDoOA7oCEAEBQjVCOAECRQVODwLSAk8FWx0CuQJcBWwfAqACbQW4AgwBA0gLSFoC2wJLC0tZAtMCVglWUALKAlkJWU8CwgJSC1JoAroCZAtkZAKxAmkLaWACqQJfC19RAqECcAtwdAEEdAmaARYC5QGdAQm2AhYBDHULjwEgAvcBkAELmQEXAuYBoQELtgEoAsABtwELvAEXAr8BvQEL3AEVApoB3QELqwISASCsAgu1AhcBDX0RfWoCmAJ4EXhXApACggERggFYAogCjAERjAFbAoAChwERhwFeAvgBkwERkwFTAu8BlgERlgFWAucBpAERpAFXAtwBqQERqQFYAtMBswERswFbAsoBrgERrgFeAsEB1gER1gFgArYBzgERzgFuAq0B0wER0wFgAqQB2QER2QFfApsB4AER4AFYASHkAQ+RAhwBT5QCD6kCLgEqrwIRrwJTAReyAhGyAlYBDuUBEfoBOAF1+wERkAIwAVCcAhWcAmIBRpcCFZcCWwE9pgIVpgJcATShAhWhAlcBK+0BF+0BcAKRAegBF+gBXQKIAfcBF/cBXgF/8gEX8gFhAXaDAheDAmQBbP4BF/4BXQFjjQIXjQJeAVqIAheIAlkBUQ==</sads:DebugSymbol.Symbol>
   </p:Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Receive_2" sap:VirtualizedContainerService.HintSize="788,86" />
-      <sap2010:ViewStateData Id="InitializeCorrelation_1" sap:VirtualizedContainerService.HintSize="788,97" />
+      <sap2010:ViewStateData Id="Receive_2" sap:VirtualizedContainerService.HintSize="788,88" />
+      <sap2010:ViewStateData Id="InitializeCorrelation_1" sap:VirtualizedContainerService.HintSize="788,98" />
       <sap2010:ViewStateData Id="CheckStudentNumber_1" sap:VirtualizedContainerService.HintSize="788,22" />
       <sap2010:ViewStateData Id="EnrollStudent_1" sap:VirtualizedContainerService.HintSize="255,22" />
-      <sap2010:ViewStateData Id="SendReply_1" sap:VirtualizedContainerService.HintSize="255,86" />
-      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="277,272">
+      <sap2010:ViewStateData Id="SendReply_1" sap:VirtualizedContainerService.HintSize="255,88" />
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="277,274">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -323,8 +327,8 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="PushEnrollmentRequest_1" sap:VirtualizedContainerService.HintSize="464,22" />
-      <sap2010:ViewStateData Id="SendReply_2" sap:VirtualizedContainerService.HintSize="464,86" />
-      <sap2010:ViewStateData Id="Receive_3" sap:VirtualizedContainerService.HintSize="464,86" />
+      <sap2010:ViewStateData Id="SendReply_2" sap:VirtualizedContainerService.HintSize="464,88" />
+      <sap2010:ViewStateData Id="Receive_3" sap:VirtualizedContainerService.HintSize="464,88" />
       <sap2010:ViewStateData Id="EnrollStudentModifyLimititation_2" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="RemoveEnrollmentRequest_2" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="222,208">
@@ -335,24 +339,24 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="RemoveEnrollmentRequest_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,358" />
-      <sap2010:ViewStateData Id="SendReply_3" sap:VirtualizedContainerService.HintSize="464,86" />
-      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="486,922">
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="464,360" />
+      <sap2010:ViewStateData Id="SendReply_3" sap:VirtualizedContainerService.HintSize="464,88" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="486,930">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="788,1072" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="810,1521">
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="788,1082" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="810,1534">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="840,1591" />
+      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="840,1604" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </WorkflowService>
