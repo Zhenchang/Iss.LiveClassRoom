@@ -1,2 +1,2 @@
 # Iss.LiveClassRoom
-Live Class Room Using SignalR &amp; .Net
+This is the project for Enterprse .NET Course using .net mvc, WCF, workflow
