@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -18,7 +19,11 @@ namespace Iss.LiveClassRoom.Core.Models
 
         [Required]
         public virtual Course Course { get; set; }
+        
+        [Column(TypeName ="int")]
+        public int IsAccept { get; set; }
 
+        public string Comment { get; set; }
 
         public override Permissions GetPermissions(IPrincipal user)
         {

@@ -38,7 +38,7 @@ namespace Iss.LiveClassRoom.FrontEnd.Controllers
             return View();
         }
 
-        public async System.Threading.Tasks.Task<ActionResult> Install()
+        async public System.Threading.Tasks.Task<ActionResult> Install()
         {
             var User = new Instructor();
             User.Name = "admin";

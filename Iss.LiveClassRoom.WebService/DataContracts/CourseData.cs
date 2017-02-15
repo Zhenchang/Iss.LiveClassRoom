@@ -23,7 +23,6 @@ namespace Iss.LiveClassRoom.WebService.DataContracts
             Id = id;
             Name = name;
             Instructor = instructor;
-
         }
     }
 }

@@ -11,6 +11,15 @@ namespace Iss.LiveClassRoom.WebService.ServiceContracts
     public interface ICourseWService
     {
         [OperationContract]
-        ICollection<CourseData> GetCoursesByStudent(string studentId);
+        ICollection<CourseData> GetCoursesByStudentEmail();
+
+        [OperationContract]
+        ICollection<VideoData> GetVideoListByCourseName(string courseName);
+
+        [OperationContract]
+        ICollection<QuizData> GetQuizListByCourseName(string courseName);
+
+        [OperationContract]
+        void AnswerQuiz(string optionId);
     }
 }

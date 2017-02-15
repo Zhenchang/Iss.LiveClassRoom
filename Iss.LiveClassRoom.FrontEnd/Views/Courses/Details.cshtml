@@ -30,7 +30,6 @@
                 </ul>
             </div>
         </div>
-
     </div>
 </nav>
 
@@ -52,6 +51,21 @@
         <dd>
             @ViewBag.InstructorName
         </dd>
+
+        <dt>
+            Maximum student number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxStudentNumber)
+
+        <dt>
+            Current student number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentStudentNumber)
+        </dd>
     </dl>
 </div>
 
@@ -70,7 +84,11 @@
                 <li role="presentation"><a href="#quizzes" aria-controls="quizzes" role="tab" data-toggle="tab">Quizzes</a></li>
                 <li role="presentation"><a href="#topics" aria-controls="topics" role="tab" data-toggle="tab">Topics</a></li>
                 <li role="presentation"><a href="#videos" aria-controls="videos" role="tab" data-toggle="tab">Videos</a></li>
-            </ul>
+                @if (User.IsInRole("Instructor"))
+                {
+                    <li role="presentation"><a href="#enrollments" aria-controls="enrollments" role="tab" data-toggle="tab">Enrollment requests</a></li>
+                }
+             </ul>
 
             <div role="tabpanel">
                 <div class="tab-content">
@@ -138,12 +156,38 @@
                             Html.RenderPartial("~/Views/Videos/_PartialIndex.cshtml", videosNav);
                         }
                     </div>
+@if (User.IsInRole("Instructor"))
+{
+    <div role="tabpanel" class="tab-pane" id="enrollments">
+        <div class="panel-title">New enrollment requests.</div>
+        <table class="table">
+            <tr>
+                <th>Student Name</th>
+                <th>Student email</th>
+                <th>Operation</th>
+            </tr>
+            @{
+                foreach (var item in ViewBag.enrollRequests)
+                {
+                    <tr>
+                        <td>@item.Student.Name</td>
+                        <td>@item.Student.Email</td>
+                        <td>
+                            @Html.ActionLink("Accept", "Accept", new { courseId = Model.Id, studentId = item.Student.Id }) |
+                            @Html.ActionLink("Reject", "Reject", new { courseId = Model.Id, studentId = item.Student.Id })
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+}
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 @section BodyFoot {
     @{
@@ -157,4 +201,9 @@
 }
 @section Scripts {
     @{Html.RenderPartial("~/Views/Shared/_PartialGridScript.cshtml", null);}
+    <script>
+        function deleteSucess() {
+            location.reload();
+        }
+    </script>
 }

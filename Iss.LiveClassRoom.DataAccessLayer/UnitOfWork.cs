@@ -53,6 +53,11 @@ namespace Iss.LiveClassRoom.DataAccessLayer
             return _db.SaveChangesAsync(userId);
         }
 
+        public int SaveSync(string userId)
+        {
+            return _db.SaveChanges();
+        }
+
         public IRepository<T> GetRepository<T>() where T : class, IEntity
         {
             var repo = _repositories.OfType<IRepository<T>>().FirstOrDefault();

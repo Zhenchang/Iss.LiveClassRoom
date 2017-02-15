@@ -54,6 +54,7 @@
     <Compile Include="Models\BaseEntitiy.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\EnrollmentRequest.cs" />
     <Compile Include="Models\Feed.cs" />
     <Compile Include="Models\IEntity.cs" />
     <Compile Include="Models\Instructor.cs" />

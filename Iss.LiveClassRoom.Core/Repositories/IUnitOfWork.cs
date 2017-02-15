@@ -13,6 +13,9 @@ namespace Iss.LiveClassRoom.Core.Repositories
         void Commit();
         void RollBack();
         Task<int> Save(string userId);
+
+        int SaveSync(string userId);
+
         IRepository<T> GetRepository<T>() where T : class, IEntity;
     }
 }

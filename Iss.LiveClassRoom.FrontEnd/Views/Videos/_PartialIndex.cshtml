@@ -4,7 +4,7 @@
 
 @model GirdNavViewModel<Video>
 
-@Html.Grid(Model.List.Where(x => x.HasAccess(User, Permissions.View)).OrderByDescending(x => x.TimeCreatedUtc)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
+@Html.Grid(Model.List.Where(x => (x.IsAccept == 1) && (x.HasAccess(User, Permissions.View))).OrderByDescending(x => x.TimeCreatedUtc)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
 {
     columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "Videos", new { id = item.Id })).Name = "Href";
     columns.Add(m => m.Title).Titled("Title");
@@ -21,3 +21,26 @@
             Name = m.ToString()
         }).ToHtmlString()).Sanitized(false).Encoded(false).Css("shrink");
 }).WithPaging(Model.PageSize, Model.PageSize, Model.GridName).Sortable().Filterable().WithMultipleFilters().SetRowCssClasses(m => "click-row")
+
+@if (User.IsInRole("Instructor"))
+{
+    <h2 class="col-sm-7 col-xs-12">The Video has been Rejected</h2>
+@Html.Grid(Model.List.Where(x => (x.IsAccept == 0) &&(x.IsAccept!=2)&& (x.HasAccess(User, Permissions.View))).OrderByDescending(x => x.TimeCreatedUtc)).Named(Model.GridName).SetLanguage("en").Columns(columns =>
+{
+    columns.Add(hidden: true).RenderValueAs(item => Url.Action("Details", "Videos", new { id = item.Id })).Name = "Href";
+    columns.Add(m => m.Title).Titled("Title");
+    columns.Add(m => m.Course.Name).Titled("Course");
+    columns.Add(m => m.Comment).Titled("Comment");
+
+    columns.Add().RenderValueAs(m => Html.Partial("_PartialEditDeleteButtons",
+        new DeleteEditButtonViewModel()
+        {
+            EditUrl = Url.Action("Edit", "Videos", new { id = m.Id }),
+            DeleteMethod = Url.Action("ConfirmDelete", "Videos", new { id = m.Id }),
+            HasEdit = m.HasAccess(User, Permissions.Edit),
+            HasDelete = m.HasAccess(User, Permissions.Delete),
+            GridId = Model.GridName,
+            Name = m.ToString()
+        }).ToHtmlString()).Sanitized(false).Encoded(false).Css("shrink");
+}).WithPaging(Model.PageSize, Model.PageSize, Model.GridName).Sortable().Filterable().WithMultipleFilters().SetRowCssClasses(m => "click-row")
+}

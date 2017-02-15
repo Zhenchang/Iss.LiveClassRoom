@@ -1,0 +1,22 @@
+﻿@using Iss.LiveClassRoom.FrontEnd.Models
+@using Iss.LiveClassRoom.Core.Models;
+
+@model Iss.LiveClassRoom.Core.Models.Video
+@{
+    ViewBag.Title = "File Review";
+}
+
+@{ Html.RenderPartial("~/Views/Shared/_PartialStatusMessage.cshtml"); }
+@{
+    ViewBag.Title = "AddComment";
+}
+
+
+<p>Comment for @Model.Title</p>
+@using (Html.BeginForm("Reject", "FileReview", FormMethod.Post, new { videoId = Model.Id }))
+{
+    <input name="videoId" type="hidden" value="@Model.Id" />
+    <input name="comment" type="text" value="" />
+    <input type="submit" value="Submit" />
+}
+

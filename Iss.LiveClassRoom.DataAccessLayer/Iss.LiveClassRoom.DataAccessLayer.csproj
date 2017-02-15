@@ -93,6 +93,34 @@
     <Compile Include="Migrations\201605061147176_deleteReplay.Designer.cs">
       <DependentUpon>201605061147176_deleteReplay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606051559292_add MaxStudentNumber in Course table.cs" />
+    <Compile Include="Migrations\201606051559292_add MaxStudentNumber in Course table.Designer.cs">
+      <DependentUpon>201606051559292_add MaxStudentNumber in Course table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606051609267_add CurrentStudentNumber field in Course table.cs" />
+    <Compile Include="Migrations\201606051609267_add CurrentStudentNumber field in Course table.Designer.cs">
+      <DependentUpon>201606051609267_add CurrentStudentNumber field in Course table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606061039056_changeVideo.cs" />
+    <Compile Include="Migrations\201606061039056_changeVideo.Designer.cs">
+      <DependentUpon>201606061039056_changeVideo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606070413172_add EnrollmentRequest table.cs" />
+    <Compile Include="Migrations\201606070413172_add EnrollmentRequest table.Designer.cs">
+      <DependentUpon>201606070413172_add EnrollmentRequest table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606070608003_modify EnrollRequest table.cs" />
+    <Compile Include="Migrations\201606070608003_modify EnrollRequest table.Designer.cs">
+      <DependentUpon>201606070608003_modify EnrollRequest table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606090836556_ignore changes.cs" />
+    <Compile Include="Migrations\201606090836556_ignore changes.Designer.cs">
+      <DependentUpon>201606090836556_ignore changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606091123034_initial again.cs" />
+    <Compile Include="Migrations\201606091123034_initial again.Designer.cs">
+      <DependentUpon>201606091123034_initial again.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenericRepository.cs" />
@@ -136,6 +164,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605061147176_deleteReplay.resx">
       <DependentUpon>201605061147176_deleteReplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606051559292_add MaxStudentNumber in Course table.resx">
+      <DependentUpon>201606051559292_add MaxStudentNumber in Course table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606051609267_add CurrentStudentNumber field in Course table.resx">
+      <DependentUpon>201606051609267_add CurrentStudentNumber field in Course table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606061039056_changeVideo.resx">
+      <DependentUpon>201606061039056_changeVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606070413172_add EnrollmentRequest table.resx">
+      <DependentUpon>201606070413172_add EnrollmentRequest table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606070608003_modify EnrollRequest table.resx">
+      <DependentUpon>201606070608003_modify EnrollRequest table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606090836556_ignore changes.resx">
+      <DependentUpon>201606090836556_ignore changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606091123034_initial again.resx">
+      <DependentUpon>201606091123034_initial again.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

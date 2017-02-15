@@ -18,6 +18,14 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
         public string Name { get; set; }
 
         [Required]
+        [Range(1,int.MaxValue)]
+        public int MaxStudentNumber { get; set; }
+
+        [Required]
+        [Range(0, int.MaxValue)]
+        public int CurrentStudentNumber { get; set; }
+
+        [Required]
         public string InstructorId { get; set; }
 
         public IQueryable<Student> Students { get; set; }
@@ -35,6 +43,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Name = model.Name,
+                MaxStudentNumber = model.MaxStudentNumber,
+                CurrentStudentNumber = model.CurrentStudentNumber,
                 Instructor = new Instructor() { Id = model.InstructorId }
             };
         }
@@ -45,6 +55,8 @@ namespace Iss.LiveClassRoom.FrontEnd.Models
             {
                 Id = model.Id,
                 Name = model.Name,
+                CurrentStudentNumber = model.CurrentStudentNumber,
+                MaxStudentNumber = model.MaxStudentNumber,
                 InstructorId = model.Instructor?.Id,
                 Videos = model.Videos.AsQueryable(),
                 Quizzes = model.Quizes.AsQueryable(),

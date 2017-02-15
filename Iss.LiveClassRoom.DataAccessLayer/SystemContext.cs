@@ -14,10 +14,6 @@ using System.Threading.Tasks;
 
 namespace Iss.LiveClassRoom.DataAccessLayer
 {
-
-
-
-
     public class SoftDeleteHelper {
         public static string GetSoftDeleteColumnName(EdmType type) {
             // TODO Find the soft delete annotation and get the property name
@@ -142,6 +138,8 @@ namespace Iss.LiveClassRoom.DataAccessLayer
         public DbSet<Video> Videos { get; set; }
         public DbSet<Topic> Topics { get; set; }
 
+        public DbSet<EnrollmentRequest> EnrollmentRequests { get; set; }
+
         public string Name { get; set; }
         public SystemContext()
             : base("LiveClassRoomDb") {
@@ -198,6 +196,34 @@ namespace Iss.LiveClassRoom.DataAccessLayer
                 }
             }
             return SaveChangesAsync();
+        }
+
+        public int SaveChanges(string userId)
+        {
+            foreach (var e in ChangeTracker.Entries())
+            {
+                if (e.Entity is IEntity)
+                {
+                    var entity = ((IEntity)e.Entity);
+                    switch (e.State)
+                    {
+                        case EntityState.Added:
+                            entity.TimeCreatedUtc = DateTime.UtcNow;
+                            entity.CreatedByUserId = userId;
+                            break;
+                        case EntityState.Deleted:
+                            entity.TimeDeletedUtc = DateTime.UtcNow;
+                            entity.DeletedByUserId = userId;
+                            entity.IsDeleted = true;
+                            break;
+                        case EntityState.Modified:
+                            entity.TimeModifiedUtc = DateTime.UtcNow;
+                            entity.ModifiedByUserId = userId;
+                            break;
+                    }
+                }
+            }
+            return base.SaveChanges();
         }
     }
 }

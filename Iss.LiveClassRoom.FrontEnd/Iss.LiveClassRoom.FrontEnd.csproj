@@ -96,6 +96,7 @@
     </Reference>
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -183,7 +184,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -193,18 +196,22 @@
     <Compile Include="App_Start\UrlHelpers.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FileReviewController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuizsController.cs" />
     <Compile Include="Controllers\TopicsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\VideosController.cs" />
+    <Compile Include="EnrollmentService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MaterialUpload.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\CourseViewModel.cs" />
+    <Compile Include="Models\EnrollRequestViewModel.cs" />
     <Compile Include="Models\QuizHub.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -260,6 +267,9 @@
     <Content Include="Views\Topics\_PartialFeed.cshtml" />
     <Content Include="Views\Courses\AssignStudents.cshtml" />
     <Content Include="Views\Courses\_PartialStudentsIndex.cshtml" />
+    <Content Include="Views\Courses\Register.cshtml" />
+    <Content Include="Views\FileReview\Index.cshtml" />
+    <Content Include="Views\FileReview\AddComment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

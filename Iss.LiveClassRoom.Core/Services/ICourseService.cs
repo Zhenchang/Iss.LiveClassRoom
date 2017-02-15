@@ -10,7 +10,11 @@ namespace Iss.LiveClassRoom.Core.Services
     public interface ICourseService : IService<Course>
     {
         void AssignStudent(Student student, Course course, string byUserId);
+
+        void AssignStudentSync(Student student, Course course, string byUserId);
+
         void RemoveStudent(Student student, Course course, string byUserId);
 
+        bool IsFull(string id);
     }
 }

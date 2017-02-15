@@ -49,6 +49,7 @@ Iss.IndexGridFunction = function () {
             var deleteHref = currentButton.attr('data-delete-href');
             $.post(deleteHref, function () {
                 currentButton.closest('tr').remove();
+                deleteSucess();
             })
             .fail(function () {
                 currentButton.closest('tr').addClass('danger');

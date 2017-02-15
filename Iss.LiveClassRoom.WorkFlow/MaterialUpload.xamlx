@@ -1,0 +1,173 @@
+﻿<WorkflowService mc:Ignorable="sap sap2010 sads" p:TextExpression.Namespaces="{x:Reference __ReferenceID0}" p:TextExpression.References="{x:Reference __ReferenceID1}" ConfigurationName="MaterialUpload" sap2010:ExpressionActivityEditor.ExpressionActivityEditor="C#" sap2010:WorkflowViewState.IdRef="WorkflowService_1" Name="MaterialUpload"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/servicemodel"
+ xmlns:ilwa="clr-namespace:Iss.LiveClassRoom.WorkFlow.Activities;assembly=Iss.LiveClassRoom.WorkFlow"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:p="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ssx="clr-namespace:System.ServiceModel.XamlIntegration;assembly=System.ServiceModel"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <p:Sequence DisplayName="Sequential Service" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <p:TextExpression.Namespaces>
+      <sco:Collection x:TypeArguments="x:String" x:Name="__ReferenceID0">
+        <x:String>System</x:String>
+        <x:String>System.Collections.Generic</x:String>
+        <x:String>System.Data</x:String>
+        <x:String>System.Linq</x:String>
+        <x:String>System.Text</x:String>
+        <x:String>System.Web</x:String>
+        <x:String>System.ServiceModel.Activities</x:String>
+      </sco:Collection>
+    </p:TextExpression.Namespaces>
+    <p:TextExpression.References>
+      <sco:Collection x:TypeArguments="p:AssemblyReference" x:Name="__ReferenceID1">
+        <p:AssemblyReference>EntityFramework</p:AssemblyReference>
+        <p:AssemblyReference>Microsoft.AI.Agent.Intercept</p:AssemblyReference>
+        <p:AssemblyReference>Microsoft.AI.DependencyCollector</p:AssemblyReference>
+        <p:AssemblyReference>Microsoft.AI.PerfCounterCollector</p:AssemblyReference>
+        <p:AssemblyReference>Microsoft.AI.ServerTelemetryChannel</p:AssemblyReference>
+        <p:AssemblyReference>Microsoft.AI.Web</p:AssemblyReference>
+        <p:AssemblyReference>Microsoft.AI.WindowsServer</p:AssemblyReference>
+        <p:AssemblyReference>Microsoft.ApplicationInsights</p:AssemblyReference>
+        <p:AssemblyReference>Microsoft.CSharp</p:AssemblyReference>
+        <p:AssemblyReference>System.Web.DynamicData</p:AssemblyReference>
+        <p:AssemblyReference>System.Drawing</p:AssemblyReference>
+        <p:AssemblyReference>System.Web.Entity</p:AssemblyReference>
+        <p:AssemblyReference>System.Web.ApplicationServices</p:AssemblyReference>
+        <p:AssemblyReference>System</p:AssemblyReference>
+        <p:AssemblyReference>System.Activities</p:AssemblyReference>
+        <p:AssemblyReference>System.Core</p:AssemblyReference>
+        <p:AssemblyReference>System.Data</p:AssemblyReference>
+        <p:AssemblyReference>System.Data.Entity</p:AssemblyReference>
+        <p:AssemblyReference>System.Runtime.Serialization</p:AssemblyReference>
+        <p:AssemblyReference>System.ServiceModel</p:AssemblyReference>
+        <p:AssemblyReference>System.ServiceModel.Activities</p:AssemblyReference>
+        <p:AssemblyReference>System.ServiceModel.Channels</p:AssemblyReference>
+        <p:AssemblyReference>System.Web</p:AssemblyReference>
+        <p:AssemblyReference>System.Xaml</p:AssemblyReference>
+        <p:AssemblyReference>System.Xml</p:AssemblyReference>
+        <p:AssemblyReference>System.Xml.Linq</p:AssemblyReference>
+        <p:AssemblyReference>Iss.LiveClassRoom.Core</p:AssemblyReference>
+        <p:AssemblyReference>Iss.LiveClassRoom.DataAccessLayer</p:AssemblyReference>
+        <p:AssemblyReference>Iss.LiveClassRoom.ServiceLayer</p:AssemblyReference>
+        <p:AssemblyReference>mscorlib</p:AssemblyReference>
+        <p:AssemblyReference>Iss.LiveClassRoom.WorkFlow</p:AssemblyReference>
+      </sco:Collection>
+    </p:TextExpression.References>
+    <p:Sequence.Variables>
+      <p:Variable x:TypeArguments="CorrelationHandle" Name="handle" />
+      <p:Variable x:TypeArguments="x:Int32" Name="data" />
+      <p:Variable x:TypeArguments="x:String" Name="InstructorId" />
+      <p:Variable x:TypeArguments="x:Boolean" Name="IsAccept" />
+      <p:Variable x:TypeArguments="x:String" Name="VideoId" />
+      <p:Variable x:TypeArguments="x:String" Name="AdminId" />
+      <p:Variable x:TypeArguments="CorrelationHandle" Name="MaterialUploadHandler" />
+      <p:Variable x:TypeArguments="x:String" Name="comment" />
+    </p:Sequence.Variables>
+    <Receive CanCreateInstance="True" sap2010:WorkflowViewState.IdRef="Receive_1" OperationName="ReceiveUploadMessage" ServiceContractName="fileupload">
+      <ReceiveParametersContent>
+        <p:OutArgument x:TypeArguments="x:String" x:Key="InstructorId">
+          <mca:CSharpReference x:TypeArguments="x:String">InstructorId</mca:CSharpReference>
+        </p:OutArgument>
+        <p:OutArgument x:TypeArguments="x:String" x:Key="VideoId">
+          <mca:CSharpReference x:TypeArguments="x:String">VideoId</mca:CSharpReference>
+        </p:OutArgument>
+      </ReceiveParametersContent>
+    </Receive>
+    <InitializeCorrelation sap2010:WorkflowViewState.IdRef="InitializeCorrelation_1">
+      <InitializeCorrelation.Correlation>
+        <p:InArgument x:TypeArguments="CorrelationHandle">
+          <mca:CSharpValue x:TypeArguments="CorrelationHandle">MaterialUploadHandler</mca:CSharpValue>
+        </p:InArgument>
+      </InitializeCorrelation.Correlation>
+      <p:InArgument x:TypeArguments="x:String" x:Key="VideoId">
+        <mca:CSharpValue x:TypeArguments="x:String">VideoId</mca:CSharpValue>
+      </p:InArgument>
+    </InitializeCorrelation>
+    <ilwa:UploadAndSendtoReviewer sap2010:WorkflowViewState.IdRef="UploadAndSendtoReviewer_2">
+      <ilwa:UploadAndSendtoReviewer.InstructorId>
+        <p:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">InstructorId</mca:CSharpValue>
+        </p:InArgument>
+      </ilwa:UploadAndSendtoReviewer.InstructorId>
+      <ilwa:UploadAndSendtoReviewer.VideoId>
+        <p:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">VideoId</mca:CSharpValue>
+        </p:InArgument>
+      </ilwa:UploadAndSendtoReviewer.VideoId>
+    </ilwa:UploadAndSendtoReviewer>
+    <Receive sap2010:WorkflowViewState.IdRef="Receive_2" OperationName="ReceiveAcceptOrNot" ServiceContractName="fileupload">
+      <Receive.CorrelatesOn>
+        <XPathMessageQuery x:Key="VideoId">
+          <XPathMessageQuery.Namespaces>
+            <ssx:XPathMessageContextMarkup>
+              <x:String x:Key="xgSc">http://tempuri.org/</x:String>
+            </ssx:XPathMessageContextMarkup>
+          </XPathMessageQuery.Namespaces>sm:body()/xgSc:ReceiveAcceptOrNot/xgSc:VideoId</XPathMessageQuery>
+      </Receive.CorrelatesOn>
+      <Receive.CorrelatesWith>
+        <p:InArgument x:TypeArguments="CorrelationHandle">
+          <mca:CSharpValue x:TypeArguments="CorrelationHandle">MaterialUploadHandler</mca:CSharpValue>
+        </p:InArgument>
+      </Receive.CorrelatesWith>
+      <ReceiveParametersContent>
+        <p:OutArgument x:TypeArguments="x:Boolean" x:Key="IsAccept">
+          <mca:CSharpReference x:TypeArguments="x:Boolean">IsAccept</mca:CSharpReference>
+        </p:OutArgument>
+        <p:OutArgument x:TypeArguments="x:String" x:Key="VideoId">
+          <mca:CSharpReference x:TypeArguments="x:String">VideoId</mca:CSharpReference>
+        </p:OutArgument>
+        <p:OutArgument x:TypeArguments="x:String" x:Key="AdminId">
+          <mca:CSharpReference x:TypeArguments="x:String">AdminId</mca:CSharpReference>
+        </p:OutArgument>
+        <p:OutArgument x:TypeArguments="x:String" x:Key="comment">
+          <mca:CSharpReference x:TypeArguments="x:String">comment</mca:CSharpReference>
+        </p:OutArgument>
+      </ReceiveParametersContent>
+    </Receive>
+    <ilwa:ReceiveAcceptAndChangeDatabase sap2010:WorkflowViewState.IdRef="ReceiveAcceptAndChangeDatabase_1">
+      <ilwa:ReceiveAcceptAndChangeDatabase.AdminId>
+        <p:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">AdminId</mca:CSharpValue>
+        </p:InArgument>
+      </ilwa:ReceiveAcceptAndChangeDatabase.AdminId>
+      <ilwa:ReceiveAcceptAndChangeDatabase.IsAccept>
+        <p:InArgument x:TypeArguments="x:Boolean">
+          <mca:CSharpValue x:TypeArguments="x:Boolean">IsAccept</mca:CSharpValue>
+        </p:InArgument>
+      </ilwa:ReceiveAcceptAndChangeDatabase.IsAccept>
+      <ilwa:ReceiveAcceptAndChangeDatabase.VideoId>
+        <p:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">VideoId</mca:CSharpValue>
+        </p:InArgument>
+      </ilwa:ReceiveAcceptAndChangeDatabase.VideoId>
+      <ilwa:ReceiveAcceptAndChangeDatabase.comment>
+        <p:InArgument x:TypeArguments="x:String">
+          <mca:CSharpValue x:TypeArguments="x:String">comment</mca:CSharpValue>
+        </p:InArgument>
+      </ilwa:ReceiveAcceptAndChangeDatabase.comment>
+    </ilwa:ReceiveAcceptAndChangeDatabase>
+    <sads:DebugSymbol.Symbol>d2RDOlxVc2Vyc1xXYW5nIFh1ZW1pblxTb3VyY2VcUmVwb3NcSXNzLkxpdmVDbGFzc1Jvb20yXElzcy5MaXZlQ2xhc3NSb29tLldvcmtGbG93XE1hdGVyaWFsVXBsb2FkLnhhbWx4FQ4DmwEQAQFHBVAPAXtRBVodAWhbBWYkAVVnBYMBDwEnhAEFmQErAQJNC01YAoUBSgtKXQF8WAlYTgFyVAtUZwFpYwtjUAFfXgteVQFWcgtyZwFMegt6WAFDdwt3WgE6fQt9WAExgAELgAFYASiRAQuRAVABHowBC4wBUgEVhwELhwFQAQyWAQuWAVABAw==</sads:DebugSymbol.Symbol>
+  </p:Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Receive_1" sap:VirtualizedContainerService.HintSize="255,88" />
+      <sap2010:ViewStateData Id="InitializeCorrelation_1" sap:VirtualizedContainerService.HintSize="255,98" />
+      <sap2010:ViewStateData Id="UploadAndSendtoReviewer_2" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="Receive_2" sap:VirtualizedContainerService.HintSize="255,88" />
+      <sap2010:ViewStateData Id="ReceiveAcceptAndChangeDatabase_1" sap:VirtualizedContainerService.HintSize="255,22" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="277,602">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WorkflowService_1" sap:VirtualizedContainerService.HintSize="307,672" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</WorkflowService>
